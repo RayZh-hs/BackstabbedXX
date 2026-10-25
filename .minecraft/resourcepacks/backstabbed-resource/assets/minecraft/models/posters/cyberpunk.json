@@ -1,0 +1,15 @@
+{
+    "parent": "customitem/posters/movie_poster",
+    "textures": {
+        "1": "custom/posters/cyberpunk"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 24, 0],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#1"}
+			}
+		}
+	]
+  }

@@ -1,0 +1,4 @@
+#Living murderers see each other's outline within 32 blocks.
+teamSight = true
+#Every two minutes highlight living players for five seconds, and during the final 20 seconds.
+globalHighlights = false

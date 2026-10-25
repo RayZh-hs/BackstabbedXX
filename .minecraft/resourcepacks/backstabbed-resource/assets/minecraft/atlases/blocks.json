@@ -1,0 +1,13 @@
+{
+    "sources": [
+        {
+            "type": "directory",
+            "source": "custom",
+            "prefix": "custom/"
+        },
+        {
+            "type": "single",
+            "resource": "entity/warden/warden"
+        }
+    ]
+}

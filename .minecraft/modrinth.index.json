@@ -1,0 +1,12 @@
+{
+  "game": "minecraft",
+  "formatVersion": 1,
+  "versionId": "1.0.0",
+  "name": "1.21.4-NeoForge_21.4.149",
+  "summary": "1.21.4, NeoForge 21.4.149",
+  "files": [],
+  "dependencies": {
+    "minecraft": "1.21.4",
+    "neoforge": "21.4.149"
+  }
+}

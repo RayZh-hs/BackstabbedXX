@@ -1,0 +1,10 @@
+.minecraft/options.txt
+.minecraft/saves
+.minecraft/resourcepacks/backstabbed-resource
+.git
+.gitignore
+dist
+Makefile
+scripts
+README.md
+instance.cfg.example

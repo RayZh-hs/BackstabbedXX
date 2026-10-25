@@ -1,0 +1,63 @@
+{
+  "gun_shoot": {
+    "sounds": [
+      "customsounds/gun/shoot"
+    ]
+  },
+  "gun_click": {
+    "sounds": [
+      "customsounds/gun/click"
+    ]
+  },
+  "gun_click2": {
+    "sounds": [
+      "customsounds/gun/click2"
+    ]
+  },
+  "gun_load": {
+    "sounds": [
+      "customsounds/gun/load"
+    ]
+  },
+  "gun_load2": {
+    "sounds": [
+      "customsounds/gun/load2"
+    ]
+  },
+  "movie_start": {
+    "sounds": [
+      "customsounds/misc/moviestart"
+    ]
+  },
+  "generic_explosion": {
+    "sounds": [
+      "customsounds/misc/generic_explosion"
+    ]
+  },
+  "boosterlanding": {
+    "sounds":[
+      "customsounds/launchpad/boosterlanding"
+    ]
+  },
+  "launchbuildup": {
+    "sounds":[
+      "customsounds/launchpad/launchbuildup"
+    ]
+  },
+  "rocketlaunch": {
+    "sounds":[
+      "customsounds/launchpad/rocketlaunch1",
+      "customsounds/launchpad/rocketlaunch2"
+    ]
+  },
+    "wilhelm_scream": {
+     "sounds": [
+      "customsounds/misc/wilhelm_scream"
+    ]
+  },
+    "credits": {
+    "sounds": [
+      "customsounds/misc/credits"
+    ]
+  }
+}

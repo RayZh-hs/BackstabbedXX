@@ -1,0 +1,40 @@
+# Local launcher settings; version a sanitized instance.cfg.example
+/instance.cfg
+
+# Generated files and runtime output
+/.minecraft/logs/
+/.minecraft/crash-reports/
+/.minecraft/downloads/
+/.minecraft/natives-*/
+/.minecraft/.cache/
+/.minecraft/.fabric/
+/.minecraft/.quilt/
+/.minecraft/screenshots/
+/.minecraft/backups/
+/.minecraft/CustomSkinLoader/caches/
+/.minecraft/CustomSkinLoader/*.log*
+/.minecraft/CustomSkinLoader/CustomSkinAPIPlus-ClientID
+
+# Player identity, history, and personal preferences
+/.minecraft/options.txt
+/.minecraft/servers.dat*
+/.minecraft/usercache.json
+/.minecraft/usernamecache.json
+/.minecraft/ops.json
+/.minecraft/command_history.txt
+/.minecraft/config/sodium-fingerprint.json
+/.minecraft/config/sodium-options.json
+/.minecraft/config/voicechat/voicechat-client.properties
+/.minecraft/config/voicechat/username-cache.json
+/.minecraft/config/voicechat/player-volumes.properties
+/.minecraft/config/voicechat/category-volumes.properties
+
+# Built release archives
+/dist/
+/.minecraft/resourcepacks/backstabbed-resource.zip
+
+# Development files
+.vscode/
+.idea/
+/dev/
+.env
