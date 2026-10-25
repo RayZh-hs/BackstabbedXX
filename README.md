@@ -41,7 +41,7 @@ make                 # Build the resource pack and the Prism instance ZIP
 make resourcepack    # Rebuild only the resource pack, including the installed ZIP
 make map             # Build only the map, using the latest Git version tag
 make release VERSION=1.1.1  # Build all release assets for an explicit version
-make test            # Check map naming, metadata, and archive separation
+make test            # Check map metadata, archive separation, posters, and Yacht spawns
 make clean           # Remove dist/; keep the installed resource-pack ZIP
 ```
 
@@ -76,11 +76,21 @@ The source directory is excluded from Prism exports by `.packignore`.
 ## Publishing a Release
 
 [GitHub Actions](https://github.com/RayZh-hs/BackstabbedXX/actions/workflows/release.yml)
-builds and publishes releases when a version tag such as `v1.1.0` is pushed. The
-tagged commit must belong to `main`. The workflow runs `make test` and
+builds and publishes releases when a version tag such as `v1.1.0` or
+`v1.1.1-alpha` is pushed. Tags with a prerelease suffix are published as GitHub
+prereleases. The tagged commit must belong to `main`. The workflow runs `make test` and
 `make release VERSION=<tag>`, checks the three ZIPs, generates SHA-256 checksums,
 and uploads the modpack, standalone resource pack, separate map, and checksums
 to a GitHub release.
+
+Release notes are generated automatically from Git history. Every commit since
+the previous version tag gets one concise entry, including changes made without
+a pull request. The notes also link to the full comparison and explain which
+downloads players and hosts need. To preview the notes for an existing tag:
+
+```sh
+python3 scripts/release_notes.py v1.1.1-alpha --repo RayZh-hs/BackstabbedXX
+```
 
 After committing the next release's changes on `main`, tag that commit and push
 the branch and tag together. For example, for the release after `1.1.0`:

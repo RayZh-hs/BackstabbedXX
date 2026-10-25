@@ -71,7 +71,7 @@ class WorldBlocks:
             per_long = 64 // bits
             position = (y % 16) * 256 + (z % 16) * 16 + x % 16
             index = (states["data"][position // per_long] >> ((position % per_long) * bits)) & ((1 << bits) - 1)
-        return palette[index]["Name"].removeprefix("minecraft:")
+        return palette[index]["Name"].split(":", 1)[-1]
 
 
 class YachtSpawnTests(unittest.TestCase):

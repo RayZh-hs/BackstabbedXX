@@ -14,7 +14,7 @@ DATAPACK = ROOT / ".minecraft/saves/Backstabbed ++! by NorbMinecraft and Bagel B
 
 
 def location(value):
-    return value.split(":", 1) if ":" in value else ("minecraft", value)
+    return tuple(value.split(":", 1)) if ":" in value else ("minecraft", value)
 
 
 def resource(kind, value, suffix=".json"):
@@ -35,13 +35,13 @@ class VotingPosterTests(unittest.TestCase):
         def stitched(texture):
             namespace, path = location(texture)
             for source in atlas:
-                kind = source["type"].removeprefix("minecraft:")
-                if kind == "single" and location(source.get("sprite", source["resource"])) == [namespace, path]:
+                kind = source["type"].split(":")[-1]
+                if kind == "single" and location(source.get("sprite", source["resource"])) == (namespace, path):
                     return True
                 if kind == "directory":
                     ns, directory = location(source["source"])
                     if ns == namespace and path.startswith(source["prefix"]):
-                        relative = path.removeprefix(source["prefix"])
+                        relative = path[len(source["prefix"]):]
                         if resource("textures", f"{ns}:{directory}/{relative}", ".png").is_file():
                             return True
             return False

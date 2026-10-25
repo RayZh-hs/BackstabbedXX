@@ -114,7 +114,7 @@ def release_version(value=None):
             text=True,
         )
         value = result.stdout.strip()
-    match = re.fullmatch(r"v?([0-9]+\.[0-9]+\.[0-9]+)", value)
+    match = re.fullmatch(r"v?([0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?)", value)
     if not match:
         raise SystemExit("Set VERSION to a release version, for example: make map VERSION=1.1.0")
     return match.group(1)

@@ -68,6 +68,8 @@ class VersionTests(unittest.TestCase):
     def test_explicit_versions_and_credits(self):
         self.assertEqual(build.release_version("v2.3.4"), "2.3.4")
         self.assertEqual(build.release_version("2.3.4"), "2.3.4")
+        self.assertEqual(build.release_version("v1.1.1-alpha"), "1.1.1-alpha")
+        self.assertEqual(build.release_version("1.1.1-rc.2"), "1.1.1-rc.2")
         self.assertEqual(build.versioned_name("World by Author", "2.3.4"), "World v2.3.4 by Author")
         self.assertEqual(build.versioned_name("World", "2.3.4"), "World v2.3.4")
 
@@ -79,7 +81,7 @@ class VersionTests(unittest.TestCase):
             self.assertEqual(build.release_version(), "3.4.5")
 
     def test_invalid_versions_fail(self):
-        for version in ["latest", "../world", "v1.2", "v1.2.3/extra"]:
+        for version in ["latest", "../world", "v1.2", "v1.2.3/extra", "v1.2.3-", "v1.2.3-alpha..1", "v1.2.3-alpha/extra"]:
             with self.subTest(version=version), self.assertRaises(SystemExit):
                 build.release_version(version)
 
@@ -102,7 +104,7 @@ class ArchiveTests(unittest.TestCase):
 
     def test_separate_versioned_maps_preserve_sources(self):
         originals = {p: p.read_bytes() for p in self.source.rglob("*") if p.is_file()}
-        for version in ["2.3.4", "3.4.5"]:
+        for version in ["2.3.4", "3.4.5", "1.1.1-alpha"]:
             build.build_map(version)
             with zipfile.ZipFile(self.root / f"dist/Backstabbed++-map-v{version}.zip") as archive:
                 folder = f"World v{version} by Author"
