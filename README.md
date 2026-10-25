@@ -68,3 +68,5 @@ git push --atomic origin main v1.1.1
 ```
 
 An ordinary push to `main` without a new version tag does not publish a release.
+If a tag push does not start a build, open the **Release** workflow in Actions,
+choose **Run workflow**, and enter the existing version tag to publish it.
