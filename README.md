@@ -9,7 +9,7 @@ locally.
 
 ### Download a release
 
-1. Open the [latest release](https://github.com/RayZh-hs/Backstabbed-/releases/latest).
+1. Open the [latest release](https://github.com/RayZh-hs/BackstabbedXX/releases/latest).
 2. Download `Backstabbed++.zip` from the release's **Assets** section.
 3. In Prism Launcher, choose **Add Instance → Import**, then select the downloaded
    ZIP.
@@ -23,7 +23,7 @@ downloads.
 Install Git, Make, and Python 3.8 or newer, then run:
 
 ```sh
-git clone https://github.com/RayZh-hs/Backstabbed-.git Backstabbed++
+git clone https://github.com/RayZh-hs/BackstabbedXX.git Backstabbed++
 cd Backstabbed++
 make
 ```
@@ -52,7 +52,7 @@ The source directory is excluded from Prism exports by `.packignore`.
 
 ## Publishing a Release
 
-[GitHub Actions](https://github.com/RayZh-hs/Backstabbed-/actions/workflows/release.yml)
+[GitHub Actions](https://github.com/RayZh-hs/BackstabbedXX/actions/workflows/release.yml)
 builds and publishes releases when a version tag such as `v1.1.0` is pushed. The
 tagged commit must belong to `main`. The workflow builds both ZIPs with `make`,
 checks their integrity, generates SHA-256 checksums, and uploads all three files
