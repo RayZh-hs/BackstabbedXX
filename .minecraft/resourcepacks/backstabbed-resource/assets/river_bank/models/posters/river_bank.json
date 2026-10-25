@@ -1,0 +1,52 @@
+{
+  "credit": "Poster artwork generated with OpenAI built-in imagegen, 26 October 2026.",
+  "gui_light": "front",
+  "textures": {
+    "poster": "river_bank:posters/river_bank",
+    "particle": "river_bank:posters/river_bank"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        24,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#poster"
+        }
+      }
+    }
+  ],
+  "display": {
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}

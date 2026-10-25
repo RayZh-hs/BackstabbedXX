@@ -1,0 +1,2 @@
+Poster artwork: generated with OpenAI built-in imagegen, 26 October 2026.
+See docs/poster-art.md for the generation prompts.

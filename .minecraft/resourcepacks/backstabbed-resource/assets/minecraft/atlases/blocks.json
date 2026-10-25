@@ -1,13 +1,25 @@
 {
-    "sources": [
-        {
-            "type": "directory",
-            "source": "custom",
-            "prefix": "custom/"
-        },
-        {
-            "type": "single",
-            "resource": "entity/warden/warden"
-        }
-    ]
+  "sources": [
+    {
+      "type": "directory",
+      "source": "custom",
+      "prefix": "custom/"
+    },
+    {
+      "type": "single",
+      "resource": "entity/warden/warden"
+    },
+    {
+      "type": "single",
+      "resource": "panda_village:posters/panda_village"
+    },
+    {
+      "type": "single",
+      "resource": "yacht:posters/yacht"
+    },
+    {
+      "type": "single",
+      "resource": "river_bank:posters/river_bank"
+    }
+  ]
 }

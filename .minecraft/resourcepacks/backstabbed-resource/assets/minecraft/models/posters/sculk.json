@@ -1,5 +1,4 @@
 {
-    "parent": "customitem/posters/movie_poster",
     "textures": {
         "1": "custom/posters/sculk"
 	},
