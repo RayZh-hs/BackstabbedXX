@@ -1,0 +1,87 @@
+{
+  "mcm:secrets/library/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/vineyard/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/train/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/cyberpunk/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/cabin/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/sculk/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/canyon/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/riverboat/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/airship/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/lobby/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/launchpad/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/gumdrop/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/industry/root": {
+    "criteria": {
+      "space": "2025-10-01 18:25:51 +0800"
+    },
+    "done": true
+  },
+  "DataVersion": 4189
+}

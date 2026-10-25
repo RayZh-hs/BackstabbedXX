@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
-"""Build the resource pack and a Prism-compatible instance ZIP."""
+"""Build the client modpack, resource pack, and separate versioned map ZIP."""
 
 import argparse
 import json
 import os
 from pathlib import Path, PurePosixPath
+import re
 import shutil
 import subprocess
 import tempfile
 import zipfile
+
+from nbt import level_name, rename_level
 
 
 ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
 RESOURCEPACK_NAME = "backstabbed-resource.zip"
 RESOURCEPACK_SOURCE = ROOT / ".minecraft/resourcepacks/backstabbed-resource"
+MAP_SOURCE = ROOT / ".minecraft/saves/Backstabbed ++! by NorbMinecraft and Bagel Buddies"
 
 
 def write_zip(destination, files):
@@ -32,7 +36,7 @@ def write_zip(destination, files):
                 entry.external_attr = 0o100644 << 16
                 archive.writestr(
                     entry,
-                    source.read_bytes(),
+                    source if isinstance(source, bytes) else source.read_bytes(),
                     compress_type=zipfile.ZIP_DEFLATED,
                     compresslevel=9,
                 )
@@ -83,6 +87,9 @@ def build_pack(resourcepack):
         path = PurePosixPath(name)
         if name != "mmc-pack.json" and not name.startswith(".minecraft/"):
             continue
+        # Worlds are separate release assets, never part of the client modpack.
+        if name.startswith(".minecraft/saves/"):
+            continue
         if any(parent in blocked for parent in (path, *path.parents)):
             continue
         source = ROOT / name
@@ -96,13 +103,58 @@ def build_pack(resourcepack):
     write_zip(DIST / "Backstabbed++.zip", files)
 
 
+def release_version(value=None):
+    value = value or os.environ.get("VERSION")
+    if not value:
+        result = subprocess.run(
+            ["git", "describe", "--tags", "--abbrev=0", "--match", "v[0-9]*"],
+            cwd=ROOT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        value = result.stdout.strip()
+    match = re.fullmatch(r"v?([0-9]+\.[0-9]+\.[0-9]+)", value)
+    if not match:
+        raise SystemExit("Set VERSION to a release version, for example: make map VERSION=1.1.0")
+    return match.group(1)
+
+
+def versioned_name(name, version):
+    title, separator, credits = name.partition(" by ")
+    return f"{title} v{version}{separator}{credits}"
+
+
+def build_map(version):
+    metadata = MAP_SOURCE / "level.dat"
+    if not metadata.is_file():
+        raise SystemExit(f"Map source is missing: {MAP_SOURCE}")
+    directory = versioned_name(MAP_SOURCE.name, version)
+    files = {}
+    for path in MAP_SOURCE.rglob("*"):
+        if not path.is_file() or path.name == "session.lock":
+            continue
+        relative = path.relative_to(MAP_SOURCE)
+        content = path
+        if relative.as_posix() in ("level.dat", "level.dat_old"):
+            original = path.read_bytes()
+            content = rename_level(original, versioned_name(level_name(original), version))
+        files[f"{directory}/{relative.as_posix()}"] = content
+    write_zip(DIST / f"Backstabbed++-map-v{version}.zip", files)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("target", choices=("pack", "resourcepack"))
+    parser.add_argument("target", choices=("pack", "resourcepack", "map", "release"))
+    parser.add_argument("--version", help="Map version; defaults to VERSION or the latest Git version tag")
     args = parser.parse_args()
-    resourcepack = build_resourcepack()
-    if args.target == "pack":
-        build_pack(resourcepack)
+    version = release_version(args.version) if args.target in ("map", "release") else None
+    if args.target in ("pack", "resourcepack", "release"):
+        resourcepack = build_resourcepack()
+        if args.target in ("pack", "release"):
+            build_pack(resourcepack)
+    if args.target in ("map", "release"):
+        build_map(version)
 
 
 if __name__ == "__main__":

@@ -14,9 +14,14 @@ locally.
 3. In Prism Launcher, choose **Add Instance → Import**, then select the downloaded
    ZIP.
 
-The modpack includes the built resource pack. Each release also provides
-`backstabbed-resource.zip` separately and a `SHA256SUMS` file for checking the
-downloads.
+Clients need only `Backstabbed++.zip`, which includes the built resource pack
+and contains no worlds. Each release also provides `backstabbed-resource.zip`
+separately and a `SHA256SUMS` file for checking the downloads.
+
+The map is a separate asset, `Backstabbed++-map-v<VERSION>.zip`, for the host.
+Extract its world folder into the host's `.minecraft/saves/` directory, or use it
+as the world for a dedicated server. Clients joining that host do not need to
+download the map.
 
 ### Clone and build locally
 
@@ -34,6 +39,9 @@ Other build commands:
 ```sh
 make                 # Build the resource pack and the Prism instance ZIP
 make resourcepack    # Rebuild only the resource pack, including the installed ZIP
+make map             # Build only the map, using the latest Git version tag
+make release VERSION=1.1.1  # Build all release assets for an explicit version
+make test            # Check map naming, metadata, and archive separation
 make clean           # Remove dist/; keep the installed resource-pack ZIP
 ```
 
@@ -42,6 +50,21 @@ Outputs:
 - `dist/Backstabbed++.zip`: an importable Prism instance.
 - `dist/backstabbed-resource.zip`: the standalone resource pack, with `pack.mcmeta`
   and `assets/` at the archive root.
+- `dist/Backstabbed++-map-v<VERSION>.zip`: the separate host map, produced by
+  `make map` or `make release`.
+
+## Map Source
+
+The source save is
+`.minecraft/saves/Backstabbed ++! by NorbMinecraft and Bagel Buddies/`.
+Keep its folder name and Minecraft display name free of release versions.
+The map build adds `v<VERSION>` to the archive's world folder and the display
+names in `level.dat` and `level.dat_old`, preserving the source files.
+
+Set `VERSION` explicitly, with or without the leading `v`, or let a local map
+build use the latest reachable Git version tag. GitHub Actions always supplies
+the tag being released. The client modpack build does not require the map source
+and excludes all saves, independently of `.packignore`.
 
 ## Resource Pack
 
@@ -54,8 +77,9 @@ The source directory is excluded from Prism exports by `.packignore`.
 
 [GitHub Actions](https://github.com/RayZh-hs/BackstabbedXX/actions/workflows/release.yml)
 builds and publishes releases when a version tag such as `v1.1.0` is pushed. The
-tagged commit must belong to `main`. The workflow builds both ZIPs with `make`,
-checks their integrity, generates SHA-256 checksums, and uploads all three files
+tagged commit must belong to `main`. The workflow runs `make test` and
+`make release VERSION=<tag>`, checks the three ZIPs, generates SHA-256 checksums,
+and uploads the modpack, standalone resource pack, separate map, and checksums
 to a GitHub release.
 
 After committing the next release's changes on `main`, tag that commit and push

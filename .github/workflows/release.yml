@@ -49,17 +49,21 @@ jobs:
         with:
           python-version: '3.13'
 
-      - name: Build the modpack and resource pack
-        run: make
+      - name: Test the build tools
+        run: make test
+
+      - name: Build the modpack, resource pack, and separate map
+        run: make release VERSION="$RELEASE_TAG"
 
       - name: Check the archives
         run: |
           python3 -m zipfile -t 'dist/Backstabbed++.zip'
           python3 -m zipfile -t 'dist/backstabbed-resource.zip'
+          python3 -m zipfile -t "dist/Backstabbed++-map-${RELEASE_TAG}.zip"
 
       - name: Generate checksums
         working-directory: dist
-        run: sha256sum -- Backstabbed++.zip backstabbed-resource.zip > SHA256SUMS
+        run: sha256sum -- Backstabbed++.zip backstabbed-resource.zip "Backstabbed++-map-${RELEASE_TAG}.zip" > SHA256SUMS
 
       - name: Publish the GitHub release
         env:
@@ -72,4 +76,5 @@ jobs:
             --generate-notes \
             'dist/Backstabbed++.zip' \
             'dist/backstabbed-resource.zip' \
+            "dist/Backstabbed++-map-${RELEASE_TAG}.zip" \
             'dist/SHA256SUMS'

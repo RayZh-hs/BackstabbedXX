@@ -7,5 +7,6 @@
 dist
 Makefile
 scripts
+tests
 README.md
 instance.cfg.example

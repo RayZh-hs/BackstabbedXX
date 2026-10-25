@@ -1,0 +1,15 @@
+{
+  "port": 25565,
+  "allow-host-cheat": true,
+  "max-players": 8,
+  "gamemode": "adventure",
+  "motd": "qingqusanren - Backstabbed ++! v1.1.0 by NorbMinecraft and Bagel Buddies",
+  "allow-everyone-cheat": true,
+  "enforce-whitelist": false,
+  "enable-upnp": true,
+  "online-mode": true,
+  "enable-uuid-fixer": false,
+  "pvp": true,
+  "get-public-ip": true,
+  "remove-player-reporting": false
+}

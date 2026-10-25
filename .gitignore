@@ -32,6 +32,7 @@
 # Built release archives
 /dist/
 /.minecraft/resourcepacks/backstabbed-resource.zip
+__pycache__/
 
 # Development files
 .vscode/

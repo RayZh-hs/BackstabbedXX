@@ -1,0 +1,99 @@
+{
+  "mcm:secrets/library/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/vineyard/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/train/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/cyberpunk/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/cabin/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/sculk/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/canyon/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/riverboat/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/airship/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/lobby/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/launchpad/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/gumdrop/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/industry/root": {
+    "criteria": {
+      "space": "2026-10-23 18:20:40 +0800"
+    },
+    "done": true
+  },
+  "mcm:item_counts/card1": {
+    "criteria": {
+      "requirement": "2026-10-24 21:08:08 +0800"
+    },
+    "done": true
+  },
+  "mcm:secrets/vineyard/lance": {
+    "criteria": {
+      "find_lance": "2026-10-24 21:20:33 +0800"
+    },
+    "done": true
+  },
+  "DataVersion": 4189
+}
