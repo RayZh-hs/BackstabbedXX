@@ -2,6 +2,7 @@
 .minecraft/saves
 .minecraft/resourcepacks/backstabbed-resource
 .git
+.github
 .gitignore
 dist
 Makefile
