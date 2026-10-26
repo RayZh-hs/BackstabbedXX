@@ -1,8 +1,8 @@
 # Local launcher settings; version a sanitized instance.cfg.example
 /instance.cfg
+logs/
 
 # Generated files and runtime output
-/.minecraft/logs/
 /.minecraft/crash-reports/
 /.minecraft/downloads/
 /.minecraft/natives-*/
