@@ -1,0 +1,1322 @@
+[
+  {
+    "id": "train_1_1_next",
+    "train": 1,
+    "carriage": 1,
+    "target_carriage": 2,
+    "direction": "next",
+    "wall": [
+      20483,
+      -57,
+      20377
+    ],
+    "label": [
+      20483.5,
+      -56.65,
+      20377.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20482,
+      -59,
+      20364.8
+    ],
+    "source_max": [
+      20485,
+      -54,
+      20377.2
+    ],
+    "destination": [
+      20483.5,
+      -57.8125,
+      20381.5
+    ]
+  },
+  {
+    "id": "train_1_2_previous",
+    "train": 1,
+    "carriage": 2,
+    "target_carriage": 1,
+    "direction": "previous",
+    "wall": [
+      20483,
+      -57,
+      20379
+    ],
+    "label": [
+      20483.5,
+      -56.65,
+      20379.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20482,
+      -59,
+      20379.8
+    ],
+    "source_max": [
+      20485,
+      -54,
+      20392.2
+    ],
+    "destination": [
+      20483.5,
+      -57.8125,
+      20375.5
+    ]
+  },
+  {
+    "id": "train_1_2_next",
+    "train": 1,
+    "carriage": 2,
+    "target_carriage": 3,
+    "direction": "next",
+    "wall": [
+      20483,
+      -57,
+      20392
+    ],
+    "label": [
+      20483.5,
+      -56.65,
+      20392.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20482,
+      -59,
+      20379.8
+    ],
+    "source_max": [
+      20485,
+      -54,
+      20392.2
+    ],
+    "destination": [
+      20483.5,
+      -57.8125,
+      20396.5
+    ]
+  },
+  {
+    "id": "train_1_3_previous",
+    "train": 1,
+    "carriage": 3,
+    "target_carriage": 2,
+    "direction": "previous",
+    "wall": [
+      20483,
+      -57,
+      20394
+    ],
+    "label": [
+      20483.5,
+      -56.65,
+      20394.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20482,
+      -59,
+      20394.8
+    ],
+    "source_max": [
+      20485,
+      -54,
+      20407.2
+    ],
+    "destination": [
+      20483.5,
+      -57.8125,
+      20390.5
+    ]
+  },
+  {
+    "id": "train_1_3_next",
+    "train": 1,
+    "carriage": 3,
+    "target_carriage": 4,
+    "direction": "next",
+    "wall": [
+      20483,
+      -57,
+      20407
+    ],
+    "label": [
+      20483.5,
+      -56.65,
+      20407.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20482,
+      -59,
+      20394.8
+    ],
+    "source_max": [
+      20485,
+      -54,
+      20407.2
+    ],
+    "destination": [
+      20483.5,
+      -57.8125,
+      20410.5
+    ]
+  },
+  {
+    "id": "train_1_4_previous",
+    "train": 1,
+    "carriage": 4,
+    "target_carriage": 3,
+    "direction": "previous",
+    "wall": [
+      20483,
+      -57,
+      20408
+    ],
+    "label": [
+      20483.5,
+      -56.65,
+      20408.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20482,
+      -59,
+      20408.8
+    ],
+    "source_max": [
+      20485,
+      -54,
+      20421.2
+    ],
+    "destination": [
+      20483.5,
+      -57.8125,
+      20405.5
+    ]
+  },
+  {
+    "id": "train_1_4_next",
+    "train": 1,
+    "carriage": 4,
+    "target_carriage": 5,
+    "direction": "next",
+    "wall": [
+      20483,
+      -57,
+      20421
+    ],
+    "label": [
+      20483.5,
+      -56.65,
+      20421.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20482,
+      -59,
+      20408.8
+    ],
+    "source_max": [
+      20485,
+      -54,
+      20421.2
+    ],
+    "destination": [
+      20483.5,
+      -57.8125,
+      20425.5
+    ]
+  },
+  {
+    "id": "train_1_5_previous",
+    "train": 1,
+    "carriage": 5,
+    "target_carriage": 4,
+    "direction": "previous",
+    "wall": [
+      20483,
+      -57,
+      20423
+    ],
+    "label": [
+      20483.5,
+      -56.65,
+      20423.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20482,
+      -59,
+      20423.8
+    ],
+    "source_max": [
+      20485,
+      -54,
+      20436.2
+    ],
+    "destination": [
+      20483.5,
+      -57.8125,
+      20419.5
+    ]
+  },
+  {
+    "id": "train_1_5_next",
+    "train": 1,
+    "carriage": 5,
+    "target_carriage": 6,
+    "direction": "next",
+    "wall": [
+      20483,
+      -57,
+      20436
+    ],
+    "label": [
+      20483.5,
+      -56.65,
+      20436.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20482,
+      -59,
+      20423.8
+    ],
+    "source_max": [
+      20485,
+      -54,
+      20436.2
+    ],
+    "destination": [
+      20483.5,
+      -57.8125,
+      20440.5
+    ]
+  },
+  {
+    "id": "train_1_6_previous",
+    "train": 1,
+    "carriage": 6,
+    "target_carriage": 5,
+    "direction": "previous",
+    "wall": [
+      20483,
+      -57,
+      20438
+    ],
+    "label": [
+      20483.5,
+      -56.65,
+      20438.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20482,
+      -59,
+      20438.8
+    ],
+    "source_max": [
+      20485,
+      -54,
+      20451.2
+    ],
+    "destination": [
+      20483.5,
+      -57.8125,
+      20434.5
+    ]
+  },
+  {
+    "id": "train_2_1_next",
+    "train": 2,
+    "carriage": 1,
+    "target_carriage": 2,
+    "direction": "next",
+    "wall": [
+      20490,
+      -57,
+      20473
+    ],
+    "label": [
+      20490.5,
+      -56.65,
+      20473.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20489,
+      -59,
+      20460.8
+    ],
+    "source_max": [
+      20492,
+      -54,
+      20473.2
+    ],
+    "destination": [
+      20490.5,
+      -57.8125,
+      20477.5
+    ]
+  },
+  {
+    "id": "train_2_2_previous",
+    "train": 2,
+    "carriage": 2,
+    "target_carriage": 1,
+    "direction": "previous",
+    "wall": [
+      20490,
+      -57,
+      20475
+    ],
+    "label": [
+      20490.5,
+      -56.65,
+      20475.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20489,
+      -59,
+      20475.8
+    ],
+    "source_max": [
+      20492,
+      -54,
+      20488.2
+    ],
+    "destination": [
+      20490.5,
+      -57.8125,
+      20471.5
+    ]
+  },
+  {
+    "id": "train_2_2_next",
+    "train": 2,
+    "carriage": 2,
+    "target_carriage": 3,
+    "direction": "next",
+    "wall": [
+      20490,
+      -57,
+      20488
+    ],
+    "label": [
+      20490.5,
+      -56.65,
+      20488.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20489,
+      -59,
+      20475.8
+    ],
+    "source_max": [
+      20492,
+      -54,
+      20488.2
+    ],
+    "destination": [
+      20490.5,
+      -57.8125,
+      20492.5
+    ]
+  },
+  {
+    "id": "train_2_3_previous",
+    "train": 2,
+    "carriage": 3,
+    "target_carriage": 2,
+    "direction": "previous",
+    "wall": [
+      20490,
+      -57,
+      20490
+    ],
+    "label": [
+      20490.5,
+      -56.65,
+      20490.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20489,
+      -59,
+      20490.8
+    ],
+    "source_max": [
+      20492,
+      -54,
+      20503.2
+    ],
+    "destination": [
+      20490.5,
+      -57.8125,
+      20486.5
+    ]
+  },
+  {
+    "id": "train_2_3_next",
+    "train": 2,
+    "carriage": 3,
+    "target_carriage": 4,
+    "direction": "next",
+    "wall": [
+      20490,
+      -57,
+      20503
+    ],
+    "label": [
+      20490.5,
+      -56.65,
+      20503.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20489,
+      -59,
+      20490.8
+    ],
+    "source_max": [
+      20492,
+      -54,
+      20503.2
+    ],
+    "destination": [
+      20490.5,
+      -57.8125,
+      20506.5
+    ]
+  },
+  {
+    "id": "train_2_4_previous",
+    "train": 2,
+    "carriage": 4,
+    "target_carriage": 3,
+    "direction": "previous",
+    "wall": [
+      20490,
+      -57,
+      20504
+    ],
+    "label": [
+      20490.5,
+      -56.65,
+      20504.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20489,
+      -59,
+      20504.8
+    ],
+    "source_max": [
+      20492,
+      -54,
+      20517.2
+    ],
+    "destination": [
+      20490.5,
+      -57.8125,
+      20501.5
+    ]
+  },
+  {
+    "id": "train_2_4_next",
+    "train": 2,
+    "carriage": 4,
+    "target_carriage": 5,
+    "direction": "next",
+    "wall": [
+      20490,
+      -57,
+      20517
+    ],
+    "label": [
+      20490.5,
+      -56.65,
+      20517.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20489,
+      -59,
+      20504.8
+    ],
+    "source_max": [
+      20492,
+      -54,
+      20517.2
+    ],
+    "destination": [
+      20490.5,
+      -57.8125,
+      20521.5
+    ]
+  },
+  {
+    "id": "train_2_5_previous",
+    "train": 2,
+    "carriage": 5,
+    "target_carriage": 4,
+    "direction": "previous",
+    "wall": [
+      20490,
+      -57,
+      20519
+    ],
+    "label": [
+      20490.5,
+      -56.65,
+      20519.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20489,
+      -59,
+      20519.8
+    ],
+    "source_max": [
+      20492,
+      -54,
+      20532.2
+    ],
+    "destination": [
+      20490.5,
+      -57.8125,
+      20515.5
+    ]
+  },
+  {
+    "id": "train_2_5_next",
+    "train": 2,
+    "carriage": 5,
+    "target_carriage": 6,
+    "direction": "next",
+    "wall": [
+      20490,
+      -57,
+      20532
+    ],
+    "label": [
+      20490.5,
+      -56.65,
+      20532.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20489,
+      -59,
+      20519.8
+    ],
+    "source_max": [
+      20492,
+      -54,
+      20532.2
+    ],
+    "destination": [
+      20490.5,
+      -57.8125,
+      20536.5
+    ]
+  },
+  {
+    "id": "train_2_6_previous",
+    "train": 2,
+    "carriage": 6,
+    "target_carriage": 5,
+    "direction": "previous",
+    "wall": [
+      20490,
+      -57,
+      20534
+    ],
+    "label": [
+      20490.5,
+      -56.65,
+      20534.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20489,
+      -59,
+      20534.8
+    ],
+    "source_max": [
+      20492,
+      -54,
+      20547.2
+    ],
+    "destination": [
+      20490.5,
+      -57.8125,
+      20530.5
+    ]
+  },
+  {
+    "id": "train_3_1_next",
+    "train": 3,
+    "carriage": 1,
+    "target_carriage": 2,
+    "direction": "next",
+    "wall": [
+      20515,
+      -57,
+      20398
+    ],
+    "label": [
+      20515.5,
+      -56.65,
+      20398.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20514,
+      -59,
+      20385.8
+    ],
+    "source_max": [
+      20517,
+      -54,
+      20398.2
+    ],
+    "destination": [
+      20515.5,
+      -57.8125,
+      20402.5
+    ]
+  },
+  {
+    "id": "train_3_2_previous",
+    "train": 3,
+    "carriage": 2,
+    "target_carriage": 1,
+    "direction": "previous",
+    "wall": [
+      20515,
+      -57,
+      20400
+    ],
+    "label": [
+      20515.5,
+      -56.65,
+      20400.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20514,
+      -59,
+      20400.8
+    ],
+    "source_max": [
+      20517,
+      -54,
+      20413.2
+    ],
+    "destination": [
+      20515.5,
+      -57.8125,
+      20396.5
+    ]
+  },
+  {
+    "id": "train_3_2_next",
+    "train": 3,
+    "carriage": 2,
+    "target_carriage": 3,
+    "direction": "next",
+    "wall": [
+      20515,
+      -57,
+      20413
+    ],
+    "label": [
+      20515.5,
+      -56.65,
+      20413.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20514,
+      -59,
+      20400.8
+    ],
+    "source_max": [
+      20517,
+      -54,
+      20413.2
+    ],
+    "destination": [
+      20515.5,
+      -57.8125,
+      20417.5
+    ]
+  },
+  {
+    "id": "train_3_3_previous",
+    "train": 3,
+    "carriage": 3,
+    "target_carriage": 2,
+    "direction": "previous",
+    "wall": [
+      20515,
+      -57,
+      20415
+    ],
+    "label": [
+      20515.5,
+      -56.65,
+      20415.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20514,
+      -59,
+      20415.8
+    ],
+    "source_max": [
+      20517,
+      -54,
+      20428.2
+    ],
+    "destination": [
+      20515.5,
+      -57.8125,
+      20411.5
+    ]
+  },
+  {
+    "id": "train_3_3_next",
+    "train": 3,
+    "carriage": 3,
+    "target_carriage": 4,
+    "direction": "next",
+    "wall": [
+      20515,
+      -57,
+      20428
+    ],
+    "label": [
+      20515.5,
+      -56.65,
+      20428.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20514,
+      -59,
+      20415.8
+    ],
+    "source_max": [
+      20517,
+      -54,
+      20428.2
+    ],
+    "destination": [
+      20515.5,
+      -57.8125,
+      20431.5
+    ]
+  },
+  {
+    "id": "train_3_4_previous",
+    "train": 3,
+    "carriage": 4,
+    "target_carriage": 3,
+    "direction": "previous",
+    "wall": [
+      20515,
+      -57,
+      20429
+    ],
+    "label": [
+      20515.5,
+      -56.65,
+      20429.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20514,
+      -59,
+      20429.8
+    ],
+    "source_max": [
+      20517,
+      -54,
+      20442.2
+    ],
+    "destination": [
+      20515.5,
+      -57.8125,
+      20426.5
+    ]
+  },
+  {
+    "id": "train_3_4_next",
+    "train": 3,
+    "carriage": 4,
+    "target_carriage": 5,
+    "direction": "next",
+    "wall": [
+      20515,
+      -57,
+      20442
+    ],
+    "label": [
+      20515.5,
+      -56.65,
+      20442.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20514,
+      -59,
+      20429.8
+    ],
+    "source_max": [
+      20517,
+      -54,
+      20442.2
+    ],
+    "destination": [
+      20515.5,
+      -57.8125,
+      20446.5
+    ]
+  },
+  {
+    "id": "train_3_5_previous",
+    "train": 3,
+    "carriage": 5,
+    "target_carriage": 4,
+    "direction": "previous",
+    "wall": [
+      20515,
+      -57,
+      20444
+    ],
+    "label": [
+      20515.5,
+      -56.65,
+      20444.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20514,
+      -59,
+      20444.8
+    ],
+    "source_max": [
+      20517,
+      -54,
+      20457.2
+    ],
+    "destination": [
+      20515.5,
+      -57.8125,
+      20440.5
+    ]
+  },
+  {
+    "id": "train_3_5_next",
+    "train": 3,
+    "carriage": 5,
+    "target_carriage": 6,
+    "direction": "next",
+    "wall": [
+      20515,
+      -57,
+      20457
+    ],
+    "label": [
+      20515.5,
+      -56.65,
+      20457.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20514,
+      -59,
+      20444.8
+    ],
+    "source_max": [
+      20517,
+      -54,
+      20457.2
+    ],
+    "destination": [
+      20515.5,
+      -57.8125,
+      20461.5
+    ]
+  },
+  {
+    "id": "train_3_6_previous",
+    "train": 3,
+    "carriage": 6,
+    "target_carriage": 5,
+    "direction": "previous",
+    "wall": [
+      20515,
+      -57,
+      20459
+    ],
+    "label": [
+      20515.5,
+      -56.65,
+      20459.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20514,
+      -59,
+      20459.8
+    ],
+    "source_max": [
+      20517,
+      -54,
+      20472.2
+    ],
+    "destination": [
+      20515.5,
+      -57.8125,
+      20455.5
+    ]
+  },
+  {
+    "id": "train_4_1_next",
+    "train": 4,
+    "carriage": 1,
+    "target_carriage": 2,
+    "direction": "next",
+    "wall": [
+      20522,
+      -57,
+      20409
+    ],
+    "label": [
+      20522.5,
+      -56.65,
+      20409.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20521,
+      -59,
+      20396.8
+    ],
+    "source_max": [
+      20524,
+      -54,
+      20409.2
+    ],
+    "destination": [
+      20522.5,
+      -57.8125,
+      20413.5
+    ]
+  },
+  {
+    "id": "train_4_2_previous",
+    "train": 4,
+    "carriage": 2,
+    "target_carriage": 1,
+    "direction": "previous",
+    "wall": [
+      20522,
+      -57,
+      20411
+    ],
+    "label": [
+      20522.5,
+      -56.65,
+      20411.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20521,
+      -59,
+      20411.8
+    ],
+    "source_max": [
+      20524,
+      -54,
+      20424.2
+    ],
+    "destination": [
+      20522.5,
+      -57.8125,
+      20407.5
+    ]
+  },
+  {
+    "id": "train_4_2_next",
+    "train": 4,
+    "carriage": 2,
+    "target_carriage": 3,
+    "direction": "next",
+    "wall": [
+      20522,
+      -57,
+      20424
+    ],
+    "label": [
+      20522.5,
+      -56.65,
+      20424.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20521,
+      -59,
+      20411.8
+    ],
+    "source_max": [
+      20524,
+      -54,
+      20424.2
+    ],
+    "destination": [
+      20522.5,
+      -57.8125,
+      20428.5
+    ]
+  },
+  {
+    "id": "train_4_3_previous",
+    "train": 4,
+    "carriage": 3,
+    "target_carriage": 2,
+    "direction": "previous",
+    "wall": [
+      20522,
+      -57,
+      20426
+    ],
+    "label": [
+      20522.5,
+      -56.65,
+      20426.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20521,
+      -59,
+      20426.8
+    ],
+    "source_max": [
+      20524,
+      -54,
+      20439.2
+    ],
+    "destination": [
+      20522.5,
+      -57.8125,
+      20422.5
+    ]
+  },
+  {
+    "id": "train_4_3_next",
+    "train": 4,
+    "carriage": 3,
+    "target_carriage": 4,
+    "direction": "next",
+    "wall": [
+      20522,
+      -57,
+      20439
+    ],
+    "label": [
+      20522.5,
+      -56.65,
+      20439.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20521,
+      -59,
+      20426.8
+    ],
+    "source_max": [
+      20524,
+      -54,
+      20439.2
+    ],
+    "destination": [
+      20522.5,
+      -57.8125,
+      20442.5
+    ]
+  },
+  {
+    "id": "train_4_4_previous",
+    "train": 4,
+    "carriage": 4,
+    "target_carriage": 3,
+    "direction": "previous",
+    "wall": [
+      20522,
+      -57,
+      20440
+    ],
+    "label": [
+      20522.5,
+      -56.65,
+      20440.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20521,
+      -59,
+      20440.8
+    ],
+    "source_max": [
+      20524,
+      -54,
+      20453.2
+    ],
+    "destination": [
+      20522.5,
+      -57.8125,
+      20437.5
+    ]
+  },
+  {
+    "id": "train_4_4_next",
+    "train": 4,
+    "carriage": 4,
+    "target_carriage": 5,
+    "direction": "next",
+    "wall": [
+      20522,
+      -57,
+      20453
+    ],
+    "label": [
+      20522.5,
+      -56.65,
+      20453.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20521,
+      -59,
+      20440.8
+    ],
+    "source_max": [
+      20524,
+      -54,
+      20453.2
+    ],
+    "destination": [
+      20522.5,
+      -57.8125,
+      20457.5
+    ]
+  },
+  {
+    "id": "train_4_5_previous",
+    "train": 4,
+    "carriage": 5,
+    "target_carriage": 4,
+    "direction": "previous",
+    "wall": [
+      20522,
+      -57,
+      20455
+    ],
+    "label": [
+      20522.5,
+      -56.65,
+      20455.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20521,
+      -59,
+      20455.8
+    ],
+    "source_max": [
+      20524,
+      -54,
+      20468.2
+    ],
+    "destination": [
+      20522.5,
+      -57.8125,
+      20451.5
+    ]
+  },
+  {
+    "id": "train_4_5_next",
+    "train": 4,
+    "carriage": 5,
+    "target_carriage": 6,
+    "direction": "next",
+    "wall": [
+      20522,
+      -57,
+      20468
+    ],
+    "label": [
+      20522.5,
+      -56.65,
+      20468.17
+    ],
+    "yaw": 180,
+    "source_min": [
+      20521,
+      -59,
+      20455.8
+    ],
+    "source_max": [
+      20524,
+      -54,
+      20468.2
+    ],
+    "destination": [
+      20522.5,
+      -57.8125,
+      20472.5
+    ]
+  },
+  {
+    "id": "train_4_6_previous",
+    "train": 4,
+    "carriage": 6,
+    "target_carriage": 5,
+    "direction": "previous",
+    "wall": [
+      20522,
+      -57,
+      20470
+    ],
+    "label": [
+      20522.5,
+      -56.65,
+      20470.83
+    ],
+    "yaw": 0,
+    "source_min": [
+      20521,
+      -59,
+      20470.8
+    ],
+    "source_max": [
+      20524,
+      -54,
+      20483.2
+    ],
+    "destination": [
+      20522.5,
+      -57.8125,
+      20466.5
+    ]
+  }
+]

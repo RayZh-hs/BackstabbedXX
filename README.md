@@ -42,7 +42,7 @@ make launch          # Build, then launch the working copy (requires uv)
 make resourcepack    # Rebuild only the resource pack, including the installed ZIP
 make map             # Build only the map, using the latest Git version tag
 make release VERSION=1.1.1  # Build all release assets for an explicit version
-make test            # Check map metadata, archive separation, posters, and Yacht spawns
+make test            # Check map metadata, archives, posters, and arena spawns/boundaries
 make clean           # Remove dist/; keep the installed resource-pack ZIP
 ```
 
@@ -100,6 +100,7 @@ and run one of these in chat while no round is active:
 
 | Arena | Command |
 | --- | --- |
+| Subway Station | `/function subway_station:select` |
 | Yacht | `/function yacht:select` |
 | River Bank | `/function river_bank:select` |
 | Panda Village | `/function panda_village:select` |
@@ -123,6 +124,13 @@ and containing players. It requires a user decision for map-design repairs,
 followed by a verified backup and the Minecraft Builder workflow.
 Both skills are vendored under `.agents/skills/`; their project instructions
 and the previewer are included in a fresh checkout.
+
+[Subway Station](docs/arenas/subway_station.md), by KnotXackly, is integrated as
+map 16. Its original architecture is preserved; 24 connected central-platform
+spawns, voting artwork and reset behavior are included. Automatic boundary
+teleports are disabled. Inside each of the four six-carriage trains,
+right-click **Previous carriage / Next carriage** on the end walls to travel
+to the adjacent carriage. The labels also support Simplified Chinese.
 
 The source save is
 `.minecraft/saves/Backstabbed ++! by NorbMinecraft and Bagel Buddies/`.

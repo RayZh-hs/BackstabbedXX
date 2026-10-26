@@ -20,6 +20,10 @@
     {
       "type": "single",
       "resource": "river_bank:posters/river_bank"
+    },
+    {
+      "type": "single",
+      "resource": "subway_station:posters/subway_station"
     }
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "subway_station.name": "Subway Station",
+  "subway_station.ready": "| Subway Station is ready. Right-click the carriage end-wall labels to move between carriages.",
+  "subway_station.voted": "| Voted: Subway Station",
+  "subway_station.carriage.previous": "← Previous carriage",
+  "subway_station.carriage.next": "Next carriage →",
+  "subway_station.carriage.use": "Right-click"
+}

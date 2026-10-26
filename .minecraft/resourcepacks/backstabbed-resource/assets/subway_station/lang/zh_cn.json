@@ -1,0 +1,8 @@
+{
+  "subway_station.name": "地铁站",
+  "subway_station.ready": "| 地铁站已准备就绪。右键车厢端墙上的文字可前往相邻车厢。",
+  "subway_station.voted": "| 已投票：地铁站",
+  "subway_station.carriage.previous": "← 上一节车厢",
+  "subway_station.carriage.next": "下一节车厢 →",
+  "subway_station.carriage.use": "右键通行"
+}
