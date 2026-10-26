@@ -3,7 +3,7 @@ VERSION ?=
 export VERSION
 
 .DEFAULT_GOAL := all
-.PHONY: all pack resourcepack map release test clean
+.PHONY: all pack resourcepack map release preview test-preview test clean
 
 all: pack
 
@@ -18,6 +18,12 @@ map:
 
 release:
 	$(PYTHON) scripts/build.py release
+
+preview:
+	node map-previewer/preview.mjs --open
+
+test-preview:
+	npm --prefix map-previewer test
 
 test:
 	$(PYTHON) -m unittest discover -s tests

@@ -10,3 +10,6 @@ scripts
 tests
 README.md
 instance.cfg.example
+map-previewer
+.agents
+AGENTS.md

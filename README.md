@@ -55,6 +55,11 @@ Outputs:
 
 ## Map Source
 
+For evaluating new maps, use the root-level [map previewer](map-previewer/README.md).
+It provides a local 3D view, flight and cutaway controls, and a measured box
+defined by an editable point list. Agent usage is documented in the
+[map-preview skill](.agents/skills/minecraft-map-preview/SKILL.md).
+
 The source save is
 `.minecraft/saves/Backstabbed ++! by NorbMinecraft and Bagel Buddies/`.
 Keep its folder name and Minecraft display name free of release versions.

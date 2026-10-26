@@ -1,0 +1,4 @@
+interface:
+  display_name: "Minecraft Map Preview"
+  short_description: "Preview Minecraft maps and measure arena bounds"
+  default_prompt: "Use $minecraft-map-preview to open this Minecraft map and measure a candidate arena."

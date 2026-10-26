@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft map preview</title>
+  <link rel="icon" href="data:,">
+  <script type="module" src="/main.js"></script>
+</head>
+<body>
+  <canvas id="preview" aria-label="Interactive 3D map; click blocks to measure"></canvas>
+  <div class="axis-label x" id="axis-x"></div>
+  <div class="axis-label y" id="axis-y"></div>
+  <div class="axis-label z" id="axis-z"></div>
+  <aside>
+    <h1 id="name">Minecraft map</h1>
+    <p id="source"></p>
+    <p id="stats">Loading map…</p>
+    <nav aria-label="Camera controls">
+      <button id="overview">Overview</button><button id="inside">Inside</button>
+      <button id="fly" aria-pressed="false">Fly: off</button>
+    </nav>
+    <section aria-label="Scale measurement">
+      <h2>Measurement box</h2>
+      <div class="dimensions" id="dimensions" aria-live="polite">
+        <span class="x">X <strong id="size-x">—</strong></span>
+        <span class="y">Y <strong id="size-y">—</strong></span>
+        <span class="z">Z <strong id="size-z">—</strong></span>
+      </div>
+      <p id="measurement"></p>
+      <p id="bounds" class="mono"></p>
+      <nav aria-label="Point selection mode">
+        <button id="normal" aria-pressed="true">Normal</button>
+        <button id="extend" aria-pressed="false">Extend</button>
+        <button id="wrap">Wrap all</button>
+      </nav>
+      <p id="selection-help">Click two blocks to set opposite corners. Drag to move the camera.</p>
+      <ol id="points" aria-label="Points defining the measurement box"></ol>
+      <p id="status" role="status"></p>
+      <details class="coordinate-entry">
+        <summary>Add a point by coordinates</summary>
+        <form id="point-form">
+          <div class="coordinate-inputs">
+            <label>X <input id="point-x" type="number" step="1" required></label>
+            <label>Y <input id="point-y" type="number" step="1" required></label>
+            <label>Z <input id="point-z" type="number" step="1" required></label>
+          </div>
+          <button type="submit">Select point</button>
+        </form>
+      </details>
+      <label class="checkbox"><input id="mask" type="checkbox"> Hide blocks outside this box</label>
+      <nav class="exports" aria-label="Export measurement">
+        <button id="copy">Copy bounds</button><button id="export">Export selection</button>
+      </nav>
+    </section>
+    <label class="ceiling" for="height">Cutaway ceiling <output id="height-label">full</output></label>
+    <input id="height" type="range" min="0" max="1" value="1" step="1">
+    <p id="help">Drag to orbit · right-drag to pan · scroll to zoom.<br>Choose Inside to fly through the build.</p>
+    <p id="coords" class="mono"></p>
+    <details>
+      <summary>About this preview</summary>
+      <p>One block is one metre. Box dimensions include both corner blocks. Only the loaded structure is measured; any terrain excluded during export is outside this preview.</p>
+      <p>Vanilla textures and simplified lighting. Commands, collisions, and redstone are not simulated. Source map files are read only.</p>
+    </details>
+  </aside>
+  <div id="loading" role="status">Loading map and textures…</div>
+</body>
+</html>
