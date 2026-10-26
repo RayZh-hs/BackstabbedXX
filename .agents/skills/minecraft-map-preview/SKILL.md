@@ -5,6 +5,10 @@ description: Preview downloaded Minecraft maps and structure NBT files with the 
 
 # Minecraft Map Preview
 
+This skill is vendored in the repository at
+`.agents/skills/minecraft-map-preview/`. Its viewer, exporter, tests, and
+dependency lockfile are checked in under `map-previewer/`.
+
 Use the root-level `map-previewer/` tool. Resolve this skill's real directory
 (following any installation symlink), then walk `../../..` to the repository
 root, or use the working checkout; commands below run from that root.
@@ -82,5 +86,7 @@ uses its renderer internals for picking, overlays, and lighting control.
 
 Preserve creator attribution and reuse terms alongside map provenance. Explain
 that a preview does not validate collisions, commands, redstone, entities, or
-target-version behavior. Importing into the game and adding arena gameplay are
-separate tasks requiring their own implementation and in-game checks.
+target-version behavior. When the user asks to incorporate the chosen map into
+the game, follow the vendored
+[`backstabbed-map-creator` skill](../backstabbed-map-creator/SKILL.md)
+for its build, generated poster, suitable spawns, containment, and repair rules.

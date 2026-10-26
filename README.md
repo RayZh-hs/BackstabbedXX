@@ -59,6 +59,13 @@ For evaluating new maps, use the root-level [map previewer](map-previewer/README
 It provides a local 3D view, flight and cutaway controls, and a measured box
 defined by an editable point list. Agent usage is documented in the
 [map-preview skill](.agents/skills/minecraft-map-preview/SKILL.md).
+For incorporating a chosen arena into the game, the
+[map-creator skill](.agents/skills/backstabbed-map-creator/SKILL.md)
+covers importing the build, generating its voting poster, validating spawns,
+and containing players. It requires a user decision for map-design repairs,
+followed by a verified backup and the Minecraft Builder workflow.
+Both skills are vendored under `.agents/skills/`; their project instructions
+and the previewer are included in a fresh checkout.
 
 The source save is
 `.minecraft/saves/Backstabbed ++! by NorbMinecraft and Bagel Buddies/`.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backstabbed Map Creator"
+  short_description: "Integrate arenas, posters, safe spawns, and boundaries"
+  default_prompt: "Use $backstabbed-map-creator to integrate this map, generate its voting poster, validate spawns, and enforce its play area."
