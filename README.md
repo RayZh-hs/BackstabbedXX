@@ -38,6 +38,7 @@ Other build commands:
 
 ```sh
 make                 # Build the resource pack and the Prism instance ZIP
+make launch          # Build, then launch the working copy (requires uv)
 make resourcepack    # Rebuild only the resource pack, including the installed ZIP
 make map             # Build only the map, using the latest Git version tag
 make release VERSION=1.1.1  # Build all release assets for an explicit version
@@ -52,6 +53,62 @@ Outputs:
   and `assets/` at the archive root.
 - `dist/Backstabbed++-map-v<VERSION>.zip`: the separate host map, produced by
   `make map` or `make release`.
+
+### Launch the working copy
+
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then run:
+
+```sh
+make launch
+```
+
+This rebuilds the resource pack and client ZIP, then uses
+[PortableMC](https://pypi.org/project/portablemc/4.4.1/) to start the Minecraft and
+NeoForge versions specified in `mmc-pack.json`. It uses this checkout's
+`.minecraft/` folder, including its mods, resource packs and source save. The
+newly built resource pack is enabled automatically, preserving other options.
+The first launch downloads the launcher dependency, game, assets and Java runtime;
+game downloads are cached in the ignored `dev/launcher/` directory. Set
+`MINECRAFT_RUNTIME_DIR` to use another runtime cache. An installed Prism or HMCL
+instance is not required.
+
+By default, this starts a local development session named `BackstabbedDev` with
+4 GiB of heap. Pass PortableMC start options with `LAUNCH_ARGS`, for example:
+
+```sh
+make launch LAUNCH_ARGS='--username Ray --resolution 1600x900'
+make launch LAUNCH_ARGS='--login you@example.com'  # Microsoft account for online play
+make launch LAUNCH_ARGS='--jvm-args=-Xmx8G'
+```
+
+The sign-in flow and session cache belong to PortableMC; it does not reuse your
+Prism or HMCL login. Local launch files and authentication are ignored by Git
+and excluded from client builds.
+
+### Pick an arena
+
+Open **Singleplayer** and load **Backstabbed ++! by NorbMinecraft and Bagel
+Buddies**. All arenas live in this one world. In the lobby, vote at the map
+posters; the options board's map toggles control which arenas appear. To make
+one arena the only voting choice, disable the other maps on that board and
+use **Shuffle** before anyone votes. The shuffle command is
+`/function mcm:dev/shuffle_maps`; it only works during map voting while the
+countdown is still at 20 seconds.
+
+For a direct selection, enable commands (or use an operator account on a server)
+and run one of these in chat while no round is active:
+
+| Arena | Command |
+| --- | --- |
+| Yacht | `/function yacht:select` |
+| River Bank | `/function river_bank:select` |
+| Panda Village | `/function panda_village:select` |
+
+These commands select and load the arena through the normal game setup. Then
+join the lobby queue and start the round normally; the normal start requires
+at least four queued players. They do not start a solo round. If commands are
+disabled in singleplayer, use **Esc → Open to LAN → Allow Commands: ON → Start
+LAN World** for the current session.
 
 ## Map Source
 

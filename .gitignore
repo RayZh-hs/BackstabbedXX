@@ -6,6 +6,9 @@
 /.minecraft/crash-reports/
 /.minecraft/downloads/
 /.minecraft/natives-*/
+/.minecraft/bin/
+/.minecraft/portablemc_auth.json
+/.minecraft/portablemc_version_manifest.json
 /.minecraft/.cache/
 /.minecraft/.fabric/
 /.minecraft/.quilt/
