@@ -43,9 +43,13 @@ feet Y -32…22, Z 24491…24675; the union narrows
 at each height. This envelope alone is not the arena. Detached scenery, the ocean,
 low source ground, accidental caves and other dimensions are excluded.
 
-A living, queued participant outside the mask, in a fluid block, or in a waterlogged
-block returns to `[24582.5, -29, 24576.5]`, a validated spawn. Feet and head fluid
-checks use actual 1.21.4 block tags. Spectating, dead, unqueued/lobby players, other
+A living, queued participant who falls into the ocean, leaves the mask, or enters
+a fluid/waterlogged block during a round is eliminated through
+`mcm:game/playerdeath` and becomes a spectator. The perimeter uses the same death
+handler so it cannot teleport a falling player back just before they reach the
+water. Before a round, waiting participants still return to
+`[24582.5, -29, 24576.5]`, a validated spawn. Feet and head fluid checks use actual
+1.21.4 block tags. Spectating, dead, unqueued/lobby players, other
 maps and reset states are excluded. Waiting players acquire an arena participant
 tag only after entering the play region; active rounds enforce containment during
 grace and normal play. No global world border or new physical barriers are used.
@@ -124,12 +128,12 @@ remain available for recovery.
 
 ## Verification
 
-`make test` passes **37 tests**. The maintained previewer passes **8 tests**.
+`make test` passes **49 tests**. The maintained previewer passes **8 tests**.
 The repository checks validate all 72 installed spawns, collision shapes, connected
 build membership, actual boundary predicates, exclusions, lifecycle scope,
 compatibility substitutions and the complete poster reference chain.
 
-The isolated live checks passed **72 stable destination spawns**, **18 escapes**,
+The original isolated live checks passed **72 stable destination spawns**, **18 escapes**,
 **18 scope guards**, **112 saved replacement checks**, and **three normal four-player
 rounds** (one per arena, including role assignment and the completed grace period).
 Underwater Base's water escape test deliberately enters water inside its allowed
@@ -149,12 +153,39 @@ server/client logs, and graphical client screenshots. The destination spawn view
 are also available through the maintained Lodestone previewer under
 `map-previewer/maps/kaizen-bases/spawn-previews/`.
 
-The live checks use an isolated **vanilla Minecraft Java 1.21.4** server and graphical
+Those original live checks used an isolated **vanilla Minecraft Java 1.21.4** server and graphical
 client, with automated players. They cover normal selection/loading, all 24 spawns
 per arena, escapes (including another dimension), spectator/dead/unqueued/inactive
 and other-map guards, reload, repeated activation, reset, and reactivation. The
-NeoForge profile itself and human multiplayer balance are not verified by those
+NeoForge profile itself and human multiplayer balance were not verified by those
 checks. No user save or existing client is used as the test world.
+
+The ocean-elimination change was separately checked in a disposable graphical
+**Minecraft 1.21.4 / NeoForge 21.4.158** integrated server, with the full modpack and
+three local dummy players. All **20 runtime assertions** passed: unnegotiated
+highlight-channel rejection was reproduced directly for each dummy, while both
+outgoing packet-listener overloads safely discarded the payload; a normal
+four-player round completed role assignment and grace with MCM Highlight enabled;
+actual saved ocean water and the perimeter eliminated players without a return
+teleport; waiting participants returned safely; six scope guards and reset passed.
+Results, the disposable test driver and captured logs are in
+`dev/local-regression/`. `make pack` and
+`make map VERSION=1.1.1-alpha-kaizen-bases` rebuilt the client, resource-pack and
+host-world archives; all three passed ZIP CRC and duplicate-entry checks.
+
+Before this datapack change, the stopped source world was fully snapshotted and
+checksum-verified:
+
+```text
+.minecraft/backups/map-integration/20261027T062023500794Z-meridian-ocean-elimination-before-fix-8515e4ff.zip
+SHA-256: 99c86963f5e7d1b411efa73c4746d73a958ecc472548eff6f31073ce770d8d1d
+930 source files
+```
+
+The restore procedure above applies. Only
+`data/meridian_base/function/check_player.mcfunction` changed inside `mcm.zip`,
+and `data/meridian_base/function/escape.mcfunction` was added. Every unrelated
+datapack member retains its original contents; map geometry was not edited.
 
 Reproduction tools are `scripts/import_kaizen_bases.py`,
 `scripts/plan_kaizen_geometry.py`, `scripts/plan_kaizen_spawns.py`, and

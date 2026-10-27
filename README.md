@@ -104,7 +104,9 @@ idle players named `PlaytestDummy1`–`PlaytestDummy3`. They count as real serve
 players, automatically queue each round, receive roles and spawn in the arena,
 so you can meet the normal four-player minimum by joining the queue yourself.
 Commands are enabled: select an arena with the commands below, then queue and
-play normally. The dummies stand still; they do not fight or vote.
+play normally. The dummies stand still; they do not fight or vote. Their packet
+listeners discard outgoing packets before NeoForge's channel checks, so mods such
+as MCM Highlight can send updates without requiring a dummy client handshake.
 
 The world, settings and helper mod live in a temporary directory under `dev/`
 and are removed when the game exits. Each local launch starts from the current

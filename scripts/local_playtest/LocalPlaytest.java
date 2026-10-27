@@ -110,5 +110,10 @@ public final class LocalPlaytest {
 
         // There is no client to send keepalives, movement or teleport acknowledgements.
         @Override public void tick() {}
+
+        // Discard here, before NeoForge validates custom payload channels. These
+        // players have no client and never negotiate mod networking channels.
+        @Override public void send(Packet<?> packet) {}
+        @Override public void send(Packet<?> packet, PacketSendListener listener) {}
     }
 }

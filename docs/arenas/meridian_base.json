@@ -12377,7 +12377,7 @@
   ],
   "connected_artifact_blocks": 46089,
   "spawn_selection": "Ring deck and upper main-platform walking surfaces",
-  "containment": "Per-height masks of the connected build, one-block movement margin; out-of-mask, fluid or wrong-dimension live participants return to a validated spawn. Spectators, dead/lobby players, inactive states and other arenas excluded.",
+  "containment": "Per-height masks of the connected build, one-block movement margin; out-of-mask, fluid or wrong-dimension live participants are eliminated via mcm:game/playerdeath during active rounds, including grace. Waiting participants return to a validated spawn. Spectators, dead/lobby players, inactive states and other arenas excluded.",
   "forceload_bounds": [
     24464,
     24480,

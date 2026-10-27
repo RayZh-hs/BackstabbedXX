@@ -137,11 +137,17 @@ effect clear @s minecraft:slow_falling''')
 execute unless score $gamestate CmdData matches 0 run return 0
 execute as @a[tag=queued,tag=!spectating,gamemode=!spectator] at @s if predicate {ns}:arena run tag @s add {participant}
 execute as @a[tag=queued,tag={participant},tag=!spectating,gamemode=!spectator] at @s unless score @s dead matches 1.. run function {ns}:check_player''')
-        put(f'{ns}/function/check_player.mcfunction', f'''execute unless predicate {ns}:arena run return run function {ns}:return_player
-execute if block ~ ~ ~ #{ns}:fluids run return run function {ns}:return_player
-execute if block ~ ~1 ~ #{ns}:fluids run return run function {ns}:return_player
-execute if block ~ ~ ~ #{ns}:waterloggable[waterlogged=true] run return run function {ns}:return_player
-execute if block ~ ~1 ~ #{ns}:waterloggable[waterlogged=true] run function {ns}:return_player''')
+        response = f'{ns}:escape' if ns == 'meridian_base' else f'{ns}:return_player'
+        if ns == 'meridian_base':
+            # Use round elimination at the perimeter as well as in water, so
+            # falling players cannot be rescued just before reaching the ocean.
+            put(f'{ns}/function/escape.mcfunction', f'''execute if score $gamestate CmdData matches 1 run return run function mcm:game/playerdeath
+function {ns}:return_player''')
+        put(f'{ns}/function/check_player.mcfunction', f'''execute unless predicate {ns}:arena run return run function {response}
+execute if block ~ ~ ~ #{ns}:fluids run return run function {response}
+execute if block ~ ~1 ~ #{ns}:fluids run return run function {response}
+execute if block ~ ~ ~ #{ns}:waterloggable[waterlogged=true] run return run function {response}
+execute if block ~ ~1 ~ #{ns}:waterloggable[waterlogged=true] run function {response}''')
         put(f'{ns}/function/functionality.mcfunction', f'''execute unless score $selectedMap CmdData matches {mid} run return 0
 execute unless score $gamestate CmdData matches 1 run return 0
 execute as @a[tag=queued,tag=!spectating,gamemode=!spectator] at @s unless score @s dead matches 1.. run function {ns}:check_player''')

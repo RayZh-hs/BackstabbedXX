@@ -143,6 +143,27 @@ class KaizenBaseTests(unittest.TestCase):
             self.assertIn(f'MapValues {mid}', self.files[prefix+'register.mcfunction'])
             self.assertIn('KAIZEN87', self.files[f'data/{ns}/credits.txt'])
 
+    def test_meridian_ocean_and_perimeter_eliminate_only_during_rounds(self):
+        ocean = (24576.5, -34, 24576.5)
+        self.assertEqual(self.blocks.state(*(math.floor(v) for v in ocean))['Name'], 'minecraft:water')
+        self.assertFalse(inside(json.loads(self.files['data/meridian_base/predicate/arena.json']), ocean))
+        check = self.files['data/meridian_base/function/check_player.mcfunction']
+        # The ocean is outside the geometry mask; both paths must eliminate,
+        # otherwise the perimeter check rescues a fall before the water check.
+        self.assertEqual(check.count('function meridian_base:escape'), 5)
+        self.assertNotIn('function meridian_base:return_player', check)
+        escape = self.files['data/meridian_base/function/escape.mcfunction'].splitlines()
+        self.assertEqual(escape, [
+            'execute if score $gamestate CmdData matches 1 run return run function mcm:game/playerdeath',
+            'function meridian_base:return_player',
+        ])
+        death = self.files['data/mcm/function/game/playerdeath.mcfunction']
+        self.assertIn('scoreboard players set @s dead 1', death)
+        self.assertIn('gamemode spectator @s', death)
+        for ns in ('bagger_288', 'underwater_base'):
+            self.assertEqual(self.files[f'data/{ns}/function/check_player.mcfunction']
+                             .count(f'function {ns}:return_player'), 5)
+
     def test_authorized_compatibility_substitutions_are_exact_saved_states(self):
         changes = 0
         for ns in ('meridian_base', 'underwater_base'):
