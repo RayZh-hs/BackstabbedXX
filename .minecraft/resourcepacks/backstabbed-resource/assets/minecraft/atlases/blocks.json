@@ -24,6 +24,18 @@
     {
       "type": "single",
       "resource": "subway_station:posters/subway_station"
+    },
+    {
+      "type": "single",
+      "resource": "meridian_base:posters/meridian_base"
+    },
+    {
+      "type": "single",
+      "resource": "bagger_288:posters/bagger_288"
+    },
+    {
+      "type": "single",
+      "resource": "underwater_base:posters/underwater_base"
     }
   ]
 }

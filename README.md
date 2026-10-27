@@ -101,6 +101,9 @@ and run one of these in chat while no round is active:
 | Arena | Command |
 | --- | --- |
 | Subway Station | `/function subway_station:select` |
+| Meridian Base | `/function meridian_base:select` |
+| Bagger 288 | `/function bagger_288:select` |
+| Underwater Base | `/function underwater_base:select` |
 | Yacht | `/function yacht:select` |
 | River Bank | `/function river_bank:select` |
 | Panda Village | `/function panda_village:select` |
@@ -131,6 +134,15 @@ spawns, voting artwork and reset behavior are included. Automatic boundary
 teleports are disabled. Inside each of the four six-carriage trains,
 right-click **Previous carriage / Next carriage** on the end walls to travel
 to the adjacent carriage. The labels also support Simplified Chinese.
+
+KAIZEN87's [Meridian Base](docs/arenas/meridian_base.md),
+[Bagger 288](docs/arenas/bagger_288.md), and
+[Underwater Base](docs/arenas/underwater_base.md) are maps 17–19. Each includes
+24 validated spawns, voting artwork adapted from its webpage imagery, reset
+behavior and containment that follows the connected build. The original 1.21.8
+builds are adapted to 1.21.4 with 112 user-approved decorative substitutions in
+Meridian and Underwater Base. Their original archives, credits and license notices
+are preserved; see the arena records for source links, terms and placement.
 
 The source save is
 `.minecraft/saves/Backstabbed ++! by NorbMinecraft and Bagel Buddies/`.

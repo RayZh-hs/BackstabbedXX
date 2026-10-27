@@ -1,0 +1,52 @@
+{
+  "credit": "Underwater Base by KAIZEN87; https://www.minecraftmaps.com/52536-underwater-base. Webpage imagery adapted with OpenAI built-in imagegen; final Meridian image selected/supplied by the user.",
+  "gui_light": "front",
+  "textures": {
+    "poster": "underwater_base:posters/underwater_base",
+    "particle": "underwater_base:posters/underwater_base"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        24,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#poster"
+        }
+      }
+    }
+  ],
+  "display": {
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}

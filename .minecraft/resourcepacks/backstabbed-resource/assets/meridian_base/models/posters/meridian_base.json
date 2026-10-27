@@ -1,0 +1,52 @@
+{
+  "credit": "Meridian Base by KAIZEN87; https://www.minecraftmaps.com/52535-meridian-base. Webpage imagery adapted with OpenAI built-in imagegen; final Meridian image selected/supplied by the user.",
+  "gui_light": "front",
+  "textures": {
+    "poster": "meridian_base:posters/meridian_base",
+    "particle": "meridian_base:posters/meridian_base"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        24,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#poster"
+        }
+      }
+    }
+  ],
+  "display": {
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}

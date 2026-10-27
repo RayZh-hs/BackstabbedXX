@@ -1,0 +1,77 @@
+{
+  "authorized_by_user": true,
+  "source_slug": "52536-underwater-base",
+  "origin": [
+    -5445,
+    49,
+    5838
+  ],
+  "size": [
+    12,
+    2,
+    29
+  ],
+  "changes": [
+    {
+      "position": [
+        -5445,
+        49,
+        5838
+      ],
+      "before": {
+        "Name": "minecraft:firefly_bush"
+      },
+      "after": {
+        "Name": "minecraft:fern"
+      }
+    },
+    {
+      "position": [
+        -5444,
+        49,
+        5838
+      ],
+      "before": {
+        "Name": "minecraft:bush"
+      },
+      "after": {
+        "Name": "minecraft:fern"
+      }
+    },
+    {
+      "position": [
+        -5444,
+        49,
+        5840
+      ],
+      "before": {
+        "Name": "minecraft:short_dry_grass"
+      },
+      "after": {
+        "Name": "minecraft:dead_bush"
+      }
+    },
+    {
+      "position": [
+        -5434,
+        50,
+        5866
+      ],
+      "before": {
+        "Name": "minecraft:dried_ghast",
+        "Properties": {
+          "waterlogged": "false",
+          "facing": "north",
+          "hydration": "0"
+        }
+      },
+      "after": {
+        "Name": "minecraft:skeleton_skull",
+        "Properties": {
+          "rotation": "0",
+          "powered": "false"
+        }
+      }
+    }
+  ]
+}

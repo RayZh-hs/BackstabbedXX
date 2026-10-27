@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-27",
+  "creator": "KAIZEN87",
+  "posters": {
+    "meridian_base": {
+      "method": "User-supplied final PNG, installed unchanged; earlier imagegen variants informed selection.",
+      "asset_path": ".minecraft/resourcepacks/backstabbed-resource/assets/meridian_base/textures/posters/meridian_base.png",
+      "prompt": "Use case: compositing. Asset type: finished Backstabbed++ Minecraft arena voting poster, vertical 2:3 portrait PNG. Input image is KAIZEN87's actual webpage screenshot: REUSE its recognizable build and original materials, proportions and details as the main illustration. Adapt the landscape scene to portrait by extending surrounding atmosphere or fitting the intact panoramic building in the composition. Detailed Minecraft pixel-art travel-poster finish, polished lighting, a thin decorative border, no people or invented buildings. Text: very large bold cream block-pixel title \"MERIDIAN BASE\" across the BOTTOM QUARTER, about 80% of the poster width on two compact lines, over dark ocean. Keep the entire upper two-thirds free of title text so the radar tower and ocean platform are prominent. Small \"BACKSTABBED++\" at TOP LEFT; small \"BUILD BY KAIZEN87\" below the bottom title. Typography must be dominant and at least as large as a classic movie poster title, crisp at small in-game display sizes. Use the exact supplied wording, no extra slogans. Preserve creator attribution. Flat artwork without mockup or perspective tilt.",
+      "final_user_instruction": "Use this as meridian base poster: The old one's too fancy.",
+      "final_source": "User attachment /tmp/codex-clipboard-ngPRKM.png; preserved in the resource-pack asset.",
+      "sha256": "58a60ae06d78ac1096d98f66bfddb3c0a5757c9f4225a49198a1f26b3ee0636f",
+      "source_webpage": "https://www.minecraftmaps.com/52535-meridian-base",
+      "reference_image_url": "https://images.minecraftmaps.com/1782386362413-8cmask.png"
+    },
+    "bagger_288": {
+      "method": "OpenAI built-in imagegen; adapted from the original map webpage imagery.",
+      "asset_path": ".minecraft/resourcepacks/backstabbed-resource/assets/bagger_288/textures/posters/bagger_288.png",
+      "prompt": "Use case: style-transfer. Asset type: a finished vertical 2:3 Minecraft map voting poster. Change the supplied Bagger 288 poster into a MODERN ARCHITECTURAL BLUEPRINT / ENGINEERING DRAWING, BLACK INK ON CLEAN WHITE PAPER. Use the second supplied original webpage screenshot to preserve the exact recognizable Minecraft excavator architecture, enormous bucket wheel, long cantilever trusses, central mast, stairs, furnished multi-storey body, tracked base, cables and gantries. Render the machine in intricate precise thin black technical linework, crisp drafting detail and subtle line-weight hierarchy, with a large central axonometric engineering view and smaller side elevation or mechanical detail insets, restrained dimension arrows and fine drafting guides (no arbitrary unreadable text). Pure black and white, abundant white paper, modern editorial grid, professionally typeset. No ocean, sky, sunset, orange, texture grunge, cream, photoreal shading, sepia, or dark background. Oversized clear title exactly \"BAGGER 288\" in bold modern technical sans serif placed in a wide BOTTOM-LEFT title block, about 85% of poster width. Small title-block credits exactly \"BUILD BY KAIZEN87\" and \"BACKSTABBED++\". Keep machinery dominant and intricate. Preserve attribution. Flat artwork, no mockup, no tilted paper.\nFinal correction: Keep this black-ink-on-white blueprint composition, its intricate excavator linework, all inset panels, the large bottom title and creator/footer credits. REMOVE every numeric dimension label and measurement unit everywhere (including 142 m, 347 m, 164 m, 44 m, 8 m, 17 m, 46 m, 58 m); preserve the fine dimension arrows and guide lines as unlabeled drafting marks. This is illustrative voting art, so it must not claim inaccurate measured sizes. The ONLY number anywhere must be 288 in the main title BAGGER 288. Keep paper white and linework sharp. Do not change the layout or add new wording.",
+      "sha256": "e512f5851f99f936f97b60d3c07dada1c6352340ff2747bd16ef9a432406e3c1",
+      "source_webpage": "https://www.minecraftmaps.com/52537-bagger-288-survival-base",
+      "reference_image_url": "https://images.minecraftmaps.com/bagger-288-survival-base-52537-image-01.png"
+    },
+    "underwater_base": {
+      "method": "OpenAI built-in imagegen; adapted from the original map webpage imagery.",
+      "asset_path": ".minecraft/resourcepacks/backstabbed-resource/assets/underwater_base/textures/posters/underwater_base.png",
+      "prompt": "Use case: compositing. Asset type: finished Backstabbed++ Minecraft arena voting poster, vertical 2:3 portrait PNG. Input image is KAIZEN87's actual webpage screenshot: REUSE its recognizable build and original materials, proportions and details as the main illustration. Adapt the landscape scene to portrait by extending surrounding atmosphere or fitting the intact panoramic building in the composition. Detailed Minecraft pixel-art travel-poster finish, polished lighting, a thin decorative border, no people or invented buildings. Text: huge cream block-pixel title \"UNDERWATER\" then \"BASE\", aligned RIGHT in the UPPER-MIDDLE on the right, extending across about 90% width, at vertical 28%-48%, not against the top edge. Reserve top quarter for luminous deep-blue water and light rays. The base is framed across the LOWER THIRD. Small \"BACKSTABBED++\" at TOP RIGHT; \"BUILD BY KAIZEN87\" at BOTTOM LEFT. Strong right-aligned editorial composition. Typography must be dominant and at least as large as a classic movie poster title, crisp at small in-game display sizes. Use the exact supplied wording, no extra slogans. Preserve creator attribution. Flat artwork without mockup or perspective tilt.",
+      "sha256": "3381aa6526928d0a47987afe9603f0dfb7205b76c1f0e14059a36fa377333737",
+      "source_webpage": "https://www.minecraftmaps.com/52536-underwater-base",
+      "reference_image_url": "https://images.minecraftmaps.com/underwater-base-52536-image-01.png"
+    }
+  }
+}

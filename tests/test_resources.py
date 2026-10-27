@@ -68,7 +68,7 @@ class VotingPosterTests(unittest.TestCase):
                         self.assertEqual(blocks.block(math.floor(face_x), int(booth_y + 1), int(booth_z + 1)), "air")
                         self.assertEqual(blocks.block(int(booth_x), int(booth_y + 1), int(booth_z + 1)), "light_gray_terracotta")
             checked.add(poster)
-        self.assertEqual(len(checked), 17)
+        self.assertEqual(len(checked), 20)
 
     def test_all_voting_posters_have_models_and_stitched_textures(self):
         with zipfile.ZipFile(DATAPACK) as archive:
@@ -76,7 +76,7 @@ class VotingPosterTests(unittest.TestCase):
         commands = "\n".join(line for line in commands.splitlines() if not line.lstrip().startswith("#"))
         posters = re.findall(r'(?:"(?:minecraft:)?item_model"|item_model):"([^"]+:posters/[^"]+)"', commands)
         self.assertTrue(posters)
-        self.assertTrue({f"{name}:posters/{name}" for name in ("panda_village", "river_bank", "yacht", "subway_station")} <= set(posters))
+        self.assertTrue({f"{name}:posters/{name}" for name in ("panda_village", "river_bank", "yacht", "subway_station", "meridian_base", "bagger_288", "underwater_base")} <= set(posters))
         atlas = json.loads((ASSETS / "minecraft/atlases/blocks.json").read_text())["sources"]
 
         def stitched(texture):

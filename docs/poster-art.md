@@ -14,6 +14,15 @@ Yacht and River Bank were generated with the built-in imagegen tool on
 The textures illustrate the map themes. They are voting artwork, not screenshots
 of the playable arenas.
 
+Meridian Base, Bagger 288 and Underwater Base were added on 27 October 2026.
+Their artwork reuses KAIZEN87's original map-webpage imagery. Meridian uses the
+user-supplied sunset PNG unchanged, with the large title at the bottom. Bagger
+uses a modern black-ink-on-white technical drawing with a bottom title block.
+Underwater uses a large right-aligned title below open water. All three use
+1024 × 1536 textures and credit KAIZEN87. Exact final prompts, source image URLs,
+generation/selection methods, asset paths and SHA-256 hashes are recorded in
+[kaizen_posters.json](arenas/kaizen_posters.json).
+
 ## Voting-booth model placement
 
 Panda Village, River Bank and Yacht use the original voting display's X offset
