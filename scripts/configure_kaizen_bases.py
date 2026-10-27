@@ -15,6 +15,7 @@ import zipfile
 
 from furnish_subway_station import unpack, block_command, state_key
 from import_kaizen_bases import MAPS, ROOT, WORLD, WORK
+from arena_containment import configure_containment, DESCRIPTIONS
 
 
 def original_states(spec):
@@ -45,7 +46,7 @@ def original_states(spec):
                 name, properties = state_key(state)
                 key = name + '[' + ','.join(f'{k}={v}' for k, v in properties) + ']'
                 fragile = spec['namespace'] == 'underwater_base' and short not in (
-                    'air', 'cave_air', 'void_air', 'water', 'lava', 'bubble_column',
+                    'air', 'cave_air', 'void_air', 'water', 'lava', 'bubble_column', 'barrier',
                     'kelp', 'kelp_plant', 'seagrass', 'tall_seagrass') and (
                     not collision_states[key] or short.endswith('_carpet'))
                 reset = (short.endswith(('_door', '_trapdoor', '_button', '_pressure_plate', '_fence_gate')) or
@@ -264,15 +265,23 @@ User-authorized decoration substitutions: {report['compatibility_changes']}. Bui
         for lang, label in [('en_us', title), ('zh_cn', chinese)]:
             path = assets / f'{ns}/lang/{lang}.json'
             path.parent.mkdir(exist_ok=True, parents=True)
-            path.write_text(json.dumps({f'{ns}.name': label, f'{ns}.voted': ('| Voted: ' if lang == 'en_us' else '| 已投票：') + label,
-                f'{ns}.ready': label + (' ready' if lang == 'en_us' else '已就绪')}, ensure_ascii=False, indent=2) + '\n')
+            values = {f'{ns}.name': label, f'{ns}.voted': ('| Voted: ' if lang == 'en_us' else '| 已投票：') + label,
+                f'{ns}.ready': label + (' ready' if lang == 'en_us' else '已就绪')}
+            if ns == 'bagger_288':
+                values.update({f'{ns}.death.squashed': '\"%s\" got squashed by giant wheels' if lang == 'en_us' else '“%s”被巨型车轮碾碎了',
+                               f'{ns}.death.fall': '\"%s\" fell off Bagger 288' if lang == 'en_us' else '“%s”从巴格尔288上坠落了'})
+            path.write_text(json.dumps(values, ensure_ascii=False, indent=2) + '\n')
         report['reset_main_commands'] = len(restore)-1
         report['reset_commands'] = (len(restore)-1 +
             (len(dry_restore)-1 if dry_restore else 0) +
             (len(fragile_states)+len(fragile_tiles)-1 if fragile_states else 0))
+        if ns in DESCRIPTIONS:
+            report['containment'] = DESCRIPTIONS[ns]
+            report['boundary_teleport_enabled'] = False
         report_path.write_text(json.dumps(report, indent=2) + '\n')
         print(f'{title}: map {mid}, 24 spawns, {len(report["boundary_boxes"])} boundary boxes, {len(restore)-1} reset commands')
     atlas_path.write_text(json.dumps(atlas, indent=2) + '\n')
+    configure_containment(files)
     temporary = archive.with_suffix('.tmp')
     with zipfile.ZipFile(temporary, 'w', zipfile.ZIP_DEFLATED) as saved:
         for name, content in files.items():

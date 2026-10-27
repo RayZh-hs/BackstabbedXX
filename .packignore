@@ -11,5 +11,6 @@ tests
 README.md
 instance.cfg.example
 map-previewer
+arena-editor
 .agents
 AGENTS.md

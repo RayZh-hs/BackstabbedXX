@@ -1,0 +1,226 @@
+{
+  "namespace": "underwater_base",
+  "origin": [
+    32949,
+    42,
+    32529
+  ],
+  "size": [
+    24,
+    4,
+    4
+  ],
+  "description": "Six exterior hatch cells replaced by full barriers with non-interactive block displays preserving their original appearance. Internal bubble lifts and doors remain functional.",
+  "changes": [
+    {
+      "position": [
+        32949,
+        45,
+        32532
+      ],
+      "source_position": [
+        -5451,
+        45,
+        5908
+      ],
+      "before": {
+        "Name": "minecraft:iron_trapdoor",
+        "Properties": {
+          "waterlogged": "true",
+          "half": "bottom",
+          "powered": "false",
+          "open": "false",
+          "facing": "east"
+        }
+      },
+      "after": {
+        "Name": "minecraft:barrier"
+      },
+      "display": {
+        "Name": "minecraft:iron_trapdoor",
+        "Properties": {
+          "waterlogged": "true",
+          "half": "bottom",
+          "powered": "false",
+          "open": "false",
+          "facing": "east"
+        }
+      }
+    },
+    {
+      "position": [
+        32950,
+        45,
+        32532
+      ],
+      "source_position": [
+        -5450,
+        45,
+        5908
+      ],
+      "before": {
+        "Name": "minecraft:waxed_copper_trapdoor",
+        "Properties": {
+          "waterlogged": "true",
+          "half": "bottom",
+          "powered": "false",
+          "open": "false",
+          "facing": "west"
+        }
+      },
+      "after": {
+        "Name": "minecraft:barrier"
+      },
+      "display": {
+        "Name": "minecraft:waxed_copper_trapdoor",
+        "Properties": {
+          "waterlogged": "true",
+          "half": "bottom",
+          "powered": "false",
+          "open": "false",
+          "facing": "west"
+        }
+      }
+    },
+    {
+      "position": [
+        32970,
+        42,
+        32529
+      ],
+      "source_position": [
+        -5430,
+        42,
+        5905
+      ],
+      "before": {
+        "Name": "minecraft:spruce_trapdoor",
+        "Properties": {
+          "waterlogged": "true",
+          "half": "top",
+          "powered": "false",
+          "open": "false",
+          "facing": "east"
+        }
+      },
+      "after": {
+        "Name": "minecraft:barrier"
+      },
+      "display": {
+        "Name": "minecraft:spruce_trapdoor",
+        "Properties": {
+          "waterlogged": "true",
+          "half": "top",
+          "powered": "false",
+          "open": "false",
+          "facing": "east"
+        }
+      }
+    },
+    {
+      "position": [
+        32971,
+        42,
+        32529
+      ],
+      "source_position": [
+        -5429,
+        42,
+        5905
+      ],
+      "before": {
+        "Name": "minecraft:spruce_trapdoor",
+        "Properties": {
+          "waterlogged": "true",
+          "half": "top",
+          "powered": "false",
+          "open": "false",
+          "facing": "east"
+        }
+      },
+      "after": {
+        "Name": "minecraft:barrier"
+      },
+      "display": {
+        "Name": "minecraft:spruce_trapdoor",
+        "Properties": {
+          "waterlogged": "true",
+          "half": "top",
+          "powered": "false",
+          "open": "false",
+          "facing": "east"
+        }
+      }
+    },
+    {
+      "position": [
+        32972,
+        43,
+        32529
+      ],
+      "source_position": [
+        -5428,
+        43,
+        5905
+      ],
+      "before": {
+        "Name": "minecraft:waxed_exposed_copper_trapdoor",
+        "Properties": {
+          "waterlogged": "true",
+          "half": "bottom",
+          "powered": "false",
+          "open": "true",
+          "facing": "east"
+        }
+      },
+      "after": {
+        "Name": "minecraft:barrier"
+      },
+      "display": {
+        "Name": "minecraft:waxed_exposed_copper_trapdoor",
+        "Properties": {
+          "waterlogged": "true",
+          "half": "bottom",
+          "powered": "false",
+          "open": "true",
+          "facing": "east"
+        }
+      }
+    },
+    {
+      "position": [
+        32972,
+        44,
+        32529
+      ],
+      "source_position": [
+        -5428,
+        44,
+        5905
+      ],
+      "before": {
+        "Name": "minecraft:waxed_exposed_copper_trapdoor",
+        "Properties": {
+          "waterlogged": "true",
+          "half": "top",
+          "powered": "false",
+          "open": "true",
+          "facing": "east"
+        }
+      },
+      "after": {
+        "Name": "minecraft:barrier"
+      },
+      "display": {
+        "Name": "minecraft:waxed_exposed_copper_trapdoor",
+        "Properties": {
+          "waterlogged": "true",
+          "half": "top",
+          "powered": "false",
+          "open": "true",
+          "facing": "east"
+        }
+      }
+    }
+  ]
+}

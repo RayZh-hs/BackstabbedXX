@@ -4224,7 +4224,7 @@
   ],
   "connected_artifact_blocks": 34080,
   "spawn_selection": "Three main-body working decks",
-  "containment": "Per-height masks of the connected build, one-block movement margin; out-of-mask, fluid or wrong-dimension live participants return to a validated spawn. Spectators, dead/lobby players, inactive states and other arenas excluded.",
+  "containment": "Falls outside the build, fluid escapes and feet below Y -45.5 eliminate live participants through mcm:game/playerdeath. Lower wheel/tread landings are checked first and announce \"<player>\" got squashed by giant wheels. No boundary-return teleportation. Applies during waiting after entry, grace and play; spectators, dead/unqueued players, other maps and inactive states are excluded.",
   "forceload_bounds": [
     28576,
     28672,
@@ -4268,5 +4268,8 @@
       76
     ]
   },
-  "reset_main_commands": 3007
+  "reset_main_commands": 3007,
+  "boundary_teleport_enabled": false,
+  "death_line": -45.5,
+  "wheel_hazards": "bagger_288_wheels.json"
 }

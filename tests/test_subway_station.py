@@ -54,8 +54,10 @@ def inside(predicate, point, dimension='minecraft:overworld'):
     if predicate['condition'] == 'minecraft:any_of':
         return any(inside(term, point, dimension) for term in predicate['terms'])
     location = predicate['predicate']
+    if predicate['condition'] == 'minecraft:entity_properties':
+        location = location['location']
     return location['dimension'] == dimension and all(
-        location['position'][axis]['min'] <= value <= location['position'][axis]['max']
+        location['position'].get(axis, {}).get('min', -math.inf) <= value <= location['position'].get(axis, {}).get('max', math.inf)
         for axis, value in zip('xyz', point))
 
 

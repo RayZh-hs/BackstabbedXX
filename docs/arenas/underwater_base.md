@@ -43,12 +43,18 @@ feet Y 40…66, Z 32448…32546; the union narrows
 at each height. This envelope alone is not the arena. Detached scenery, the ocean,
 low source ground, accidental caves and other dimensions are excluded.
 
-A living, queued participant outside the mask, in a fluid block, or in a waterlogged
-block returns to `[32958.5, 43, 32465.5]`, a validated spawn. Feet and head fluid
-checks use actual 1.21.4 block tags. Spectating, dead, unqueued/lobby players, other
-maps and reset states are excluded. Waiting players acquire an arena participant
-tag only after entering the play region; active rounds enforce containment during
-grace and normal play. No global world border or new physical barriers are used.
+**Boundary-return teleportation is disabled.** Containment is physical: **six
+exterior hatch cells** are full barrier blocks, with non-interactive `block_display`
+entities preserving each hatch's original block state and appearance. Players
+cannot flip these hatches open. Interior doors and decorative trapdoors remain
+interactive; both bubble lifts remain usable. Water and positions outside the
+old mask no longer trigger automatic returns or elimination.
+
+Exact source/destination coordinates and before/after/display states are in
+[underwater_base_exits.json](underwater_base_exits.json). With all other doors and
+trapdoors treated as open, the saved collision geometry still connects all spawns
+and both internal lifts without reaching the ocean or the build's exterior edges.
+The old predicate remains available for spawn/geometry inspection.
 
 ## Spawns and lifecycle
 
@@ -62,7 +68,10 @@ in [underwater_base.json](underwater_base.json).
 Voting loads 72 chunks and schedules guarded activation after
 loading. Activation rebuilds the marker pool without duplicates. Reset cancels
 pending activation, removes the map runtime/participant tags and restores
-**2064 original interactive states, dry cells or block-entity records**.
+interactive states, dry cells, block-entity records and the six exit barriers.
+The original hatch reset commands are removed, so reset cannot reopen a seal.
+Activation creates exactly six hatch displays; repeated activation replaces the
+previous displays, active reload preserves them, and reset removes them.
 All chunk-load rectangles stay within the vanilla 256-chunk per-command limit.
 Reload preserves an active round; inactive reload/reset unloads its arena chunks.
 Reset also clears incoming seawater from **3178 originally dry cells**
@@ -130,7 +139,24 @@ remain available for recovery.
 
 ## Verification
 
-`make test` passes **37 tests**. The maintained previewer passes **8 tests**.
+The 2026-10-27 containment repair passes **52 repository tests**, including all six
+saved barrier cells, display/reset wiring, spawn routes, preserved lifts and
+physical ocean isolation with interactive blocks treated as fully open. The
+following records also describe the original integration checks; updated repair
+evidence is under `map-previewer/maps/containment-fix/runtime/`.
+
+The maintained previewer previously passed **8 tests**.
+The repair's isolated vanilla 1.21.4 server validated **47 actual spawns** across
+both repaired arenas, **six real client right-click attempts** on the sealed
+hatches, unchanged internal bubble columns, removal of water/exterior return
+teleports, and repeated activation, active reload, reset and reactivation with
+exactly six displays. Test commands and results are in `test.cjs` and
+`results.json` under the repair's runtime directory. These are automated vanilla
+checks; the NeoForge client profile and human multiplayer balance were not
+playtested for this repair.
+Both repaired maps also completed normal **four-player round starts**, role
+assignment (one murderer and three innocents), and the full grace period; see
+`round-results.json` in the repair's runtime directory.
 The repository checks validate all 72 installed spawns, collision shapes, connected
 build membership, actual boundary predicates, exclusions, lifecycle scope,
 compatibility substitutions and the complete poster reference chain.
@@ -167,3 +193,30 @@ Reproduction tools are `scripts/import_kaizen_bases.py`,
 `scripts/configure_kaizen_bases.py`. They use preserved source/previews under the
 ignored `map-previewer/maps/` directory. Import refuses existing destination
 regions; back up the stopped save before applying any later map repair.
+
+## Exit-sealing repair (2026-10-27)
+
+The six barrier placements were generated with `minecraft-builder-skill` using
+[underwater_exit_seals.mjs](../../scripts/builds/underwater_exit_seals.mjs),
+DataVersion 4189. A Lodestone browser preview showed the repair in the original
+architecture, using magenta glass only as inspection proxies for invisible
+barriers. The installed patch contains exactly six `minecraft:barrier` blocks.
+The installer checks every original hatch state before replacing it and preserves
+all block entities and unrelated chunk payloads. Visual hatch displays are created
+by the datapack during activation. Original downloads/worlds are unchanged.
+
+The full stopped save backup, including the existing arena-editor changes, is:
+
+```text
+.minecraft/backups/map-integration/20261027T101411138725Z-bagger-underwater-before-seals-74059f54.zip
+SHA-256: 57a442c4f3382d6da3b971843bbaab577f26280aeb28b79d6811623d99e76454
+935 files
+```
+
+Use the verify/move-aside/extract procedure above to restore. Only
+`region/r.64.63.mca` (six blocks in two chunks) and `datapacks/mcm.zip` differ from
+this save snapshot. The source resource pack also adds Bagger death translations.
+The bounded installer is
+[update_arena_containment.py](../../scripts/update_arena_containment.py); rerunning
+[configure_kaizen_bases.py](../../scripts/configure_kaizen_bases.py) also retains
+these containment policies through the shared generator.

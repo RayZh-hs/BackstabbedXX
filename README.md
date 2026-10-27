@@ -40,6 +40,8 @@ Other build commands:
 make                 # Build the resource pack and the Prism instance ZIP
 make launch          # Build, then launch the working copy (requires uv)
 make launch -- --local  # Launch a fresh playtest world with idle players
+make edit            # Choose an arena and open its persistent editor session
+make edit yacht      # Edit an arena directly; confirm write-back after closing
 make resourcepack    # Rebuild only the resource pack, including the installed ZIP
 make map             # Build only the map, using the latest Git version tag
 make release VERSION=1.1.1  # Build all release assets for an explicit version
@@ -143,6 +145,31 @@ at least four queued players. They do not start a solo round. If commands are
 disabled in singleplayer, use **Esc → Open to LAN → Allow Commands: ON → Start
 LAN World** for the current session.
 
+## Edit an arena in Minecraft
+
+The [arena editor](arena-editor/README.md) extracts one arena into a persistent
+creative void world in your chosen instance, including **1.21.4-Fabric**.
+A generated datapack provides a clickable editor book and chat controls,
+right-clickable player/ammo spawn labels, and editable keep-in/keep-out boxes
+with teleport or kill responses. Your usual creative building tools can edit
+the blocks too.
+
+```sh
+uv run arena-editor/editor.py init-config
+# Edit arena-editor/config.local.json: instance game directory and launch command.
+make edit                 # List arena names and choose one
+make edit subway_station  # Open a specific arena directly
+```
+
+The local config is Git ignored. Sessions persist in the chosen instance.
+After **Save and Quit**, the terminal presents an export and asks before writing
+the edited blocks, decorations, spawns and constraints back into that arena's
+source footprint. Press Enter to accept the default Yes. Confirmation creates a
+verified full backup; declining keeps the source unchanged. Source conflicts are
+refused, and successful write-back updates the session for the next `make edit`.
+See the guide for boundary semantics, exact functions, launcher settings and
+reset-script limitations.
+
 ## Map Source
 
 For evaluating new maps, use the root-level [map previewer](map-previewer/README.md).
@@ -195,7 +222,7 @@ The source directory is excluded from Prism exports by `.packignore`.
 
 [GitHub Actions](https://github.com/RayZh-hs/BackstabbedXX/actions/workflows/release.yml)
 builds and publishes releases when a version tag such as `v1.1.0` or
-`v1.1.1-alpha` is pushed. Tags with a prerelease suffix are published as GitHub
+`v1.1.1` is pushed. Tags with a prerelease suffix are published as GitHub
 prereleases. The tagged commit must belong to `main`. The workflow runs `make test` and
 `make release VERSION=<tag>`, checks the three ZIPs, generates SHA-256 checksums,
 and uploads the modpack, standalone resource pack, separate map, and checksums
@@ -207,7 +234,7 @@ a pull request. The notes also link to the full comparison and explain which
 downloads players and hosts need. To preview the notes for an existing tag:
 
 ```sh
-python3 scripts/release_notes.py v1.1.1-alpha --repo RayZh-hs/BackstabbedXX
+python3 scripts/release_notes.py v1.1.1 --repo RayZh-hs/BackstabbedXX
 ```
 
 After committing the next release's changes on `main`, tag that commit and push

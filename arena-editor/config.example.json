@@ -1,0 +1,6 @@
+{
+  "game_dir": "/path/to/PrismLauncher/instances/1.21.4-Fabric/.minecraft",
+  "source_world": "../.minecraft/saves/Backstabbed ++! by NorbMinecraft and Bagel Buddies",
+  "launch_command": ["prismlauncher", "--launch", "1.21.4-Fabric"],
+  "launch_cwd": "."
+}

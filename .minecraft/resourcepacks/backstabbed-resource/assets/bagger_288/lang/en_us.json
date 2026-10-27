@@ -1,5 +1,7 @@
 {
   "bagger_288.name": "Bagger 288",
   "bagger_288.voted": "| Voted: Bagger 288",
-  "bagger_288.ready": "Bagger 288 ready"
+  "bagger_288.ready": "Bagger 288 ready",
+  "bagger_288.death.squashed": "\"%s\" got squashed by giant wheels",
+  "bagger_288.death.fall": "\"%s\" fell off Bagger 288"
 }

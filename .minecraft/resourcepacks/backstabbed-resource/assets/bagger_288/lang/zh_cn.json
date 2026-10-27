@@ -1,5 +1,7 @@
 {
   "bagger_288.name": "巴格尔288",
   "bagger_288.voted": "| 已投票：巴格尔288",
-  "bagger_288.ready": "巴格尔288已就绪"
+  "bagger_288.ready": "巴格尔288已就绪",
+  "bagger_288.death.squashed": "“%s”被巨型车轮碾碎了",
+  "bagger_288.death.fall": "“%s”从巴格尔288上坠落了"
 }

@@ -214,7 +214,7 @@ def atomic_write(path, data):
         temporary.unlink(missing_ok=True)
 
 
-def verify_backup(world, backup):
+def verify_backup(world, backup, *, allow_new_session_lock=False):
     spec = importlib.util.spec_from_file_location('world_backup', ROOT / '.agents/skills/backstabbed-map-creator/scripts/backup_world.py')
     helper = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(helper)
@@ -223,6 +223,12 @@ def verify_backup(world, backup):
         raise ValueError('Backup belongs to a different world')
     saved = {str(Path(f['path']).relative_to(manifest['world_folder'])): f for f in manifest['files']}
     current = helper.inventory(world)
+    if allow_new_session_lock and 'session.lock' not in saved:
+        # A save never opened by Minecraft may have no lock file. An installer
+        # may create and lock an empty one after the backup, without changing data.
+        lock = world / 'session.lock'
+        if lock.is_file() and lock.stat().st_size == 0:
+            current.pop('session.lock', None)
     if current.keys() != saved.keys():
         raise ValueError('Save file inventory changed since the backup')
     for relative in saved:

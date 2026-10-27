@@ -4074,7 +4074,7 @@
   ],
   "connected_artifact_blocks": 12568,
   "spawn_selection": "Dry interiors of the three connected main modules",
-  "containment": "Per-height masks of the connected build, one-block movement margin; out-of-mask, fluid or wrong-dimension live participants return to a validated spawn. Spectators, dead/lobby players, inactive states and other arenas excluded.",
+  "containment": "No boundary-return teleportation or fluid punishment. Six exterior hatch cells are full barriers, with non-interactive block displays preserving their original appearance. Internal doors, decoration and both bubble lifts remain usable. Seals persist in the saved map and are restored on activation/reset; displays are recreated without duplicates on activation and removed on reset.",
   "forceload_bounds": [
     32912,
     32432,
@@ -4121,5 +4121,7 @@
   "dry_reset_commands": 623,
   "original_dry_cells": 3178,
   "fragile_reset_commands": 619,
-  "reset_main_commands": 824
+  "reset_main_commands": 824,
+  "boundary_teleport_enabled": false,
+  "exit_seals": "underwater_base_exits.json"
 }

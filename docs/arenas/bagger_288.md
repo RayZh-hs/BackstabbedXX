@@ -43,16 +43,27 @@ feet Y -50…47, Z 28687…28750; the union narrows
 at each height. This envelope alone is not the arena. Detached scenery, the ocean,
 low source ground, accidental caves and other dimensions are excluded.
 
-A living, queued participant outside the mask, in a fluid block, or in a waterlogged
-block returns to `[28673.5, -40, 28715.5]`, a validated spawn. Feet and head fluid
-checks use actual 1.21.4 block tags. Spectating, dead, unqueued/lobby players, other
-maps and reset states are excluded. Waiting players acquire an arena participant
-tag only after entering the play region; active rounds enforce containment during
-grace and normal play. No global world border or new physical barriers are used.
+A living, queued participant outside the mask, in fluid, or with feet at/below
+**Y −45.5** is eliminated through `mcm:game/playerdeath`. The lower wheel/tread
+footprint is checked first: falling onto it announces **`"<player>" got squashed
+by giant wheels`**. Other falls announce `"<player>" fell off Bagger 288`.
+The wheel footprint comes from the saved tread blocks at Y ≤ −47, expanded by
+the player's 0.3-block radius; it catches players before the highest tread landing
+at Y −46. Exact hazard boxes are in [bagger_288_wheels.json](bagger_288_wheels.json).
+The working decks at Y −40 and above remain safe.
+
+Boundary-return teleportation is removed, including the arena-editor-generated
+tick path. Both tick paths use the same ordered checks. Feet/head fluid checks use
+actual 1.21.4 block tags. Spectating, dead, unqueued/lobby players, other maps and
+reset states are excluded. Waiting players acquire an arena participant tag only
+after entering the play region; the rules also cover grace and normal play.
 
 ## Spawns and lifecycle
 
-There are **24 distinct player/scrap spawns** and one spectator marker. Each actual
+The original integration had **24 distinct player/scrap spawns** and one spectator
+marker. The current arena-editor override contains **23 player/scrap spawns** and
+one spectator marker; its edited positions, rotations, blocks and bounds are
+preserved by this repair. Each actual
 saved destination has collision-shape clearance for a 0.6 × 1.8 player, full-footprint
 support at its exact height (including carpets/slabs), no fluid/damage hazard, at
 least two supported local exits, and membership in the connected build. Exact
@@ -114,7 +125,24 @@ remain available for recovery.
 
 ## Verification
 
-`make test` passes **37 tests**. The maintained previewer passes **8 tests**.
+The 2026-10-27 containment repair passes **52 repository tests**, including actual
+saved tread landing surfaces, safe spawn volumes, editor override handling, and
+physical Underwater Base escape routes. The following live evidence also records
+the original integration checks; updated repair evidence is stored separately at
+`map-previewer/maps/containment-fix/runtime/`.
+
+The maintained previewer previously passed **8 tests**.
+The repair's isolated vanilla 1.21.4 server validated all **23 edited Bagger
+spawns**, wheel and general fall deaths through both tick paths, spectator/lobby/
+inactive-map guards, and a real client gravity fall into the wheels. All wheel
+deaths displayed `"SealTester" got squashed by giant wheels` exactly, including
+the automatic gravity test. The same run checked **24 Underwater spawns**, six
+real client hatch right-clicks, and reset/reload/reactivation. These are automated
+vanilla checks; the NeoForge client profile and human multiplayer balance were
+not playtested for this repair.
+Both repaired maps also completed normal **four-player round starts**, role
+assignment (one murderer and three innocents), and the full grace period. Results
+are recorded in `round-results.json` in the repair's runtime directory.
 The repository checks validate all 72 installed spawns, collision shapes, connected
 build membership, actual boundary predicates, exclusions, lifecycle scope,
 compatibility substitutions and the complete poster reference chain.
@@ -151,3 +179,21 @@ Reproduction tools are `scripts/import_kaizen_bases.py`,
 `scripts/configure_kaizen_bases.py`. They use preserved source/previews under the
 ignored `map-previewer/maps/` directory. Import refuses existing destination
 regions; back up the stopped save before applying any later map repair.
+
+## Containment repair backup (2026-10-27)
+
+The stopped full save was snapshotted and checksum-verified before installation:
+
+```text
+.minecraft/backups/map-integration/20261027T101411138725Z-bagger-underwater-before-seals-74059f54.zip
+SHA-256: 57a442c4f3382d6da3b971843bbaab577f26280aeb28b79d6811623d99e76454
+935 files
+```
+
+Use the verify/move-aside/extract procedure above to restore. The backup includes
+the existing arena-editor changes. The repair changes only `datapacks/mcm.zip`
+and Underwater Base's `region/r.64.63.mca` inside the save; Bagger's block, entity
+and POI files retain their exact pre-repair bytes. Death translations are also
+updated in the resource-pack source. The generator is
+[arena_containment.py](../../scripts/arena_containment.py); the bounded installer
+is [update_arena_containment.py](../../scripts/update_arena_containment.py).

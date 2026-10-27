@@ -46,3 +46,6 @@ __pycache__/
 # Local map previews and their dependencies
 /map-previewer/node_modules/
 /map-previewer/maps/
+
+# Instance paths and launch commands belong to each developer.
+/arena-editor/config.local.json

@@ -74,4 +74,7 @@ for sp in MAPS:
  lower=[min(p[a] for p in g['artifact']) for a in range(3)];upper=[max(p[a] for p in g['artifact']) for a in range(3)]
  report['main_connected_destination_bounds']={'min':lower,'max':upper}
  report['main_connected_source_bounds']={'min':[lower[a]-d[a] for a in range(3)],'max':[upper[a]-d[a] for a in range(3)]}
+ from arena_containment import DESCRIPTIONS
+ if ns in DESCRIPTIONS:
+  report['containment']=DESCRIPTIONS[ns];report['boundary_teleport_enabled']=False
  (ROOT/('docs/arenas/'+ns+'.json')).write_text(json.dumps(report,indent=2)+'\n');(WORK/(ns+'-predicate.json')).write_text(json.dumps(predicate,indent=2)+'\n');print(ns,'spawns',len(spawns),'region boxes',len(boxes),flush=True)
