@@ -39,6 +39,7 @@ Other build commands:
 ```sh
 make                 # Build the resource pack and the Prism instance ZIP
 make launch          # Build, then launch the working copy (requires uv)
+make launch -- --local  # Launch a fresh playtest world with idle players
 make resourcepack    # Rebuild only the resource pack, including the installed ZIP
 make map             # Build only the map, using the latest Git version tag
 make release VERSION=1.1.1  # Build all release assets for an explicit version
@@ -84,6 +85,32 @@ make launch LAUNCH_ARGS='--jvm-args=-Xmx8G'
 The sign-in flow and session cache belong to PortableMC; it does not reuse your
 Prism or HMCL login. Local launch files and authentication are ignored by Git
 and excluded from client builds.
+
+For solo level playtesting, run:
+
+```sh
+make launch -- --local
+# Equivalent forms:
+make launch LOCAL=1
+make launch LAUNCH_ARGS='--local --resolution 1600x900'
+```
+
+GNU Make needs the extra `--` separator before custom flags; `make launch
+--local` alone is rejected by Make before it reads the project. The launcher
+itself accepts `--local`.
+
+Local mode opens a fresh copy of the source world automatically and adds three
+idle players named `PlaytestDummy1`–`PlaytestDummy3`. They count as real server
+players, automatically queue each round, receive roles and spawn in the arena,
+so you can meet the normal four-player minimum by joining the queue yourself.
+Commands are enabled: select an arena with the commands below, then queue and
+play normally. The dummies stand still; they do not fight or vote.
+
+The world, settings and helper mod live in a temporary directory under `dev/`
+and are removed when the game exits. Each local launch starts from the current
+source world, so playtest changes are discarded. The helper is compiled using
+PortableMC's Java 21 JDK and cached in `dev/local-playtest-helper/`. Normal
+launches and release builds use the usual mods and world.
 
 ### Pick an arena
 
