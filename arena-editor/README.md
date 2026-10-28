@@ -127,6 +127,14 @@ are rejected. Preparing, exporting and applying check the world's Java-compatibl
 POSIX record lock. The filesystem helper currently requires Linux/POSIX `fcntl`;
 Windows users can run it in WSL against a **closed** Windows instance.
 
+Permanent display entities are part of the saved map. They are copied with their
+positions, block/item data, and transformations, and their edits or deletions
+are written back with `--blocks` (or the normal `make edit` confirmation).
+Underwater Base's six exit trapdoor displays are saved decorations; activation
+and reset do not recreate them. Their origins use exact block corners. When
+adding a display with `/summon`, use decimal X/Z coordinates such as `32972.0`
+and `32529.0`: integer command coordinates are centered by 0.5 blocks.
+
 ## Edit points
 
 Labels show IDs and types. Particles distinguish player (cyan), ammo (orange),

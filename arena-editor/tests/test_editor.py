@@ -57,6 +57,10 @@ def write_fixture(root):
     world.write_region(source / "region/r.0.0.mca", {0: (1234, chunk()), 1: (1235, chunk(1))})
     entities = nbt.File({"DataVersion": nbt.Int(4189), "Position": nbt.IntArray([0, 0]), "Entities": nbt.List[nbt.Compound]([
         nbt.parse_nbt('{id:"minecraft:item_frame",Tags:["Decoration"]}'),
+        nbt.parse_nbt('''{id:"minecraft:block_display",Tags:["UnderwaterBaseExitDisplay","UnderwaterBaseDecoration"],
+            UUID:[I;1,2,3,4],Pos:[4d,2d,3d],Rotation:[0f,0f],
+            block_state:{Name:"minecraft:waxed_exposed_copper_trapdoor",Properties:{facing:"east",open:"true",half:"top",waterlogged:"true",powered:"false"}},
+            transformation:{translation:[0f,0f,0f],left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],scale:[1f,1f,1f]}}'''),
         nbt.parse_nbt('{id:"minecraft:marker",Tags:["MapEntity","PlayerSpawn"]}'),
         nbt.parse_nbt('{id:"minecraft:text_display",Tags:["bbe.overlay"]}'),
     ])})
@@ -80,7 +84,9 @@ class WorldTests(unittest.TestCase):
         self.assertEqual(set(selected), {0})
         self.assertEqual(selected[0], world.read_region(self.source / "region/r.0.0.mca")[0])
         entities = nbt.File.parse(BytesIO(world.read_region(target / "entities/r.0.0.mca")[0][1]))
-        self.assertEqual([str(e["id"]) for e in entities["Entities"]], ["minecraft:item_frame"])
+        self.assertEqual([str(e["id"]) for e in entities["Entities"]], ["minecraft:item_frame", "minecraft:block_display"])
+        source_entities = nbt.File.parse(BytesIO(world.read_region(self.source / "entities/r.0.0.mca")[0][1]))
+        self.assertEqual(entities["Entities"][1], source_entities["Entities"][1])
         self.assertEqual(world.read_region(target / "poi/r.0.0.mca"), world.read_region(self.source / "poi/r.0.0.mca"))
         self.assertEqual(before, editor.source_hashes(self.source, [0, 0, 15, 15]))
 
@@ -179,6 +185,34 @@ class EditorTests(unittest.TestCase):
         self.assertEqual(result[0], (2000, replacement))
         self.assertEqual(result[1], neighbor)
 
+    def test_display_edits_and_deletion_survive_export_apply_and_reextraction(self):
+        session = self.prepared()
+        path = session / "entities/r.0.0.mca"
+        entities = nbt.File.parse(BytesIO(world.read_region(path)[0][1]))
+        display = entities["Entities"][1]
+        display["Pos"][0] = nbt.Double(4.125)
+        display["transformation"]["translation"][1] = nbt.Float(0.25)
+        expected = copy.deepcopy(display)
+        world.write_region(path, {0: (2000, world.encode(entities))})
+        with redirect_stdout(StringIO()), patch.object(editor, "ROOT", self.root):
+            exported = editor.export(self.settings(), "example", self.root / "display-export")
+            editor.apply_export(exported, blocks=True)
+        reextracted = self.root / "reextracted"
+        world.copy_chunks(self.source, reextracted, [0, 0, 15, 15])
+        result = nbt.File.parse(BytesIO(world.read_region(reextracted / "entities/r.0.0.mca")[0][1]))
+        self.assertEqual(result["Entities"][1], expected)
+        # A deliberate deletion is also a saved edit. Nothing recreates it.
+        entities["Entities"].pop(1)
+        world.write_region(path, {0: (2001, world.encode(entities))})
+        manifest = json.loads((session / ".backstabbed-editor.json").read_text())
+        manifest["source_hashes"] = editor.source_hashes(self.source, manifest["bounds"])
+        editor.dump(session / ".backstabbed-editor.json", manifest)
+        with redirect_stdout(StringIO()), patch.object(editor, "ROOT", self.root):
+            exported = editor.export(self.settings(), "example", self.root / "deleted-display-export")
+            editor.apply_export(exported, blocks=True)
+        result = nbt.File.parse(BytesIO(world.read_region(self.source / "entities/r.0.0.mca")[0][1]))
+        self.assertEqual([str(e["id"]) for e in result["Entities"]], ["minecraft:item_frame"])
+
     def test_existing_session_and_changed_source_are_not_overwritten(self):
         session = self.prepared()
         before = (session / "level.dat").read_bytes()
@@ -257,6 +291,30 @@ class EditorTests(unittest.TestCase):
 
 
 class ImportTests(unittest.TestCase):
+    def test_underwater_exit_displays_are_aligned_saved_decorations(self):
+        files = editor.archive_files(editor.DEFAULT_WORLD)
+        spec = editor.discover(files)["underwater_base"]
+        displays = []
+        for filename, slots in world.footprint(spec["bounds"]).items():
+            for slot, (_, payload) in world.read_region(editor.DEFAULT_WORLD / "entities" / filename).items():
+                if slot in slots:
+                    entities = nbt.File.parse(BytesIO(payload)).get("Entities", [])
+                    displays.extend(e for e in entities if "UnderwaterBaseExitDisplay" in map(str, e.get("Tags", [])))
+        expected = {(32949, 45, 32532), (32950, 45, 32532), (32970, 42, 32529),
+                    (32971, 42, 32529), (32972, 43, 32529), (32972, 44, 32529)}
+        self.assertEqual(len(displays), 6)
+        self.assertEqual({tuple(map(float, e["Pos"])) for e in displays}, expected)
+        self.assertEqual(len({tuple(map(int, e["UUID"])) for e in displays}), 6)
+        for entity in displays:
+            self.assertEqual(str(entity["id"]), "minecraft:block_display")
+            self.assertFalse(set(map(str, entity["Tags"])) & {"MapEntity", "UnderwaterBaseRuntime"})
+            self.assertEqual(list(map(float, entity["transformation"]["translation"])), [0, 0, 0])
+        self.assertNotIn("data/underwater_base/function/spawn_exit_displays.mcfunction", files)
+        for name, contents in files.items():
+            if name.endswith(".mcfunction"):
+                self.assertNotIn(b"UnderwaterBaseExitDisplay", contents, name)
+                self.assertNotIn(b"underwater_base:spawn_exit_displays", contents, name)
+
     def test_repository_arenas_import_without_losing_spawns(self):
         files = editor.archive_files(editor.DEFAULT_WORLD)
         registry = editor.discover(files)
