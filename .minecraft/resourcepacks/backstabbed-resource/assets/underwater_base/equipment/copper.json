@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "underwater_base:copper"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "underwater_base:copper"
+      }
+    ]
+  }
+}

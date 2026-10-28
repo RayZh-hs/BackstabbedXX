@@ -40,6 +40,14 @@
     {
       "type": "single",
       "resource": "klut27:posters/klut27"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "underwater_base:entity/equipment/humanoid/copper"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "minecraft:block/oxidized_copper_grate"
     }
   ]
 }

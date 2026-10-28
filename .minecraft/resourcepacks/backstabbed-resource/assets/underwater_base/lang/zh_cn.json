@@ -1,5 +1,6 @@
 {
   "underwater_base.name": "水下基地",
   "underwater_base.voted": "| 已投票：水下基地",
-  "underwater_base.ready": "水下基地已就绪"
+  "underwater_base.ready": "水下基地已就绪",
+  "underwater_base.trader": "潜水服商人"
 }

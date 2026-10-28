@@ -1,5 +1,6 @@
 {
   "underwater_base.name": "Underwater Base",
   "underwater_base.voted": "| Voted: Underwater Base",
-  "underwater_base.ready": "Underwater Base ready"
+  "underwater_base.ready": "Underwater Base ready",
+  "underwater_base.trader": "Diving-Suit Trader"
 }

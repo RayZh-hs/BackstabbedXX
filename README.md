@@ -250,6 +250,13 @@ builds are adapted to 1.21.4 with 112 user-approved decorative substitutions in
 Meridian and Underwater Base. Their original archives, credits and license notices
 are preserved; see the arena records for source links, terms and placement.
 
+Underwater Base has a copper diving-suit zombie trader beside the hydroponics
+counter: 4 scraps buy a drinkable 20-second invisibility potion. Panda Village's
+toy merchant sells its existing non-firing toy gun for 4 scraps. Right-click
+either NPC to use the normal trading screen during a round. The included
+server-side NeoForge bridge and maintenance instructions are documented in
+[Arena merchants](merchant-bridge/README.md).
+
 The source save is
 `.minecraft/saves/Backstabbed ++! by NorbMinecraft and Bagel Buddies/`.
 Keep its folder name and Minecraft display name free of release versions.
