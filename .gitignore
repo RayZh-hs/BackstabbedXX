@@ -42,6 +42,7 @@ __pycache__/
 .idea/
 /dev/
 .env
+*.local*
 
 # Local map previews and their dependencies
 /map-previewer/node_modules/

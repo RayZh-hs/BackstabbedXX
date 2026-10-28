@@ -57,6 +57,56 @@ Outputs:
 - `dist/Backstabbed++-map-v<VERSION>.zip`: the separate host map, produced by
   `make map` or `make release`.
 
+### Update an existing HMCL instance
+
+Close Minecraft, update this checkout to the revision you want, then run:
+
+```sh
+python3 scripts/update_hmcl.py --dry-run  # Show the destination and planned changes
+python3 scripts/update_hmcl.py            # Apply the update
+```
+
+The script requires only Python 3.8 or newer. In this directory layout it defaults
+to `../../.minecraft/versions/1.21.4-BACKSTABBED`. For another HMCL installation,
+pass its actual game directory, the folder containing `mods/`, `saves/` and
+`hmclversion.cfg`:
+
+```sh
+python3 scripts/update_hmcl.py --instance "/path/to/.minecraft/versions/Backstabbed" --dry-run
+python3 scripts/update_hmcl.py --instance "/path/to/.minecraft/versions/Backstabbed"
+```
+
+It replaces `mods/` with the checkout's complete mod set, replaces the existing
+Backstabbed++ world including its datapacks, and rebuilds the resource pack from
+source. Existing English/Chinese ZIP filenames and unpacked Backstabbed resource
+packs are refreshed too. No build step or release download is needed; the current
+checkout supplies all content. Extra or obsolete installed mods are moved into
+the backup along with the previous mod set.
+
+Your `config/`, `defaultconfigs/`, `options.txt` (including keybinds and pack
+selection), HMCL settings, installed Minecraft/NeoForge, server lists and skins
+are kept. The updated world's `serverconfig/` and `mcwifipnp.json` LAN settings
+are also kept. Other worlds and resource packs are untouched. If the Backstabbed
+resource pack was not enabled already, enable `backstabbed-resource.zip` in
+Minecraft's Resource Packs menu.
+
+**The world update replaces gameplay state, player data and local map edits
+with the checkout's world.** It automatically selects the only save whose folder
+starts with `Backstabbed ++`; if there are several, specify the exact folder with
+`--world "Backstabbed ++! v1.0.0 by NorbMinecraft and Bagel Buddies"`. Its existing
+folder name is reused. If no such save exists, a new unversioned world is installed.
+
+Before replacement, the script stages all new content. It moves the original
+components into `.minecraft/backups/instance-updates/<instance>/<UTC timestamp>/originals/`,
+verifies installed SHA-256 hashes, and records them in `update-report.json` next
+to `originals/`. Installation errors trigger an automatic rollback. For an
+instance outside a `versions/` directory, backups go into the adjacent
+`backstabbed-updates/<instance>/` directory. Keep Minecraft closed throughout.
+To restore a successful update manually, move the replaced components listed in
+the report out of the instance, then move the corresponding components from
+`originals/` back to their original relative paths. Remove any paths listed under
+`created` in the report, since those had no previous version.
+
 ### Launch the working copy
 
 Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then run:
