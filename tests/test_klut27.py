@@ -98,10 +98,13 @@ class Klut27Tests(unittest.TestCase):
         for side in ('upper','lower'):
             self.assertIn('e.cooldown 30',self.files[f'data/klut27_elevators/function/find_{side}.mcfunction'].decode())
 
-    def test_irregular_boundary_excludes_void_and_antenna(self):
-        self.assertGreater(len(self.arena['terms']),1)
+    def test_cuboid_boundary_extends_build_faces_by_thirty_blocks(self):
+        self.assertEqual(len(self.arena['terms']),1)
+        self.assertEqual(self.arena['terms'][0]['predicate']['position'],{
+            'x':{'min':36829,'max':36919},'y':{'min':-94,'max':77},'z':{'min':36832,'max':36945}})
         for p in self.manifest['destination_player_spawns']:self.assertTrue(self.inside(p))
-        for p in [(36873.5,-45,36873.5),(36800,16,36879),(36950,16,36879),(36873,80,36879),(36873,16,37000)]:self.assertFalse(self.inside(p),p)
+        for p in [(36873.5,-45,36873.5),(36859.5,40,36913.5),(36830,70,36833)]:self.assertTrue(self.inside(p),p)
+        for p in [(36800,16,36879),(36950,16,36879),(36873,80,36879),(36873,16,37000)]:self.assertFalse(self.inside(p),p)
         self.assertFalse(self.inside((36873.5,16,36879.5),'minecraft:the_nether'))
         # Probe just outside the union's extrema, not only arbitrary distant points.
         for axis in range(3):

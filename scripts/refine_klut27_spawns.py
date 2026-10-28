@@ -1,4 +1,4 @@
-"""Rebuild KLUT-27 spawn routes/orientations and its layered arena predicate.
+"""Rebuild KLUT-27 spawn routes/orientations and its cuboid arena predicate.
 
 Only edits the gameplay datapack and manifest, never terrain or entities.
 Requires stopped, backed-up source and installed main saves.
@@ -44,21 +44,8 @@ def main():
     exits=len(graph.get(q,[]));choices.append((run,exits,-abs(q[0]-8)-abs(q[2]-28),yaw))
   assert choices,p
   rotations.append(max(choices)[3])
- boxes=[]
- # Preserve existing three-block movement/gravity allowance and death range.
- # Build strips from current saved geometry rather than an old preview.
- for ymin in range(-39,50,4):
-  ymax=min(50,ymin+4);layer=[p for p in blocks if ymin-4<=p[1]<=ymax+2 and p[1]>=-36]
-  strips={}
-  for x in range(-8,28):
-   zs=[p[2] for p in layer if abs(p[0]-x)<=3]
-   if zs:strips[x]=(min(zs)-3,max(zs)+4)
-  start=None;previous=None
-  for x in range(-8,29):
-   value=strips.get(x)
-   if value!=previous:
-    if previous is not None:boxes.append({'x':{'min':start+OFFSET,'max':x+OFFSET},'y':{'min':ymin,'max':ymax},'z':{'min':previous[0]+OFFSET,'max':previous[1]+OFFSET}})
-    start=x;previous=value
+ from klut27_boundary import current_boxes
+ boxes=current_boxes()
  predicate={'condition':'minecraft:any_of','terms':[{'condition':'minecraft:location_check','predicate':{'dimension':'minecraft:overworld','position':box}} for box in boxes]}
  newlines=[]
  for (x,y,z),yaw in zip(chosen,rotations):

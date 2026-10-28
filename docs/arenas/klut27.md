@@ -232,7 +232,7 @@ marker 14 moves from `(10.5,15,49.5)` to `(12.5,15,47.5)`.
 Both are inset from the southern unguarded edge. Player and scrap points move
 together. Full positions, yaw/pitch and updated routes are in `klut27.json`.
 
-The Overworld containment mask is rebuilt from current saved geometry as 239
+The earlier Overworld containment mask was rebuilt from saved geometry as 239
 layered boxes, retaining the existing three-block movement allowance. Its
 outer extrema are X 36856..36892, Y -39..50, Z 36859..36918; these are NOT a
 single rectangular playable region. Narrow layers follow the ship's actual
@@ -241,6 +241,8 @@ behavior remains: waiting participants are tracked after entering the arena;
 tracked waiting participants and active live participants die on leaving.
 Lobby players, spectators and already-dead players retain their exemptions.
 No physical terrain or barrier blocks were added or altered.
+
+This layered shape is superseded by the cuboid revision below.
 
 Source and installed main datapack entries are identical. Full backups are in
 `.minecraft/backups/klut27-spawns/`. All 62 repository tests pass. The opt-in
@@ -351,3 +353,36 @@ Logs: `build/klut-population-integrated.log` and
 Saved terrain matches the pre-change backups byte-for-byte; all entity UUIDs,
 resident trades/traits and other entities are preserved. Installed mod .3 is
 unchanged. These are automated server tests, not a multiplayer client playtest.
+
+## Current containment: build cuboid plus 30 blocks (28 October 2026)
+
+The user requested one enclosing cuboid instead of the 239 layered boxes.
+The saved build occupies source blocks X=-5..24, Y=-64..46, Z=-2..50,
+including the lower antenna. Its physical positive faces are X=25, Y=47,
+Z=51. Extending all six faces by exactly 30 blocks gives:
+
+| Axis | Standalone coordinate equivalent | Integrated predicate |
+|---|---|---|
+| X | -35..55 | 36829..36919 |
+| Y | -94..77 | -94..77 |
+| Z | -32..81 | 36832..36945 |
+
+All points inside this cuboid are allowed, including void between structures.
+Waiting-participant tracking, active out-of-bounds elimination, dimension and
+spectator/dead/lobby exemptions are unchanged. This changes only the integrated
+gameplay predicate; the standalone building save has no match-containment rule.
+No terrain, physical barriers, entities or spawn points were changed.
+
+`scripts/klut27_boundary.py` holds the shared calculation and the narrow
+datapack installer. Both arena-generation scripts now use this rule, so they
+cannot restore the old layered boundary on a later regeneration. Pre-change
+datapack copies are in `.minecraft/backups/klut27-cuboid-boundary/`.
+Reload the world/datapack to activate the new rule in an already-running game.
+
+Validation: 69 repository tests and all 40 registered NeoForge server tests
+passed (standalone opt-in scenario inactive). Runtime checks cover all six
+faces at the exact boundary and 0.01 blocks on either side, a formerly excluded
+point now allowed, and waiting/active elimination outside the expanded box.
+Log: `build/klut-cuboid-boundary.log` in the Gravity Changer workspace.
+Only `data/klut27/predicate/arena.json` changed inside each gameplay ZIP;
+repository and installed ZIPs are byte-identical.

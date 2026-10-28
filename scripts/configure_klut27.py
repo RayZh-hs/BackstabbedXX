@@ -48,23 +48,8 @@ def main():
     register='execute unless entity @e[type=marker,tag=MapVote,tag=Klut27] run summon marker 0 -50 70 {Tags:["MapVote","Klut27"]}\nscoreboard players set @e[type=marker,tag=MapVote,tag=Klut27] MapValues 20'
     put('klut27/function/register.mcfunction',register+'\nfunction mcm:lobby/options/map_toggle/init')
     append('respawn_entities',register)
-    # Four-block vertical bands follow the irregular ship. Horizontal padding
-    # allows normal jumps and side/inverted body volume, without including the
-    # distant empty world or the decorative antenna below the lowest cabin.
-    boxes=[]
-    for ymin in range(-39,50,4):
-        ymax=min(50,ymin+4)
-        layer=[p for p in blocks if ymin-4<=p[1]<=ymax+2 and p[1]>=-36]
-        strips={}
-        for x in range(-8,28):
-            zs=[p[2] for p in layer if abs(p[0]-x)<=3]
-            if zs:strips[x]=(min(zs)-3,max(zs)+4)
-        start=None;previous=None
-        for x in range(-8,29):
-            value=strips.get(x)
-            if value!=previous:
-                if previous is not None:boxes.append({'x':{'min':start+OFFSET,'max':x+OFFSET},'y':{'min':ymin,'max':ymax},'z':{'min':previous[0]+OFFSET,'max':previous[1]+OFFSET}})
-                start=x;previous=value
+    from klut27_boundary import current_boxes
+    boxes=current_boxes()
     predicate={'condition':'minecraft:any_of','terms':[{'condition':'minecraft:location_check','predicate':{'dimension':'minecraft:overworld','position':box}} for box in boxes]}
     put('klut27/predicate/arena.json',json.dumps(predicate,separators=(',',':')))
     for fn,state in [('functionality',1),('waiting_tick',0)]:
@@ -142,7 +127,7 @@ function mcm:game/playerdeath''')
             if vector[axis]>0:foot[axis]-=0.000002
         gravity_tests[direction]={'source_support':list(support),'destination_feet':[foot[0]+OFFSET,foot[1],foot[2]+OFFSET],'source_body_air_cells':[list(tuple(support[i]-d*vector[i] for i in range(3))) for d in (1,2)]}
     manifestpath=ROOT/'docs/arenas/klut27.json';manifest=json.loads(manifestpath.read_text())
-    manifest.update({'source_player_spawns':[[x+.5,y,z+.5] for x,y,z in chosen],'destination_player_spawns':spawns,'spawn_routes_source':routes,'route_component_cells':len(main_component),'containment_boxes':boxes,'gravity_test_positions':gravity_tests,'elevator_columns':{f'{x},{z}':[p[1]-1 for p in values] for (x,z),values in columns.items()},'reset_commands':len(restore),'play_area':'Original ship cabins, terraces and parkour exterior; per-height padded footprint. Detached lower antenna is excluded. Out-of-region live participants die through the existing game death path; spectators/dead/lobby players are exempt.','poster':'assets/klut27/textures/posters/klut27.png'})
+    manifest.update({'source_player_spawns':[[x+.5,y,z+.5] for x,y,z in chosen],'destination_player_spawns':spawns,'spawn_routes_source':routes,'route_component_cells':len(main_component),'containment_boxes':boxes,'gravity_test_positions':gravity_tests,'elevator_columns':{f'{x},{z}':[p[1]-1 for p in values] for (x,z),values in columns.items()},'reset_commands':len(restore),'play_area':'Original ship cabins, terraces and parkour exterior; a single build-sized cuboid expanded 30 blocks on all six faces, including the lower antenna. Out-of-region live participants die through the existing game death path; spectators/dead/lobby players are exempt.','poster':'assets/klut27/textures/posters/klut27.png'})
     manifestpath.write_text(json.dumps(manifest,indent=2)+'\n')
     print(f'Staged {len(changed)} entries, {len(spawns)} spawns, {len(boxes)} boundary boxes, {len(restore)} state resets. ZIP unchanged.')
     print(json.dumps(gravity_tests,indent=2))
