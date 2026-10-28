@@ -1,0 +1,32 @@
+[
+  {
+    "world": "Backstabbed ++! by NorbMinecraft and Bagel Buddies",
+    "changed_files": [
+      "entities/r.72.72.mca",
+      "region/r.72.72.mca"
+    ],
+    "block_replacements": 205,
+    "edited_entities": 2,
+    "unrelated_files_unchanged": true
+  },
+  {
+    "world": "KLUT-27 - 1.21.4 Fixed",
+    "changed_files": [
+      "entities/r.0.0.mca",
+      "region/r.0.0.mca"
+    ],
+    "block_replacements": 205,
+    "edited_entities": 2,
+    "unrelated_files_unchanged": true
+  },
+  {
+    "world": "Backstabbed ++! v1.1.1 Latest 2026-10-28 77e59f6",
+    "changed_files": [
+      "entities/r.72.72.mca",
+      "region/r.72.72.mca"
+    ],
+    "block_replacements": 205,
+    "edited_entities": 2,
+    "unrelated_files_unchanged": true
+  }
+]

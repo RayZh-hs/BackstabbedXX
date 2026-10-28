@@ -92,3 +92,15 @@ footer, proportions and recognisable station features. Final texture:
 https://www.minecraftmaps.com/51929-subway-station-original-build.
 
 Use case: stylized-concept. Asset type: finished Minecraft Backstabbed++ map-voting poster. Create one vertical 2:3 edge-to-edge PNG artwork in the established detailed pixel-art travel-poster style. Subject: KnotXackly's Subway Station, a monumental underground voxel railway hall with a long terracotta-pink granite central platform, dark wooden benches, small potted trees, slim dark stone lamp posts with square sea-lantern lights, ornate pale-gray tuff/concrete vaulted ribs and a high geometric ceiling with warm glowing froglight panels. Stationary silver-gray metro trains with cyan/teal doors and black windows flank the central platform; parallel tracks lead toward dark tunnels. Show a cinematic view down the platform, with convincing Minecraft block architecture. Cool slate-gray and teal, warm copper-pink floor and golden lights. Bold highly legible block-pixel title at top reads exactly "SUBWAY STATION", on two lines if needed. Small footer reads exactly "BACKSTABBED++". Fine decorative border matching the existing arena posters. No people, no watermarks, no extra slogans, no outdoor skyline, no checkerboards, no poster mockup or perspective distortion of the poster itself. This is thematic voting artwork for the actual station, not a screenshot.
+
+## KLUT-27 prompt
+
+Generated with the built-in OpenAI imagegen tool on 28 October 2026. Inspected
+1024 × 1536 artwork: correct KLUT-27 title and BACKSTABBED++ footer, yellow
+upper hull, circular pale/lavender window, stacked terraces and tapering keel.
+Final texture: `.minecraft/resourcepacks/backstabbed-resource/assets/klut27/textures/posters/klut27.png`.
+Original map: Bekulainen; https://www.planetminecraft.com/project/klut-27-spaceship-mothership-space-station-work-in-progress/.
+The author requires permission before reuse and credit with the original link;
+permission for publication has not been established.
+
+Use case: stylized-concept. Create one finished Minecraft Backstabbed++ map voting poster, vertical 2:3, edge-to-edge detailed pixel-art travel-poster illustration. Subject: KLUT-27, a compact tall asymmetrical voxel spaceship/space station built as a stacked cyberpunk settlement, a chunky mustard-yellow rectangular upper hull with pale lavender/white geometric trim and a huge circular lavender side window, crowded exposed terraces with tiny market streets, cyan lights and copper-brown machinery, tapering dark burgundy underside and a long narrow central hanging keel/antenna. It floats alone in deep navy space; no planets or unrelated ships. Three-quarter view, distinctive tall vertical silhouette, cinematic golden and teal lighting. Bold legible block-pixel title at top exactly "KLUT-27". Small footer exactly "BACKSTABBED++". Thin decorative border consistent with Minecraft travel posters. No people, no watermark, no extra slogans, no checkerboard, no mockup or perspective distortion of the poster surface. This is thematic voting artwork for Bekulainen’s KLUT-27 spaceship, not a screenshot.

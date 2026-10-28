@@ -36,6 +36,10 @@
     {
       "type": "single",
       "resource": "underwater_base:posters/underwater_base"
+    },
+    {
+      "type": "single",
+      "resource": "klut27:posters/klut27"
     }
   ]
 }

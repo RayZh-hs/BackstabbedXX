@@ -1,0 +1,36 @@
+{
+  "saves": [
+    {
+      "world": "C:\\Users\\dyf08\\AppData\\Roaming\\PrismLauncher\\instances\\Backstabbed++\\.minecraft\\saves\\KLUT-27 - 1.21.4 Fixed",
+      "ordinary_residents": 16,
+      "all_villagers": 17,
+      "positions_verified": true
+    },
+    {
+      "world": "C:\\Users\\dyf08\\Desktop\\Minecraft Vibe\\BackstabbedXX\\.minecraft\\saves\\Backstabbed ++! by NorbMinecraft and Bagel Buddies",
+      "ordinary_residents": 19,
+      "all_villagers": 20,
+      "positions_verified": true
+    },
+    {
+      "world": "C:\\Users\\dyf08\\AppData\\Roaming\\PrismLauncher\\instances\\Backstabbed++\\.minecraft\\saves\\Backstabbed ++! v1.1.1 Latest 2026-10-28 77e59f6",
+      "ordinary_residents": 19,
+      "all_villagers": 20,
+      "positions_verified": true
+    }
+  ],
+  "integrated_datapack_sha256": "7d02677e4240f8119886c953ed1cda8e6a75cdcc5a7aa2625db05948db59a174",
+  "mod_unchanged": true,
+  "repository_tests": 69,
+  "integrated_registered_tests_passed": 40,
+  "standalone_registered_tests_passed": 40,
+  "opposite_opt_in_test_inactive_in_each_run": true,
+  "terrain_matches_backups": true,
+  "entity_uuid_sets_preserved": true,
+  "resident_trades_traits_preserved": true,
+  "actual_markers_match_manifest": true,
+  "runtime_resident_home_reset_verified": {
+    "standalone": 16,
+    "integrated": 19
+  }
+}

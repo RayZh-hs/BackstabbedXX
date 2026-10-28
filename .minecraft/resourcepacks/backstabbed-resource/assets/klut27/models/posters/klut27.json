@@ -1,0 +1,52 @@
+{
+  "credit": "KLUT-27 by Bekulainen; https://www.planetminecraft.com/project/klut-27-spaceship-mothership-space-station-work-in-progress/ Poster: OpenAI imagegen, 28 October 2026.",
+  "gui_light": "front",
+  "textures": {
+    "poster": "klut27:posters/klut27",
+    "particle": "klut27:posters/klut27"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        24,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#poster"
+        }
+      }
+    }
+  ],
+  "display": {
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}
