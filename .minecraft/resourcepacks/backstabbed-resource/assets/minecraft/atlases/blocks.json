@@ -48,6 +48,21 @@
     {
       "type": "minecraft:single",
       "resource": "minecraft:block/oxidized_copper_grate"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "sworld_island:posters/sworld_island",
+      "sprite": "sworld_island:posters/sworld_island"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "middle_ages:posters/middle_ages",
+      "sprite": "middle_ages:posters/middle_ages"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "cube_block:posters/cube_block",
+      "sprite": "cube_block:posters/cube_block"
     }
   ]
 }

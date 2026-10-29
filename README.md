@@ -181,6 +181,9 @@ and run one of these in chat while no round is active:
 
 | Arena | Command |
 | --- | --- |
+| Sworld Island | `/function sworld_island:select` |
+| Middle Ages Small Lobby | `/function middle_ages:select` |
+| Cube Block | `/function cube_block:select` |
 | Subway Station | `/function subway_station:select` |
 | Meridian Base | `/function meridian_base:select` |
 | Bagger 288 | `/function bagger_288:select` |
@@ -235,8 +238,9 @@ Both skills are vendored under `.agents/skills/`; their project instructions
 and the previewer are included in a fresh checkout.
 
 [Subway Station](docs/arenas/subway_station.md), by KnotXackly, is integrated as
-map 16. Its original architecture is preserved; 24 connected central-platform
-spawns, voting artwork and reset behavior are included. Automatic boundary
+map 16. Its original architecture is preserved; its 24 player/scrap spawns are
+distributed evenly across the lower platform, upper concourse and train interiors.
+Voting artwork and reset behavior are included. Automatic boundary
 teleports are disabled. Inside each of the four six-carriage trains,
 right-click **Previous carriage / Next carriage** on the end walls to travel
 to the adjacent carriage. The labels also support Simplified Chinese.
@@ -249,6 +253,27 @@ behavior and containment that follows the connected build. The original 1.21.8
 builds are adapted to 1.21.4 with 112 user-approved decorative substitutions in
 Meridian and Underwater Base. Their original archives, credits and license notices
 are preserved; see the arena records for source links, terms and placement.
+
+Meridian Base's exterior ocean is lethal during a round; indoor water and bubble
+columns remain safe. Press the central shaft's lower buttons to reach the indoor
+second-floor landing, and use its upper buttons to return. The plantation
+occasionally drops **Delicious Food**, an edible potato granting Speed I and Jump
+Boost I for 10 seconds. Stepping onto one of the seven locked outer-ring
+dispensers randomly produces a swiftness potion or an airborne firework. Leave and
+step on it again for a fresh roll. See the
+[repair record](docs/arenas/meridian_base-repair.json) for controls and backup.
+
+[Sworld Island](docs/arenas/sworld_island.json), by CloseeDBr, is map 21. Its
+vine-covered giant sword and island ground have 32 validated player/scrap spawns;
+touching the surrounding ocean eliminates active players. The original elevated
+stream remains safe. [Middle Ages Small Lobby](docs/arenas/middle_ages.json), by
+ElectronJoon and collaborators, is map 22: its original castle courtyard floats
+in the void, with 32 validated spawns and fall elimination.
+[Cube Block](docs/arenas/cube_block.md), by XxRexRaptorxX, is map 23. Its main cube
+has 32 validated spawns, and live players receive the gravity grappler. The three
+maps include new generated posters with varied layouts and restrained colors.
+Their source downloads, credits and reuse notices are preserved in the arena
+records; these local ports do not establish permission for public redistribution.
 
 Underwater Base has a copper diving-suit zombie trader beside the hydroponics
 counter: 4 scraps buy a drinkable 20-second invisibility potion. Panda Village's

@@ -1,0 +1,204 @@
+{
+  "map_id": 16,
+  "title": "Subway Station",
+  "creator": "KnotXackly",
+  "source_url": "https://www.minecraftmaps.com/51929-subway-station-original-build",
+  "spawn_count": 24,
+  "spawns": [
+    {
+      "position": [
+        20499.5,
+        -58.0,
+        20369.5
+      ],
+      "area": "lower_platform"
+    },
+    {
+      "position": [
+        20499.5,
+        -58.0,
+        20392.5
+      ],
+      "area": "lower_platform"
+    },
+    {
+      "position": [
+        20499.5,
+        -58.0,
+        20416.5
+      ],
+      "area": "lower_platform"
+    },
+    {
+      "position": [
+        20499.5,
+        -58.0,
+        20440.5
+      ],
+      "area": "lower_platform"
+    },
+    {
+      "position": [
+        20499.5,
+        -58.0,
+        20464.5
+      ],
+      "area": "lower_platform"
+    },
+    {
+      "position": [
+        20499.5,
+        -58.0,
+        20488.5
+      ],
+      "area": "lower_platform"
+    },
+    {
+      "position": [
+        20499.5,
+        -58.0,
+        20512.5
+      ],
+      "area": "lower_platform"
+    },
+    {
+      "position": [
+        20499.5,
+        -58.0,
+        20537.5
+      ],
+      "area": "lower_platform"
+    },
+    {
+      "position": [
+        20477.5,
+        -48,
+        20385.5
+      ],
+      "area": "upper_concourse"
+    },
+    {
+      "position": [
+        20528.5,
+        -48,
+        20385.5
+      ],
+      "area": "upper_concourse"
+    },
+    {
+      "position": [
+        20477.5,
+        -48,
+        20525.5
+      ],
+      "area": "upper_concourse"
+    },
+    {
+      "position": [
+        20528.5,
+        -48,
+        20525.5
+      ],
+      "area": "upper_concourse"
+    },
+    {
+      "position": [
+        20489.5,
+        -48,
+        20365.5
+      ],
+      "area": "upper_concourse"
+    },
+    {
+      "position": [
+        20513.5,
+        -48,
+        20365.5
+      ],
+      "area": "upper_concourse"
+    },
+    {
+      "position": [
+        20498.5,
+        -48,
+        20545.5
+      ],
+      "area": "upper_concourse"
+    },
+    {
+      "position": [
+        20513.5,
+        -48,
+        20545.5
+      ],
+      "area": "upper_concourse"
+    },
+    {
+      "position": [
+        20483.5,
+        -57.8125,
+        20370.5
+      ],
+      "area": "train_interior"
+    },
+    {
+      "position": [
+        20483.5,
+        -57.8125,
+        20415.5
+      ],
+      "area": "train_interior"
+    },
+    {
+      "position": [
+        20490.5,
+        -57.8125,
+        20467.5
+      ],
+      "area": "train_interior"
+    },
+    {
+      "position": [
+        20490.5,
+        -57.8125,
+        20512.5
+      ],
+      "area": "train_interior"
+    },
+    {
+      "position": [
+        20515.5,
+        -57.8125,
+        20392.5
+      ],
+      "area": "train_interior"
+    },
+    {
+      "position": [
+        20515.5,
+        -57.8125,
+        20437.5
+      ],
+      "area": "train_interior"
+    },
+    {
+      "position": [
+        20522.5,
+        -57.8125,
+        20403.5
+      ],
+      "area": "train_interior"
+    },
+    {
+      "position": [
+        20522.5,
+        -57.8125,
+        20448.5
+      ],
+      "area": "train_interior"
+    }
+  ],
+  "floor_notes": "Upper concourse: full cyan terracotta at y=-49. Train aisle: closed bottom iron trapdoor at y=-58, collision top -57.8125. Light blocks do not collide. Existing carriage links retained.",
+  "geometry_changes": false,
+  "native_validation": "All24 actual destination spawn AABBs clear and supported under Minecraft1.21.4/NeoForge21.4.158; normal selection and repeated activation passed."
+}

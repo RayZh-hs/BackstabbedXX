@@ -63,6 +63,10 @@ Inspect the output for misleading content, illegible text, and visual defects.
 An unrelated image, screenshot placeholder, or renamed existing poster does
 not satisfy this step.
 
+You should vary the composition of posters instead of letting every title sit on
+top. Avoid over saturation. The title should be large enough to be clearly legible
+in the lobby.
+
 Save the chosen PNG in the resource pack and wire its item definition, model,
 texture, atlas entry, and voting display. Verify the whole reference chain;
 creating a PNG alone is insufficient. Record the final prompt, generation

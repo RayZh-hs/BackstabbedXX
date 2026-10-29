@@ -1,0 +1,52 @@
+{
+  "credit": "ElectronJoon; builders electronjoon, smilejoon, navidsanurai, amirreza83; https://www.minecraftmaps.com/51285-middle-ages-small-lobby; poster generated with OpenAI built-in imagegen, 29 October 2026.",
+  "gui_light": "front",
+  "textures": {
+    "poster": "middle_ages:posters/middle_ages",
+    "particle": "middle_ages:posters/middle_ages"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        24,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#poster"
+        }
+      }
+    }
+  ],
+  "display": {
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}

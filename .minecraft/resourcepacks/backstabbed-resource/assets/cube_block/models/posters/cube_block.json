@@ -1,0 +1,52 @@
+{
+  "credit": "Cube Block by XxRexRaptorxX; https://www.curseforge.com/minecraft/worlds/cube-block . Original voting artwork: OpenAI built-in imagegen, 29 October 2026.",
+  "gui_light": "front",
+  "textures": {
+    "poster": "cube_block:posters/cube_block",
+    "particle": "cube_block:posters/cube_block"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        24,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#poster"
+        }
+      }
+    }
+  ],
+  "display": {
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}

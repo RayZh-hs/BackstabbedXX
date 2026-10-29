@@ -1,5 +1,25 @@
 # Map poster artwork
 
+Sworld Island, Middle Ages Small Lobby and Cube Block were generated with the
+built-in OpenAI imagegen tool on 29 October 2026. The final art follows the
+requested restrained palette and varied title placement: Sworld's title sits
+over misty sea at the bottom, Middle Ages uses a left-side title beside its
+castle courtyard, and Cube Block uses a lower-right title beside a floating
+survival cube. Each texture is 1024 × 1536. Source attribution, final prompts,
+asset paths and SHA-256 hashes are in
+[2026-10-map-port-posters.json](arenas/2026-10-map-port-posters.json).
+
+All three use the model-Z=8, display-X-offset=−0.01 voting-booth convention.
+Their item definitions, models and atlas entries are wired to map IDs 21–23.
+The earlier saturated drafts were superseded and are not installed.
+
+The final three textures were also inspected in an actual Minecraft 1.21.4 /
+NeoForge 21.4.158 voting booth. New direct-selection helpers use explicit decimal
+coordinates (`28.0 2.0 89.0`) to match normal voting; integer X/Z coordinates add
+half a block and would bury the display in the backing. The final plane is
+X27.99. Runtime screenshots and the verification record are linked from
+[2026-10-map-port-verification.json](arenas/2026-10-map-port-verification.json).
+
 Panda Village's original artwork, item definition, and model were restored from
 the earlier Panda Village integration. Map credits: oozner; house designs and
 building help: Kapanas. Its poster was generated with OpenAI built-in imagegen

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "sworld_island",
+    "creator": "CloseeDBr",
+    "source_url": "https://www.minecraftmaps.com/44852-sworld-island",
+    "prompt": "Use case: stylized-concept. Asset: finished Minecraft arena-voting poster, portrait 2:3, 1024x1536. Architecture reference: supplied Sworld Island screenshot. Create a quiet cinematic voxel illustration preserving the compact tapered rocky island, giant vine-covered ancient stone sword driven blade-down into its tall cliff at left, and two round leafy trees over flowered grass. Island alone in open ocean. Distinctive composition: let sword occupy the upper-left and island stretch diagonally toward middle-right; large unlettered cloudy sky fills upper quarter. Set title in lower quarter over a clean foggy pale sea field, exactly \"SWORLD\" then \"ISLAND\" on two lines, elegant dark slate block lettering with generous space, smaller footer \"BACKSTABBED++\". ALL text belongs in LOWER quarter, NO title or header at top. Muted restrained palette: weathered cool-gray stone, sage and olive greens, dusty blue ocean, soft overcast morning light and silver haze, gentle contrast. Low to moderate saturation; absolutely no electric turquoise, emerald/neon foliage, orange sunset, shiny gold or heavy navy panels. Detailed Minecraft voxel surfaces, art-directed travel poster, no people, no extra island, no buildings, no logos, no watermark, no ornamental gold border. Edge-to-edge flat print artwork.",
+    "method": "OpenAI built-in imagegen",
+    "generated_at": "2026-10-29",
+    "asset_path": ".minecraft/resourcepacks/backstabbed-resource/assets/sworld_island/textures/posters/sworld_island.png",
+    "composition": "Lower title over misty ocean; muted sage/slate",
+    "sha256": "8dfa4a2d88f26255f86e309844f625b83aa021ea50a9e7f9ec2ca94719bf208c"
+  },
+  {
+    "id": "middle_ages",
+    "creator": "ElectronJoon; builders electronjoon, smilejoon, navidsanurai, amirreza83",
+    "source_url": "https://www.minecraftmaps.com/51285-middle-ages-small-lobby",
+    "prompt": "Use case: stylized-concept. Asset: finished Minecraft arena-voting poster, vertical 2:3, 1024x1536, flat print. Supplied screenshot is architecture reference: gray crenellated castle and compact cobbled courtyard, square towers with dark timber roofs and red flags, timber market balconies, hay bales, wheat and wooden cart decor, recessed glowstone cross motif. Depict this architecture floating over a pale empty sky/void; no land or ocean below. Distinct asymmetric editorial composition: castle fills right two-thirds and lower half, showing courtyard obliquely from just above wall height, roofs and flags rise at right. Along the LEFT third create a warm ivory vertical margin integrated with atmospheric sky, title at MID-LEFT in stacked lines exactly \"MIDDLE\" then \"AGES\", smaller text underneath \"SMALL LOBBY\", understated dark charcoal medieval-inspired serif lettering, exceptionally readable. All title text centered vertically on left side, NO title/header across top. Small footer \"BACKSTABBED++\" bottom-left. Restrained natural palette: weathered limestone gray, warm umber timber, muted oxblood-red flags, straw ochre, parchment cream, pale gray-blue sky. Soft diffuse daylight, gentle atmospheric depth; LOW to moderate saturation, no neon, electric blue, shiny gold trim or heavy navy panel. Detailed authentic Minecraft voxel illustration, no people, no extra fantasy spires, no watermark, no ornate poster border.",
+    "method": "OpenAI built-in imagegen",
+    "generated_at": "2026-10-29",
+    "asset_path": ".minecraft/resourcepacks/backstabbed-resource/assets/middle_ages/textures/posters/middle_ages.png",
+    "composition": "Mid-left title in ivory sky margin; muted stone/oxblood",
+    "sha256": "fef05263ede62ebe9e86711c76f3f47bbe8b30db274718d26c8d5fdaa75c1ba8"
+  },
+  {
+    "id": "cube_block",
+    "creator": "XxRexRaptorxX",
+    "source_url": "https://www.curseforge.com/minecraft/worlds/cube-block",
+    "prompt": "Use case: style-transfer and precise-object-edit. Asset type: Minecraft Backstabbed++ voting poster, vertical 2:3. Revise this Cube Block poster while preserving the recognizable cube, cobblestone tower, small wooden cottage, desert/cactus face, forest/birch face, cave openings and corner pool. Make the composition airy and restrained: shrink the floating cube a little, leave broad pale gray-blue sky and soft mist around it, and use muted natural moss green, chalky sand, warm gray stone and soft dusty blues. Reduce saturation and strong orange sunlight substantially. Remove the giant title at the top and the ornate gold border and bottom dark footer panel. Place the title exactly \"CUBE BLOCK\" in a clean compact dark-slate block-letter treatment in the lower-right negative space, two lines, with a thin cream keyline for readability, balanced against the cubic island centered toward upper-left. Place a very small \"BACKSTABBED++\" credit along the lower-left edge, no dark banner. Sophisticated illustrated pixel-art map poster, no generic top title strip, no new islands or people, no watermark, no checkerboard. Preserve a flat edge-to-edge poster surface and exact legible title/footer text.",
+    "method": "OpenAI built-in imagegen",
+    "generated_at": "2026-10-29",
+    "asset_path": ".minecraft/resourcepacks/backstabbed-resource/assets/cube_block/textures/posters/cube_block.png",
+    "sha256": "ab7e26af61bd7390f03dd80fc185036914328715d8c963eeb7e5a528ecdf1baf",
+    "composition": "Lower-right stacked title; pale sky and muted moss/chalk"
+  }
+]

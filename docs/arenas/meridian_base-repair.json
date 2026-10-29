@@ -1,0 +1,111 @@
+{
+  "map_id": 17,
+  "pads": [
+    [
+      24519,
+      -30,
+      24583
+    ],
+    [
+      24538,
+      -30,
+      24627
+    ],
+    [
+      24582,
+      -30,
+      24520
+    ],
+    [
+      24626,
+      -30,
+      24539
+    ],
+    [
+      24645,
+      -30,
+      24583
+    ],
+    [
+      24626,
+      -30,
+      24627
+    ],
+    [
+      24582,
+      -30,
+      24646
+    ]
+  ],
+  "lower_landing": [
+    24569.5,
+    -17,
+    24590.5
+  ],
+  "upper_landing": [
+    24575.5,
+    -10,
+    24594.5
+  ],
+  "lower_buttons": [
+    [
+      24569,
+      -15,
+      24591
+    ],
+    [
+      24566,
+      -15,
+      24594
+    ]
+  ],
+  "upper_buttons": [
+    [
+      24572,
+      -9,
+      24594
+    ],
+    [
+      24569,
+      -9,
+      24591
+    ],
+    [
+      24566,
+      -9,
+      24594
+    ],
+    [
+      24569,
+      -9,
+      24597
+    ]
+  ],
+  "food_spawn_interval_ticks": [
+    200,
+    500
+  ],
+  "food_max_dropped": 3,
+  "title": "Meridian Base mechanics repair",
+  "backup": {
+    "path": ".minecraft/backups/map-integration/20261028T165526428350Z-five-arenas-before-port-and-fixes-872b9d08.zip",
+    "sha256": "2ac52afaaa9f04dbf92a4e16776ddae221d656516709e477986b300fa5083f5e",
+    "restore": "Stop Minecraft; verify with backup_world.py --verify; move damaged save aside; extract the archived world folder under .minecraft/saves, preserving archive."
+  },
+  "geometry": {
+    "scope": "Seven existing y=-30 outer ring droppers become upward dispensers. No new holes, floors, walls or route changes. Original machine droppers stay intact.",
+    "builder_recipe": "map-previewer/maps/meridian-repair/recipe.mjs",
+    "structure": "map-previewer/maps/meridian-repair/meridian-dispenser-repair.nbt",
+    "structure_sha256": "a969db6308815b1ce4577a288f5f9221f402630d6b568f6bbaf65da966b03cb5",
+    "preview": "http://127.0.0.1:5197/",
+    "preview_screenshot": "map-previewer/maps/meridian-repair/repair-preview.png"
+  },
+  "ocean_policy": "Only actual exterior ocean block contact at y<=-33 eliminates live participants. Indoor water/bubble columns stay safe. Scene escape returns to validated spawn; exact original arena predicate retained for editor and spawn membership.",
+  "elevator": "Existing cyan shaft lower blackstone buttons teleport their actual presser up to an indoor landing; upper blackstone controls teleport back. Labels show SECOND FLOOR / GROUND FLOOR.",
+  "food": "One always-edible potato appears at a random plantation marker every 10\u201325 seconds, at most three dropped. Eating grants Speed I and Jump Boost I for exactly 200 ticks.",
+  "dispenser": "Each player fresh entry onto a pad rerolls 50/50 between a dropped swiftness potion and an upward firework exploding after 18 ticks. Items are generated on demand; empty locked inventory never depletes. Leaving the pad resets entry state.",
+  "validation": {
+    "static": "tests/test_meridian_mechanics.py reads actual save state, landings, buttons, boundary and component data.",
+    "in_game": "PASS: actual NeoForge1.21.4 ocean/indoor fluid/air, physical elevator button clicks, consumption duration200,65 reentries,independent players,GUI locks,airborne rocket expiry,reset/reactivation. See 2026-10-map-port-verification.json."
+  }
+}

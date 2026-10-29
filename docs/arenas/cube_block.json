@@ -1,0 +1,721 @@
+{
+  "chunks": 49,
+  "block_entities": [
+    {
+      "id": "minecraft:chest",
+      "position": [
+        49187,
+        84,
+        49198
+      ]
+    },
+    {
+      "id": "minecraft:sign",
+      "position": [
+        49186,
+        87,
+        49198
+      ]
+    },
+    {
+      "id": "minecraft:sign",
+      "position": [
+        49198,
+        64,
+        49215
+      ]
+    },
+    {
+      "id": "minecraft:skull",
+      "position": [
+        49198,
+        64,
+        49214
+      ]
+    },
+    {
+      "id": "minecraft:sign",
+      "position": [
+        49189,
+        87,
+        49201
+      ]
+    },
+    {
+      "id": "minecraft:skull",
+      "position": [
+        49198,
+        64,
+        49213
+      ]
+    },
+    {
+      "id": "minecraft:skull",
+      "position": [
+        49189,
+        84,
+        49200
+      ]
+    },
+    {
+      "id": "minecraft:sign",
+      "position": [
+        49188,
+        87,
+        49203
+      ]
+    },
+    {
+      "id": "minecraft:sign",
+      "position": [
+        49189,
+        87,
+        49202
+      ]
+    },
+    {
+      "id": "minecraft:skull",
+      "position": [
+        49189,
+        88,
+        49203
+      ]
+    },
+    {
+      "id": "minecraft:jukebox",
+      "position": [
+        49188,
+        84,
+        49203
+      ]
+    },
+    {
+      "id": "minecraft:skull",
+      "position": [
+        49205,
+        84,
+        49212
+      ]
+    },
+    {
+      "id": "minecraft:mob_spawner",
+      "position": [
+        49208,
+        62,
+        49205
+      ]
+    },
+    {
+      "id": "minecraft:banner",
+      "position": [
+        49208,
+        86,
+        49212
+      ]
+    },
+    {
+      "id": "minecraft:chest",
+      "position": [
+        49211,
+        91,
+        49209
+      ]
+    },
+    {
+      "id": "minecraft:bed",
+      "position": [
+        49209,
+        91,
+        49211
+      ]
+    },
+    {
+      "id": "minecraft:skull",
+      "position": [
+        49204,
+        84,
+        49208
+      ]
+    },
+    {
+      "id": "minecraft:banner",
+      "position": [
+        49208,
+        86,
+        49206
+      ]
+    },
+    {
+      "id": "minecraft:bed",
+      "position": [
+        49210,
+        91,
+        49211
+      ]
+    },
+    {
+      "id": "minecraft:skull",
+      "position": [
+        49204,
+        85,
+        49206
+      ]
+    },
+    {
+      "id": "minecraft:chest",
+      "position": [
+        49204,
+        84,
+        49207
+      ]
+    },
+    {
+      "id": "minecraft:banner",
+      "position": [
+        49209,
+        94,
+        49211
+      ]
+    },
+    {
+      "id": "minecraft:skull",
+      "position": [
+        49208,
+        92,
+        49207
+      ]
+    },
+    {
+      "id": "minecraft:mob_spawner",
+      "position": [
+        49187,
+        66,
+        49225
+      ]
+    },
+    {
+      "id": "minecraft:furnace",
+      "position": [
+        49203,
+        47,
+        49221
+      ]
+    },
+    {
+      "id": "minecraft:chest",
+      "position": [
+        49207,
+        56,
+        49227
+      ]
+    },
+    {
+      "id": "minecraft:mob_spawner",
+      "position": [
+        49205,
+        57,
+        49227
+      ]
+    },
+    {
+      "id": "minecraft:furnace",
+      "position": [
+        49208,
+        67,
+        49236
+      ]
+    }
+  ],
+  "source_entities": {
+    "minecraft:chicken": 3,
+    "minecraft:item": 4,
+    "minecraft:sheep": 3,
+    "minecraft:zombie": 5,
+    "minecraft:item_frame": 6,
+    "minecraft:cow": 4,
+    "minecraft:creeper": 20,
+    "minecraft:villager": 2,
+    "minecraft:armor_stand": 1,
+    "minecraft:painting": 1,
+    "minecraft:pig": 1,
+    "minecraft:chest_minecart": 1,
+    "minecraft:skeleton": 10,
+    "minecraft:cave_spider": 1,
+    "minecraft:enderman": 1,
+    "minecraft:oak_boat": 1,
+    "minecraft:witch": 1,
+    "minecraft:zombie_villager": 1,
+    "minecraft:bat": 1
+  },
+  "decorative_entities": 23,
+  "omitted_survival_entities": {
+    "minecraft:item": 4,
+    "minecraft:zombie": 5,
+    "minecraft:creeper": 20,
+    "minecraft:skeleton": 10,
+    "minecraft:cave_spider": 1,
+    "minecraft:enderman": 1,
+    "minecraft:witch": 1,
+    "minecraft:zombie_villager": 1,
+    "minecraft:bat": 1
+  },
+  "arena": "cube_block",
+  "map_id": 23,
+  "tag": "CubeBlock",
+  "title": "Cube Block",
+  "creator": "XxRexRaptorxX",
+  "source_url": "https://www.curseforge.com/minecraft/worlds/cube-block",
+  "download_url": "https://edge.forgecdn.net/files/2764/936/Cube%20Block%20v.5.4%20by%20XxRexRaptorxX.zip",
+  "download_sha256": "d6b635628471d028be537fb42b4d0e3380354581e3626c151246459573c3490b",
+  "source_version": {
+    "download_label": "v5.4,1.14.4",
+    "normal_save_data_version": 1343,
+    "normal_save_minecraft": "1.12.2"
+  },
+  "conversion": "Vanilla Minecraft1.21.4 --forceUpgrade --eraseCache on cropped copy; DataVersion4189",
+  "reuse_terms": "CurseForge All Rights Reserved; archive INFO gives CC BY-NC-ND4.0 and prohibits copying/redistribution without permission. Original terms retained in local source; publication permission has not been established.",
+  "source_selection": {
+    "chunks_x": [
+      1,
+      7
+    ],
+    "chunks_z": [
+      -16,
+      -10
+    ],
+    "object": "Main overworld cube only; extra star/nether/end cubes excluded"
+  },
+  "translation": [
+    49136,
+    0,
+    49408
+  ],
+  "rotation": 0,
+  "scene_chunk_bounds": {
+    "x": [
+      3072,
+      3078
+    ],
+    "z": [
+      3072,
+      3078
+    ]
+  },
+  "build_bounds": {
+    "min": [
+      49176,
+      0,
+      49164
+    ],
+    "max": [
+      49233,
+      102,
+      49249
+    ]
+  },
+  "arena_bounds": {
+    "min": [
+      49164,
+      26,
+      49152
+    ],
+    "max": [
+      49246,
+      126,
+      49262
+    ]
+  },
+  "forceload": [
+    49152,
+    49152,
+    49263,
+    49263
+  ],
+  "player_spawns": [
+    [
+      49196.5,
+      88,
+      49202.5
+    ],
+    [
+      49217.5,
+      86,
+      49235.5
+    ],
+    [
+      49193.5,
+      87,
+      49227.5
+    ],
+    [
+      49219.5,
+      92,
+      49210.5
+    ],
+    [
+      49182.5,
+      87,
+      49213.5
+    ],
+    [
+      49217.5,
+      90,
+      49193.5
+    ],
+    [
+      49208.5,
+      87,
+      49222.5
+    ],
+    [
+      49181.5,
+      86,
+      49198.5
+    ],
+    [
+      49204.5,
+      87,
+      49235.5
+    ],
+    [
+      49196.5,
+      86,
+      49215.5
+    ],
+    [
+      49209.5,
+      90,
+      49203.5
+    ],
+    [
+      49219.5,
+      87,
+      49224.5
+    ],
+    [
+      49203.5,
+      86,
+      49195.5
+    ],
+    [
+      49205.5,
+      90,
+      49212.5
+    ],
+    [
+      49194.5,
+      86,
+      49193.5
+    ],
+    [
+      49186.5,
+      87,
+      49221.5
+    ],
+    [
+      49187.5,
+      87,
+      49206.5
+    ],
+    [
+      49219.5,
+      92,
+      49201.5
+    ],
+    [
+      49200.5,
+      87,
+      49223.5
+    ],
+    [
+      49215.5,
+      91,
+      49217.5
+    ],
+    [
+      49210.5,
+      89,
+      49230.5
+    ],
+    [
+      49189.5,
+      86,
+      49214.5
+    ],
+    [
+      49210.5,
+      88,
+      49196.5
+    ],
+    [
+      49188.5,
+      87,
+      49196.5
+    ],
+    [
+      49198.5,
+      87,
+      49232.5
+    ],
+    [
+      49199.5,
+      87,
+      49208.5
+    ],
+    [
+      49204.5,
+      88,
+      49228.5
+    ],
+    [
+      49213.5,
+      91,
+      49208.5
+    ],
+    [
+      49181.5,
+      86,
+      49207.5
+    ],
+    [
+      49192.5,
+      87,
+      49220.5
+    ],
+    [
+      49193.5,
+      86,
+      49209.5
+    ],
+    [
+      49202.5,
+      87,
+      49201.5
+    ]
+  ],
+  "scrap_spawns": [
+    [
+      49196.5,
+      88,
+      49202.5
+    ],
+    [
+      49217.5,
+      86,
+      49235.5
+    ],
+    [
+      49193.5,
+      87,
+      49227.5
+    ],
+    [
+      49219.5,
+      92,
+      49210.5
+    ],
+    [
+      49182.5,
+      87,
+      49213.5
+    ],
+    [
+      49217.5,
+      90,
+      49193.5
+    ],
+    [
+      49208.5,
+      87,
+      49222.5
+    ],
+    [
+      49181.5,
+      86,
+      49198.5
+    ],
+    [
+      49204.5,
+      87,
+      49235.5
+    ],
+    [
+      49196.5,
+      86,
+      49215.5
+    ],
+    [
+      49209.5,
+      90,
+      49203.5
+    ],
+    [
+      49219.5,
+      87,
+      49224.5
+    ],
+    [
+      49203.5,
+      86,
+      49195.5
+    ],
+    [
+      49205.5,
+      90,
+      49212.5
+    ],
+    [
+      49194.5,
+      86,
+      49193.5
+    ],
+    [
+      49186.5,
+      87,
+      49221.5
+    ],
+    [
+      49187.5,
+      87,
+      49206.5
+    ],
+    [
+      49219.5,
+      92,
+      49201.5
+    ],
+    [
+      49200.5,
+      87,
+      49223.5
+    ],
+    [
+      49215.5,
+      91,
+      49217.5
+    ],
+    [
+      49210.5,
+      89,
+      49230.5
+    ],
+    [
+      49189.5,
+      86,
+      49214.5
+    ],
+    [
+      49210.5,
+      88,
+      49196.5
+    ],
+    [
+      49188.5,
+      87,
+      49196.5
+    ],
+    [
+      49198.5,
+      87,
+      49232.5
+    ],
+    [
+      49199.5,
+      87,
+      49208.5
+    ],
+    [
+      49204.5,
+      88,
+      49228.5
+    ],
+    [
+      49213.5,
+      91,
+      49208.5
+    ],
+    [
+      49181.5,
+      86,
+      49207.5
+    ],
+    [
+      49192.5,
+      87,
+      49220.5
+    ],
+    [
+      49193.5,
+      86,
+      49209.5
+    ],
+    [
+      49202.5,
+      87,
+      49201.5
+    ]
+  ],
+  "spawn_validation": {
+    "clear_blocks": [
+      "minecraft:air",
+      "minecraft:azure_bluet",
+      "minecraft:cave_air",
+      "minecraft:cornflower",
+      "minecraft:dandelion",
+      "minecraft:dead_bush",
+      "minecraft:fern",
+      "minecraft:oxeye_daisy",
+      "minecraft:poppy",
+      "minecraft:short_grass",
+      "minecraft:void_air"
+    ],
+    "support_blocks": [
+      "minecraft:coarse_dirt",
+      "minecraft:cobblestone",
+      "minecraft:dirt",
+      "minecraft:grass_block",
+      "minecraft:gravel",
+      "minecraft:oak_planks",
+      "minecraft:podzol",
+      "minecraft:sand",
+      "minecraft:sandstone",
+      "minecraft:snow_block",
+      "minecraft:spruce_planks",
+      "minecraft:stone",
+      "minecraft:stone_bricks"
+    ],
+    "connected_top_surface_nodes": 1298,
+    "method": "Actual imported block states; full solid support,2cells clear,top surface y>=86,largest connected step/jump1 route graph,at least3 adjacent route nodes"
+  },
+  "poster": {
+    "texture": "assets/cube_block/textures/posters/cube_block.png",
+    "method": "OpenAI built-in imagegen; inspected1024x1536 muted lower-right-title variant"
+  },
+  "runtime_verification": {
+    "target": "Minecraft 1.21.4 / NeoForge 21.4.158 with the installed Gravity Changer mod",
+    "source_conversion": "Vanilla 1.21.4 DFU converted a disposable copy; that copy was loaded and safely stopped.",
+    "native_checks": 27,
+    "native_coverage": [
+      "All 32 spawns have clear native player collision and actual standing support.",
+      "Live hook grant and item components.",
+      "Real mod projectiles retain distinct owners; cleanup removes only the departing player's hook and preserves an unmarked hook and diamond.",
+      "Spectator, death, lobby, map and game-state guards.",
+      "Preparation return and gravity reset; active escape follows the actual player-death path.",
+      "Repeated activation and reset preserve exact marker counts.",
+      "Four-player normal startup, role assignment, grace period and normal round-end cleanup.",
+      "All four participants retain their grappler after role loadouts.",
+      "Final voting poster rendered and visually inspected in actual client."
+    ],
+    "evidence": "docs/arenas/2026-10-map-port-verification.json; dev/map-ports/playtest/gameplay-pass.txt and focused poster results/screenshots (Git ignored).",
+    "limitation": "Automated native client/server verification; not a human multiplayer playthrough."
+  },
+  "in_game_playtest": {
+    "automated_native": true,
+    "human_multiplayer": false,
+    "target": "Minecraft1.21.4 / NeoForge21.4.158",
+    "verification": "docs/arenas/2026-10-map-port-verification.json",
+    "spawn_count": 32,
+    "round": "Four live participants, normal start/role assignment/grace, normal game-end reset passed.",
+    "poster": "Rendered in actual client; final screenshots visually inspected."
+  }
+}

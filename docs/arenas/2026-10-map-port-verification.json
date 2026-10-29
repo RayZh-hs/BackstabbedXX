@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-29",
+  "target": {
+    "minecraft": "1.21.4",
+    "neoforge": "21.4.158"
+  },
+  "static_tests": {
+    "command": "make test",
+    "passed": 24,
+    "git_diff_check": "passed"
+  },
+  "native_gameplay": {
+    "result": "PASS",
+    "report_entries": 422,
+    "collision_and_support_spawns": 120,
+    "new_arena_spawns": 96,
+    "station_spawns": 24,
+    "four_player_rounds": [
+      "sworld_island",
+      "middle_ages",
+      "cube_block"
+    ],
+    "coverage": [
+      "normal selection and activation",
+      "native saved-block player collision and support",
+      "repeated activation/reset",
+      "ocean vs indoor water vs elevated stream vs dry air",
+      "ocean boat passenger",
+      "waiting and grace return, active fall/elimination, player/state/map guards",
+      "physical elevator button use in both directions",
+      "actual always-edible potato consumption, Speed I and Jump I duration 200",
+      "65 dispenser entries with fresh random outcomes and independent player state",
+      "all seven locked empty inventories and blocked GUI",
+      "actual firework entity rises and expires/explodes",
+      "gravity grappler grants and direct state guards",
+      "two real grappler projectiles: owned-only cleanup, unrelated items preserved",
+      "grappler retained after role loadouts for four players",
+      "normal round-end path clears runtime entities"
+    ],
+    "report": "dev/map-ports/playtest/gameplay-pass.txt",
+    "harness": "dev/map-ports/playtest/"
+  },
+  "native_visual": {
+    "result": "PASS; visually inspected all three rendered voting posters",
+    "report": "dev/map-ports/playtest/results.txt",
+    "screenshots": [
+      "dev/map-ports/playtest/screenshots/probe-0.png",
+      "dev/map-ports/playtest/screenshots/probe-1.png",
+      "dev/map-ports/playtest/screenshots/probe-2.png"
+    ],
+    "display_plane_x": 27.99,
+    "fix": "Explicit decimal absolute coordinates prevent Vec3 integer centering from placing a poster inside the booth wall. Normal voting already used decimals; new direct-selection helpers now match it."
+  },
+  "human_multiplayer_playthrough": false,
+  "backup": {
+    "path": ".minecraft/backups/map-integration/20261028T165526428350Z-five-arenas-before-port-and-fixes-872b9d08.zip",
+    "sha256": "2ac52afaaa9f04dbf92a4e16776ddae221d656516709e477986b300fa5083f5e",
+    "verified_before_writes": true
+  },
+  "world_preservation": {
+    "unchanged_original_files": 938,
+    "changed_original_files": [
+      "datapacks/mcm.zip",
+      "region/r.47.48.mca",
+      "region/r.48.47.mca",
+      "region/r.48.48.mca"
+    ],
+    "missing_original_files": []
+  },
+  "packaging": {
+    "command": "make release VERSION=1.1.2-alpha",
+    "checks": [
+      "host archive contains exact final gameplay datapack",
+      "all three final PNGs match packaged textures",
+      "client embeds exact rebuilt resource pack",
+      "client excludes worlds",
+      "host archive excludes source downloads and private backups",
+      "SHA256SUMS regenerated and independently verified for these three local artifacts"
+    ],
+    "artifacts": {
+      "dist/Backstabbed++.zip": {
+        "sha256": "d649ca72d6982f3b60b679dd2575401a4479bcc2b67f50c30026ae79bdfa7092",
+        "bytes": 42649959
+      },
+      "dist/backstabbed-resource.zip": {
+        "sha256": "aa0ac42f882378b14e632d672505d5f2b09f0ffc9c8347d06ef34b49039c026c",
+        "bytes": 35405853
+      },
+      "dist/Backstabbed++-map-v1.1.2-alpha.zip": {
+        "sha256": "1eab7f26422f9e27f27d6d0ad677535863bf6326626280814515681c881163fd",
+        "bytes": 169493058
+      }
+    },
+    "published_during_verification": false,
+    "release_tag": "v1.1.2-alpha"
+  },
+  "poster_generation": "OpenAI built-in imagegen; final prompts/hashes in 2026-10-map-port-posters.json"
+}

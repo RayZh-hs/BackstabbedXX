@@ -1,0 +1,52 @@
+{
+  "credit": "CloseeDBr; https://www.minecraftmaps.com/44852-sworld-island; poster generated with OpenAI built-in imagegen, 29 October 2026.",
+  "gui_light": "front",
+  "textures": {
+    "poster": "sworld_island:posters/sworld_island",
+    "particle": "sworld_island:posters/sworld_island"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        24,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#poster"
+        }
+      }
+    }
+  ],
+  "display": {
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}
