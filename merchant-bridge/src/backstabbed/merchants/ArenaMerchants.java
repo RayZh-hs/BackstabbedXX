@@ -28,6 +28,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 public final class ArenaMerchants {
     public ArenaMerchants() {
         NeoForge.EVENT_BUS.addListener(this::interact);
+        NeoForge.EVENT_BUS.addListener(ArenaSpawnGravity::register);
     }
 
     private static int score(Player player, ScoreHolder holder, String name, int fallback) {

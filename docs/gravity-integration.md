@@ -9,6 +9,7 @@ Requires Gravity Changer `1.4.1-neoforge.3+mc1.21.4` on host and clients. The ga
 - Manual player drops snapshot applied gravity, retaining their world-space launch velocity. Scripted death inventory drops use the same snapshot and rotated local height 0.5.
 - Scrap reads its selected marker's `data.gravity_direction` and `data.gravity_strength`. Missing fields mean `down` and `1.0`; strength is a local multiplier and still combines with dimension/global gravity. Spawn probability, timing and item count are unchanged.
 - Entering a round, leaving a game, and receiving lobby items reset player base gravity. Other effects retain the mod's normal precedence.
+- Cube Block (23) initializes players from the selected spawn marker after that reset. Its 32 shared player/scrap points cover all six faces with gravity pointing into each face. The bundled host bridge's `arena_spawn_gravity <marker>` applies player gravity synchronously before teleport; the Gravity Changer marker command supports non-player targets.
 
 Example configured scrap marker:
 

@@ -270,7 +270,8 @@ stream remains safe. [Middle Ages Small Lobby](docs/arenas/middle_ages.json), by
 ElectronJoon and collaborators, is map 22: its original castle courtyard floats
 in the void, with 32 validated spawns and fall elimination.
 [Cube Block](docs/arenas/cube_block.md), by XxRexRaptorxX, is map 23. Its main cube
-has 32 validated spawns, and live players receive the gravity grappler. The three
+has 32 validated player/scrap points across all six faces, with gravity pointing
+into each supporting face, and live players receive the gravity grappler. The three
 maps include new generated posters with varied layouts and restrained colors.
 Their source downloads, credits and reuse notices are preserved in the arena
 records; these local ports do not establish permission for public redistribution.

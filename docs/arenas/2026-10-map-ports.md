@@ -10,7 +10,7 @@ Git-ignored `map-previewer/maps/` directory.
 | --- | --- | --- | --- |
 | Sworld Island | 21 | Original source + `[40224,0,40592]`; imported X40864–41055, Z40912–41023 | 32 across connected island ground, Y64–87 |
 | Middle Ages Small Lobby | 22 | Original source + `[45056,96,45056]`; architecture X45026–45087, Y92–128, Z45026–45086 | 32 in the original courtyard, Y96 |
-| Cube Block | 23 | Original source + `[49136,0,49408]`; main cube X49176–49233, Y0–102, Z49164–49249 | 32 on connected upper ground, Y86+ |
+| Cube Block | 23 | Original source + `[49136,0,49408]`; main cube X49176–49233, Y0–102, Z49164–49249 | 32 across all six faces, with inward face gravity |
 | Subway Station update | 16 | Existing architecture unchanged | 8 lower platform, 8 upper concourse, 8 train interiors |
 
 Sworld Island is by CloseeDBr, from

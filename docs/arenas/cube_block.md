@@ -29,13 +29,28 @@ living decorations have no AI or trades. Survival hostiles and loose item drops
 are omitted. The original legacy save contains duplicate UUIDs and an invalid
 skull block entity; vanilla conversion resolves or rejects these before import.
 
-There are 32 distinct player/scrap locations on the connected upper ground,
-all at Y ≥ 86, supported by full blocks with clear standing/head volumes.
-They belong to a 1,298-node connected walk/jump route graph and have at least
-three neighbouring route nodes each. The closest pair is 6.08 blocks apart
-horizontally. The destination block data is checked by
-`tests/test_cube_block.py`; no spawn relies on the source's interior survival
-spawn position, a tree canopy, a partial snow layer, or a reset door.
+There are 32 distinct shared player/scrap locations across all six exterior
+faces: six on top, six underneath, and five on each side. Each marker stores
+gravity pointing into its supporting face, opposite the outward normal, at
+strength 1.0. The player body rotates with that orientation; upside-down and
+sideways players have full-block support and clear body space. Persistent
+jungle foliage on the north face is usable support; water, invisible barriers,
+cacti, partial blocks, and interior pockets are excluded.
+
+Each point belongs to its face's largest connected walk/jump route graph and
+has at least three neighbouring route nodes. Points are selected by increasing
+their separation across the face, with six-block clearance from points on
+previously selected faces. `tests/cube_geometry.py` reproduces the selection
+from the saved blocks, and `tests/test_cube_block.py` checks the installed
+markers, rotated body volumes, support, spacing, routes, and arena membership.
+
+The shared spawn selector delegates Cube Block to `cube_block:spawn`. It
+selects one unoccupied marker, applies that marker's gravity synchronously via
+the bundled host mod's `arena_spawn_gravity` command, then teleports to the same
+marker and marks it occupied. Applying gravity before teleporting prevents
+rotation from displacing an upside-down spawn later. Scrap uses the existing
+Gravity Changer marker bridge. Grace-period escape still returns to the safe
+top contact at `(49196.5, 88, 49202.5)` with downward gravity.
 
 Living queued participants receive the installed Gravity Changer mod's
 `gravity_changer:grappling_hook` in hotbar slot 0 when the round starts. The
@@ -123,3 +138,31 @@ and round-end reset. Results and the disposable harness are retained in
 was visually inspected in the Lodestone context preview; a human multiplayer
 playthrough was not performed. `make test` passed all 25 tests, and
 `make resourcepack map` rebuilt the resource pack and host-map archive.
+
+Six-face spawn update, 31 October 2026: player and scrap markers now use the
+distribution and inward normals described above. Sideways and underside
+contacts have a 0.001-block outward gap to avoid Gravity Changer's tiny
+positive-axis bounding-box offset. The closest two points are 6.043 blocks
+apart. A verified full-save snapshot was taken before the datapack change:
+`.minecraft/backups/map-integration/20261030T174708002370Z-cube-face-spawns-before-fix-28de3fa2.zip`,
+SHA-256 `7e9f26da568d4cd573ed4243759a6b7376e91d12e33132ea70e14b4cb856f885`.
+Restore it using the stopped-save verification/extraction procedure above.
+
+The native fixture at `merchant-bridge/tests/FaceChecks.java`, launched with
+`merchant-bridge/tests/run_cube.py`, passed 308 assertions in a disposable
+Minecraft 1.21.4 / NeoForge 21.4.158 world. All 32 player destinations and all
+32 real scrap drops passed their actual rotated collision/support checks.
+Player base, applied and previous gravity agree before the spawn teleport;
+occupancy selection/reuse, invalid configuration rejection, ordinary spawning
+for other arenas, and repeated activation passed. A normal four-player round
+passed role assignment, grace period, living-player/grappler checks, collision
+after ticking, round-end marker cleanup and downward lobby return. Results are
+retained in `dev/cube-face-check/results.txt`; this was automated client/server
+verification, without a human multiplayer playthrough.
+
+The focused Cube Block/host bridge suite passed 12 tests. `make test` ran 26
+tests, with 22 passing and four existing Middle Ages problems (one failure,
+three errors). Those same Middle Ages problems were reproduced against the
+committed datapack: the tests expect the old activation/spawn layout and do not
+understand its current `entity_properties` predicate. `make resourcepack map
+pack` built the resource pack, host map and client pack successfully.
