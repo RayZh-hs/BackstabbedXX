@@ -94,7 +94,7 @@ are beside it. The consolidated record is
 `docs/arenas/2026-10-map-port-verification.json`. This is native client/server
 verification; a human multiplayer playthrough was not performed.
 
-Water containment repair, 30 October 2026: the original survival cube's water
+Initial water containment repair, 30 October 2026: the original survival cube's water
 had exposed west/south faces and an unsupported underside. Its imported pending
 fluid ticks, or later neighbour updates, could extend waterfalls down to Y −64.
 The repair retains all 2,698 water cells inside the main 40-block cube,
@@ -138,6 +138,41 @@ and round-end reset. Results and the disposable harness are retained in
 was visually inspected in the Lodestone context preview; a human multiplayer
 playthrough was not performed. `make test` passed all 25 tests, and
 `make resourcepack map` rebuilt the resource pack and host-map archive.
+
+Passable water lining, 31 October 2026: all 857 repair barriers are now
+`minecraft:structure_void`. Java 1.21.4's fluid code explicitly refuses to
+spread into this block, while its player collision shape is empty. The lining
+is invisible and adds no movement resistance; players can cross the west,
+south and bottom water boundaries in either direction. Water itself retains
+normal swimming drag. No water cells, existing terrain, spawns, decorations,
+or gameplay functions changed. Structure voids are lining, never standing
+support. The saved region contains the actual blocks; Minecraft structure
+placement would skip structure voids, so the sparse builder NBT was applied
+directly to the saved chunk palettes with old-state checks.
+
+Before the change, the full stopped save was archived and checksum-verified as
+`.minecraft/backups/map-integration/20261030T181723533442Z-cube-block-before-passable-water-lining-79e20169.zip`,
+SHA-256 `74c47a56d1be6b6aac93542250e379020a337935c102ae3a98bc297782bac5c2`.
+Use the same restore procedure above. The new bounded builder recipe,
+application tool and native test harness are retained in
+`dev/cube-water-passable/`; the NBT and inspected Lodestone context preview
+are in `map-previewer/maps/cube-block-water-passable/`. A full-save comparison
+confirmed that only `region/r.96.96.mca` changed, with exactly 857
+barrier-to-structure-void substitutions and all water and other blocks intact.
+
+Native verification in Minecraft 1.21.4 / NeoForge 21.4.158 passed: all 857
+lining cells have empty collision/fluid shapes and neutral speed/jump factors;
+players crossed all three cut faces in both directions; dry movement through
+a structure void matched air in displacement and velocity. Forced updates on
+all 2,698 water cells produced no exterior water and retained all 2,556 original
+sources through a four-player round and reset. All 32 rotated player and scrap
+spawn contacts, marker gravity/occupancy, repeated activation, grapplers and
+lobby gravity reset passed. Detailed results are in
+`dev/cube-water-passable/results.txt`. All seven Cube Block unit tests passed,
+and `make resourcepack map` succeeded. The full `make test` run has one failure
+and three errors in the unrelated Middle Ages tests (legacy spawn assertions
+and unsupported `entity_properties` predicates); the same results were
+reproduced against the full-save backup from before this change.
 
 Six-face spawn update, 31 October 2026: player and scrap markers now use the
 distribution and inward normals described above. Sideways and underside

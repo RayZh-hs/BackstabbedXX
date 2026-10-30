@@ -739,7 +739,7 @@
     "date": "2026-10-30",
     "retained_water": 2698,
     "removed_exterior_water": 3608,
-    "barriers": 857,
+    "barriers": 0,
     "water_bounds": {
       "min": [
         49181,
@@ -752,7 +752,7 @@
         49235
       ]
     },
-    "method": "Invisible lining immediately outside exposed water on west/south cut faces and underside; no original solid blocks replaced. Physical containment survives lifecycle resets.",
+    "method": "Structure void lining immediately outside exposed water on west/south cut faces and underside; blocks fluid flow but allows unrestricted player movement. Replaces only the prior 857 repair barriers and survives lifecycle resets.",
     "backup": ".minecraft/backups/map-integration/20261030T130756164848Z-cube-block-before-water-fix-f7a9e82b.zip",
     "backup_sha256": "3a2fb13a403d7e3d86f15a3255a3e363f3ac160191fcac5e23f0fc1a752bf46d",
     "verification": {
@@ -773,6 +773,26 @@
       "packaging": "make resourcepack map: passed",
       "local_results": "dev/cube-water-check/results.txt",
       "visual_review": "Lodestone repaired context preview; native mechanics checks automated, no human multiplayer playthrough"
+    },
+    "structure_voids": 857,
+    "passable_lining_date": "2026-10-31",
+    "passable_lining_backup": ".minecraft/backups/map-integration/20261030T181723533442Z-cube-block-before-passable-water-lining-79e20169.zip",
+    "passable_lining_backup_sha256": "74c47a56d1be6b6aac93542250e379020a337935c102ae3a98bc297782bac5c2",
+    "passable_lining_verification": {
+      "runtime": "Minecraft 1.21.4 / NeoForge 21.4.158; disposable save",
+      "native_checks": "PASS: all 857 lining cells have empty collision/fluid shapes and neutral speed/jump factors; actual player movement crosses all three faces in both directions; dry displacement and velocity match air",
+      "forced_fluid_ticks": 2698,
+      "exterior_water_scans": [
+        0,
+        0
+      ],
+      "preserved_native_source_positions": 2556,
+      "spawns": "PASS: all 32 rotated player and scrap contacts across all six faces; marker gravity/occupancy; repeated activation",
+      "round": "PASS: four-player startup, roles, grace, retained grapplers, reset and lobby gravity reset",
+      "focused_tests": "7 Cube Block tests passed",
+      "full_tests": "1 failure and 3 errors in Middle Ages checks; reproduced against pre-change backup",
+      "packaging": "make resourcepack map passed",
+      "local_results": "dev/cube-water-passable/results.txt"
     }
   },
   "spawn_faces": [

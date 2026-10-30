@@ -171,15 +171,15 @@ class CubeBlockIntegration(unittest.TestCase):
                             q = tuple(a + b for a, b in zip(p, delta))
                             if not inside(q):
                                 name = self.world.block(*q)['Name']
-                                self.assertIn(name, {'minecraft:barrier', 'minecraft:oak_planks',
+                                self.assertIn(name, {'minecraft:structure_void', 'minecraft:oak_planks',
                                                      'minecraft:spruce_planks'}, q)
-                                if name == 'minecraft:barrier':
+                                if name == 'minecraft:structure_void':
                                     seals.add(q)
         self.assertGreater(water, 2500, 'Keep the pool and interior water')
         self.assertEqual(len(seals), 857)
         self.assertEqual(self.world.block(49183, 86, 49235)['Name'], 'minecraft:water')
-        self.assertEqual(self.world.block(49183, 86, 49236)['Name'], 'minecraft:barrier')
-        self.assertEqual(self.world.block(49183, 85, 49236)['Name'], 'minecraft:barrier')
+        self.assertEqual(self.world.block(49183, 86, 49236)['Name'], 'minecraft:structure_void')
+        self.assertEqual(self.world.block(49183, 85, 49236)['Name'], 'minecraft:structure_void')
         self.assertEqual(self.world.block(49183, -64, 49236)['Name'], 'minecraft:air')
 
 
