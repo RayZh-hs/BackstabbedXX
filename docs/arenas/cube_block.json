@@ -304,7 +304,7 @@
   "build_bounds": {
     "min": [
       49176,
-      0,
+      38,
       49164
     ],
     "max": [
@@ -717,5 +717,45 @@
     "spawn_count": 32,
     "round": "Four live participants, normal start/role assignment/grace, normal game-end reset passed.",
     "poster": "Rendered in actual client; final screenshots visually inspected."
+  },
+  "water_repair": {
+    "date": "2026-10-30",
+    "retained_water": 2698,
+    "removed_exterior_water": 3608,
+    "barriers": 857,
+    "water_bounds": {
+      "min": [
+        49181,
+        47,
+        49196
+      ],
+      "max": [
+        49220,
+        86,
+        49235
+      ]
+    },
+    "method": "Invisible lining immediately outside exposed water on west/south cut faces and underside; no original solid blocks replaced. Physical containment survives lifecycle resets.",
+    "backup": ".minecraft/backups/map-integration/20261030T130756164848Z-cube-block-before-water-fix-f7a9e82b.zip",
+    "backup_sha256": "3a2fb13a403d7e3d86f15a3255a3e363f3ac160191fcac5e23f0fc1a752bf46d",
+    "verification": {
+      "runtime": "Minecraft 1.21.4 / NeoForge 21.4.158; disposable save",
+      "forced_fluid_ticks": [
+        2698,
+        2723
+      ],
+      "exterior_water_scans": [
+        0,
+        0,
+        0
+      ],
+      "preserved_native_source_positions": 2556,
+      "safe_native_spawns": 32,
+      "grappler_containment_lifecycle": "PASS: native existing CubeChecks, repeated activation/reset, normal four-player round and round-end reset",
+      "tests": "make test: 25 passed",
+      "packaging": "make resourcepack map: passed",
+      "local_results": "dev/cube-water-check/results.txt",
+      "visual_review": "Lodestone repaired context preview; native mechanics checks automated, no human multiplayer playthrough"
+    }
   }
 }

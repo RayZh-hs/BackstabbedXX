@@ -18,8 +18,10 @@ using the vanilla Minecraft 1.21.4 server's `--forceUpgrade --eraseCache` path.
 Only those 49 converted chunks are imported. Source data outside the main cube,
 including its additional star, nether and end cubes, is excluded. The transform
 is translation `(49136, 0, 49408)` with no rotation. Imported block geometry
-occupies `(49176, 0, 49164)` through `(49233, 102, 49249)`; lower cells are the
-cube's existing waterfalls. Block states and useful block entities are retained.
+originally occupied `(49176, 0, 49164)` through `(49233, 102, 49249)`;
+the lowest cells were exterior waterfalls. After the water repair below, saved
+geometry occupies `(49176, 38, 49164)` through `(49233, 102, 49249)`.
+Block states and useful block entities are retained.
 Survival inventories and loot tables are cleared, mob spawners are disabled,
 and source structures, scheduled control and datapacks are not imported.
 Valid source decorations and animals are retained with new deterministic UUIDs;
@@ -76,3 +78,48 @@ Automated gameplay results are retained in
 are beside it. The consolidated record is
 `docs/arenas/2026-10-map-port-verification.json`. This is native client/server
 verification; a human multiplayer playthrough was not performed.
+
+Water containment repair, 30 October 2026: the original survival cube's water
+had exposed west/south faces and an unsupported underside. Its imported pending
+fluid ticks, or later neighbour updates, could extend waterfalls down to Y −64.
+The repair retains all 2,698 water cells inside the main 40-block cube,
+`(49181, 47, 49196)` through `(49220, 86, 49235)`, including cave streams.
+It removes 3,608 exterior water cells and installs 857 invisible barrier cells:
+137 on the west face at X 49180, 152 on the south face at Z 49236, and 568
+under the water at Y 46. Existing wooden supports remain. These barriers occupy
+one block outside the exposed water and have normal barrier collision; the
+pool's open top remains accessible. Spawns, routes and the arena predicate
+remain unchanged. The saved physical lining persists across activation/reset;
+no global fluid setting or recurring cleanup command is needed.
+
+The full stopped save was archived and checksum-verified before the repair:
+`.minecraft/backups/map-integration/20261030T130756164848Z-cube-block-before-water-fix-f7a9e82b.zip`,
+SHA-256 `3a2fb13a403d7e3d86f15a3255a3e363f3ac160191fcac5e23f0fc1a752bf46d`.
+To restore, stop Minecraft, verify the archive using the project skill's
+`backup_world.py --verify`, move the current save aside, then extract the archived
+world folder under `.minecraft/saves/`. Keep the backup throughout.
+
+The bounded recipe and application tool are retained locally in
+`dev/cube-water-repair/`. The installed `minecraft-builder-skill` generated
+`map-previewer/maps/cube-block-water-repair/cube-block-water-patch.nbt` with
+DataVersion 4189 and automatic block-state updates disabled. Its context was
+inspected in the interactive Lodestone preview before import. The applier
+checked every previous state against the plan, changed only seven chunks in
+`region/r.96.96.mca`, removed obsolete ticks at replaced cells, and invalidated
+affected chunk light/height caches for recalculation. Comparison with the full
+backup confirmed that this region is the only changed save file; all original
+solid blocks, block entities, decorative entities, POI and datapack data remain.
+
+Verification used a disposable copy in Minecraft 1.21.4 / NeoForge 21.4.158.
+Every retained water cell received a native fluid tick (2,698 initially, 2,723
+after the interior streams settled). Three subsequent scans of the full arena
+chunk footprint, from Y −64 through 102, found zero exterior water; all 2,556
+original interior water source positions remained sources. Native collision
+and support checks passed at all 32 spawns. The existing grappler ownership,
+cleanup, grace return, active escape elimination, and repeated activation/reset
+checks passed, followed by normal four-player startup, role assignment, grace
+and round-end reset. Results and the disposable harness are retained in
+`dev/cube-water-check/results.txt` and its adjacent files. The repaired geometry
+was visually inspected in the Lodestone context preview; a human multiplayer
+playthrough was not performed. `make test` passed all 25 tests, and
+`make resourcepack map` rebuilt the resource pack and host-map archive.

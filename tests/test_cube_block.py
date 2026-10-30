@@ -126,6 +126,41 @@ class CubeBlockIntegration(unittest.TestCase):
                     count += 1
         self.assertEqual(count, len(self.manifest['block_entities']))
 
+    def test_water_has_sealed_cut_faces_and_no_exterior_falling_columns(self):
+        # The survival source had unsupported water on three cut faces. Merely
+        # clearing fluid_ticks would only hide it until a neighbour update.
+        low, high = (49181, 47, 49196), (49220, 86, 49235)
+        def inside(p):
+            return all(a <= v <= b for v, a, b in zip(p, low, high))
+
+        water, seals = 0, set()
+        for cx in range(3072, 3079):
+            for cz in range(3072, 3079):
+                for section in self.world.chunk(cx, cz).get('sections', []):
+                    if not any(s['Name'] == 'minecraft:water' for s in
+                               section.get('block_states', {}).get('palette', [])):
+                        continue
+                    for i in range(4096):
+                        p = cx * 16 + i % 16, section['Y'] * 16 + i // 256, cz * 16 + i // 16 % 16
+                        if self.world.block(*p)['Name'] != 'minecraft:water':
+                            continue
+                        water += 1
+                        self.assertTrue(inside(p), f'Exterior waterfall: {p}')
+                        for delta in ((-1, 0, 0), (1, 0, 0), (0, -1, 0), (0, 0, -1), (0, 0, 1)):
+                            q = tuple(a + b for a, b in zip(p, delta))
+                            if not inside(q):
+                                name = self.world.block(*q)['Name']
+                                self.assertIn(name, {'minecraft:barrier', 'minecraft:oak_planks',
+                                                     'minecraft:spruce_planks'}, q)
+                                if name == 'minecraft:barrier':
+                                    seals.add(q)
+        self.assertGreater(water, 2500, 'Keep the pool and interior water')
+        self.assertEqual(len(seals), 857)
+        self.assertEqual(self.world.block(49183, 86, 49235)['Name'], 'minecraft:water')
+        self.assertEqual(self.world.block(49183, 86, 49236)['Name'], 'minecraft:barrier')
+        self.assertEqual(self.world.block(49183, 85, 49236)['Name'], 'minecraft:barrier')
+        self.assertEqual(self.world.block(49183, -64, 49236)['Name'], 'minecraft:air')
+
 
 if __name__ == '__main__':
     unittest.main()
