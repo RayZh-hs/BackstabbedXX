@@ -14,8 +14,15 @@ locally.
 3. In Prism Launcher, choose **Add Instance → Import**, then select the downloaded
    ZIP.
 
-Clients need only `Backstabbed++.zip`, which includes the built resource pack
-and contains no worlds. Each release also provides `backstabbed-resource.zip`
+For **HMCL**, download `Backstabbed++.mrpack` and choose **Instances → Install
+Modpack → Import local modpack**. Use Java 21. The `.mrpack` includes the same
+mods and resource pack, with Minecraft and NeoForge versions taken from
+`mmc-pack.json`. It avoids the MultiMC LWJGL metadata lookup that can fail in
+HMCL with `meta.multimc.org/v1/org.lwjgl3/3.3.3.json` not found. Renaming the
+Prism ZIP to `.mrpack` does not convert it.
+
+Clients need only one of these client archives. Both include the built resource
+pack and contain no worlds. Each release also provides `backstabbed-resource.zip`
 separately and a `SHA256SUMS` file for checking the downloads.
 
 The map is a separate asset, `Backstabbed++-map-v<VERSION>.zip`, for the host.
@@ -34,10 +41,11 @@ make
 ```
 
 Import `dist/Backstabbed++.zip` into Prism Launcher using **Add Instance → Import**.
+For HMCL, import `dist/Backstabbed++.mrpack` instead.
 Other build commands:
 
 ```sh
-make                 # Build the resource pack and the Prism instance ZIP
+make                 # Build the resource pack, Prism ZIP, and HMCL-compatible MRPACK
 make launch          # Build, then launch the working copy (requires uv)
 make launch -- --local  # Launch a fresh playtest world with idle players
 make edit            # Choose an arena and open its persistent editor session
@@ -52,6 +60,7 @@ make clean           # Remove dist/; keep the installed resource-pack ZIP
 Outputs:
 
 - `dist/Backstabbed++.zip`: an importable Prism instance.
+- `dist/Backstabbed++.mrpack`: an importable HMCL/Modrinth pack, with release version metadata.
 - `dist/backstabbed-resource.zip`: the standalone resource pack, with `pack.mcmeta`
   and `assets/` at the archive root.
 - `dist/Backstabbed++-map-v<VERSION>.zip`: the separate host map, produced by
