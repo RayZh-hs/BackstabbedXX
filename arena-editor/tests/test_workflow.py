@@ -1,8 +1,11 @@
 from contextlib import redirect_stdout
+import base64
 from io import StringIO
 import json
 from pathlib import Path
 import subprocess
+import platform
+import shutil
 import sys
 import tempfile
 import unittest
@@ -127,6 +130,52 @@ class WorkflowTests(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0, "Nested helper released the outer Java-compatible lock")
         result = subprocess.run([sys.executable, "-c", code, str(self.source / "session.lock")], capture_output=True)
         self.assertEqual(result.returncode, 0, result.stderr)
+
+    @unittest.skipUnless("microsoft" in platform.release().lower() and shutil.which("powershell.exe"),
+                         "Requires WSL and Windows PowerShell")
+    def test_windows_game_lock_is_visible_from_wsl(self):
+        # Use the Windows checkout volume, not WSL's private /tmp filesystem.
+        with tempfile.TemporaryDirectory(prefix="bbe-'测试-", dir=Path(__file__).resolve().parents[2]) as directory:
+            save = Path(directory)
+            lock = save / "session.lock"
+            lock.write_bytes(b"Minecraft lock")
+            winpath = subprocess.check_output(["wslpath", "-w", str(lock)], text=True).strip()
+            if len(winpath) < 3 or winpath[1:3] != ":\\":
+                self.skipTest("Requires a checkout on a Windows drive")
+            script = ("$ErrorActionPreference='Stop'; $f=[IO.File]::Open('" + winpath.replace("'", "''") +
+                      "',[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::ReadWrite); "
+                      "$f.Lock(0,[long]::MaxValue); [Console]::WriteLine('ready'); "
+                      "[Console]::ReadLine() | Out-Null; $f.Dispose()")
+            encoded = base64.b64encode(script.encode("utf-16-le")).decode()
+            process = subprocess.Popen(["powershell.exe", "-NoProfile", "-NonInteractive", "-EncodedCommand", encoded],
+                                       stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            try:
+                self.assertEqual(process.stdout.readline().strip(), "ready")
+                self.assertTrue(editor.world_is_open(save), "Windows game lock was invisible to WSL")
+                with self.assertRaises(world.WorldOpenError):
+                    with world.stopped(save):
+                        self.fail("Allowed writes while Windows game holds the world")
+                launcher = Mock()
+                launcher.poll.return_value = None
+                output = StringIO()
+                with patch.object(editor.time, "sleep", side_effect=lambda _: process.communicate("\n", timeout=15)), \
+                        redirect_stdout(output):
+                    self.assertEqual(editor.wait_for_edit_close(save, launcher, editor.save_signature(save)), 0)
+                self.assertIn("Editor world is closed.", output.getvalue())
+            finally:
+                if process.poll() is None:
+                    process.communicate("\n", timeout=15)
+            self.assertFalse(editor.world_is_open(save))
+            # The guard must also keep Windows out during writes, including
+            # after a nested operation has returned.
+            with world.stopped(save):
+                with world.stopped(save):
+                    pass
+                probe = subprocess.run(["powershell.exe", "-NoProfile", "-NonInteractive", "-EncodedCommand", encoded],
+                                       input="\n", capture_output=True, text=True, errors="replace", timeout=15)
+                self.assertNotEqual(probe.returncode, 0)
+                self.assertNotIn("ready", probe.stdout)
+            self.assertEqual(lock.read_bytes(), b"Minecraft lock")
 
     def test_make_optional_name_never_runs_another_target(self):
         root = Path(__file__).resolve().parents[2]

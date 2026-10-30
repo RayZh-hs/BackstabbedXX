@@ -1,12 +1,16 @@
 """Lossless Anvil chunk copying and isolated Java 1.21.4 editor saves."""
 
 from contextlib import contextmanager
+import base64
 import copy
 from io import BytesIO
 import json
 import math
 from pathlib import Path
+import platform
+import re
 import struct
+import subprocess
 import time
 import zlib
 
@@ -18,6 +22,55 @@ _HELD_LOCKS = set()
 
 class WorldOpenError(ValueError):
     """A Minecraft process still holds the world's session.lock."""
+
+
+@contextmanager
+def windows_volume_lock(path):
+    """DrvFS POSIX locks do not conflict with a Windows JVM's FileLock.
+
+    Hold a Windows byte-range lock as well, for the entire protected operation.
+    Linux filesystems keep using only the POSIX lock in stopped().
+    """
+    if "microsoft" not in platform.release().lower():
+        yield
+        return
+    native = subprocess.check_output(["wslpath", "-w", str(path)], text=True).strip()
+    if not re.match(r"^[A-Za-z]:\\", native):
+        yield
+        return
+    script = """
+$ErrorActionPreference = 'Stop'
+$f = $null
+try {
+    $f = [IO.File]::Open('PATH', [IO.FileMode]::Open, [IO.FileAccess]::ReadWrite, [IO.FileShare]::ReadWrite)
+    $f.Lock(0, [long]::MaxValue)
+    [Console]::WriteLine('LOCKED')
+    [Console]::ReadLine() | Out-Null
+} catch {
+    $code = $_.Exception.GetBaseException().HResult -band 65535
+    if ($code -eq 32 -or $code -eq 33) { [Console]::WriteLine('BUSY') }
+    else { [Console]::WriteLine('ERROR: ' + $_.Exception.Message) }
+} finally {
+    if ($null -ne $f) { $f.Dispose() }
+}
+""".replace("PATH", native.replace("'", "''"))
+    encoded = base64.b64encode(script.encode("utf-16-le")).decode("ascii")
+    process = subprocess.Popen(
+        ["powershell.exe", "-NoProfile", "-NonInteractive", "-EncodedCommand", encoded],
+        stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors="replace")
+    try:
+        status = process.stdout.readline().strip()
+        if status == "BUSY":
+            raise WorldOpenError(f"Close this Minecraft world first: {path.parent}")
+        if status != "LOCKED":
+            raise ValueError(f"Cannot check Windows world lock: {path}: {status or 'PowerShell helper failed'}")
+        yield
+    finally:
+        try:
+            process.communicate("\n", timeout=15)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            process.communicate()
 
 
 @contextmanager
@@ -39,11 +92,14 @@ def stopped(world):
             fcntl.lockf(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except OSError as error:
             raise WorldOpenError(f"Close this Minecraft world first: {world}") from error
-        _HELD_LOCKS.add(path)
         try:
-            yield
+            with windows_volume_lock(path):
+                _HELD_LOCKS.add(path)
+                try:
+                    yield
+                finally:
+                    _HELD_LOCKS.remove(path)
         finally:
-            _HELD_LOCKS.remove(path)
             fcntl.lockf(handle, fcntl.LOCK_UN)
 
 

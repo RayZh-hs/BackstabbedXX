@@ -82,6 +82,11 @@ The chosen save is passed to your launch command through `{world_name}`,
 launcher's quick-play support to open it automatically; otherwise choose the
 named editor save in Singleplayer.
 
+When launching Windows HMCL/PCL from WSL with saves on a Windows drive (such as
+`/mnt/d/...`), the editor also uses Windows PowerShell to hold/check the native
+Windows file lock. Keep WSL Windows interoperability and `powershell.exe`
+available: Linux file locks alone cannot detect a running Windows Minecraft.
+
 For another local config:
 
 ```sh
