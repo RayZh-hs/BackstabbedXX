@@ -58,12 +58,13 @@ jobs:
       - name: Check the archives
         run: |
           python3 -m zipfile -t 'dist/Backstabbed++.zip'
+          python3 -m zipfile -t 'dist/Backstabbed++.mrpack'
           python3 -m zipfile -t 'dist/backstabbed-resource.zip'
           python3 -m zipfile -t "dist/Backstabbed++-map-${RELEASE_TAG}.zip"
 
       - name: Generate checksums
         working-directory: dist
-        run: sha256sum -- Backstabbed++.zip backstabbed-resource.zip "Backstabbed++-map-${RELEASE_TAG}.zip" > SHA256SUMS
+        run: sha256sum -- Backstabbed++.zip Backstabbed++.mrpack backstabbed-resource.zip "Backstabbed++-map-${RELEASE_TAG}.zip" > SHA256SUMS
 
       - name: Generate a concise note for every new commit
         run: python3 scripts/release_notes.py "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" > dist/RELEASE_NOTES.md
@@ -83,6 +84,7 @@ jobs:
             --notes-file 'dist/RELEASE_NOTES.md' \
             "${release_flags[@]}" \
             'dist/Backstabbed++.zip' \
+            'dist/Backstabbed++.mrpack' \
             'dist/backstabbed-resource.zip' \
             "dist/Backstabbed++-map-${RELEASE_TAG}.zip" \
             'dist/SHA256SUMS'
