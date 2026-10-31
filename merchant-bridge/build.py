@@ -18,7 +18,7 @@ license="All Rights Reserved"
 modId="backstabbed_merchants"
 version="1.0.0"
 displayName="Backstabbed Arena Merchants"
-description="Vanilla trading screens for the arena panda and diving-suit zombie. Server-side only."
+description="Arena trading screens and synchronous player spawn gravity. Server-side only."
 [[dependencies.backstabbed_merchants]]
 modId="neoforge"
 type="required"
@@ -28,6 +28,11 @@ side="BOTH"
 modId="minecraft"
 type="required"
 versionRange="[1.21.4]"
+side="BOTH"
+[[dependencies.backstabbed_merchants]]
+modId="gravity_changer"
+type="required"
+versionRange="[1.4.1,)"
 side="BOTH"
 '''
 
@@ -39,6 +44,10 @@ def build(runtime):
     if not compiler.is_file() or not all(p.is_file() for p in priority):
         raise SystemExit("Run make launch once to install Java 21 and the pinned NeoForge dependencies.")
     jars = priority + sorted(p for p in (runtime / "libraries").rglob("*.jar") if p not in priority)
+    gravity = sorted((ROOT / ".minecraft/mods").glob("gravity-changer-neoforge-*.jar"))
+    if len(gravity) != 1:
+        raise SystemExit("Expected exactly one installed Gravity Changer mod for compilation.")
+    jars += gravity
     output = ROOT / ".minecraft/mods" / NAME
     with tempfile.TemporaryDirectory() as temporary:
         classes = Path(temporary)

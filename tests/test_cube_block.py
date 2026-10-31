@@ -1,6 +1,7 @@
 """Cube Block spawns and escape limits against the imported destination chunks."""
-from collections import deque
+from collections import Counter
 import json
+import math
 from pathlib import Path
 import re
 import unittest
@@ -10,6 +11,7 @@ from world_geometry import World, in_region
 
 ROOT = Path(__file__).resolve().parents[1]
 WORLD = ROOT / '.minecraft/saves/Backstabbed ++! by NorbMinecraft and Bagel Buddies'
+from cube_geometry import FACES, face_surface, largest_surface, neighbours
 
 
 class CubeBlockIntegration(unittest.TestCase):
@@ -19,11 +21,14 @@ class CubeBlockIntegration(unittest.TestCase):
         cls.world = World(WORLD)
         with ZipFile(WORLD / 'datapacks/mcm.zip') as z:
             cls.functions = {name: z.read(name).decode() for name in z.namelist()
-                             if name.startswith('data/cube_block/')}
+                             if name.startswith('data/cube_block/') or name in (
+                                 'data/mcm/function/maps/tptospawn.mcfunction',
+                                 'data/mcm/function/extensions/gravity/spawn_scrap.mcfunction')}
         cls.predicate = json.loads(cls.functions['data/cube_block/predicate/arena.json'])
         cls.spawns = cls.manifest['player_spawns']
         cls.clear = set(cls.manifest['spawn_validation']['clear_blocks'])
         cls.support = set(cls.manifest['spawn_validation']['support_blocks'])
+        cls.contacts = cls.manifest['spawn_faces']
 
     def text(self, name):
         return self.functions[f'data/cube_block/function/{name}.mcfunction']
@@ -34,51 +39,67 @@ class CubeBlockIntegration(unittest.TestCase):
         actual = [tuple(map(float, m)) for m in re.findall(
             r'summon marker ([\d.]+) ([\d.]+) ([\d.]+) \{Tags:\["PlayerSpawn"', self.text('activate'))]
         self.assertEqual(actual, list(map(tuple, self.spawns)))
-        for point in self.spawns:
+        self.assertEqual(self.manifest['scrap_spawns'], self.spawns)
+        self.assertEqual([r['position'] for r in self.contacts], self.spawns)
+        directions = re.findall(r'gravity_direction:"(\w+)"', self.text('activate'))
+        self.assertEqual(directions, [r['gravity_direction'] for r in self.contacts])
+        expected = {'top': ('down', [0, 1, 0]), 'bottom': ('up', [0, -1, 0]),
+                    'west': ('east', [-1, 0, 0]), 'east': ('west', [1, 0, 0]),
+                    'north': ('south', [0, 0, -1]), 'south': ('north', [0, 0, 1])}
+        for contact in self.contacts:
+            point = contact['position']
             with self.subTest(point=point):
-                x, y, z = map(int, point)
-                # All selected supports are full cubes. Partial snow, slabs,
-                # stairs, tree canopy, liquids and closed doors are excluded.
-                self.assertIn(self.world.block(x, y - 1, z)['Name'], self.support)
-                self.assertIn(self.world.block(x, y, z)['Name'], self.clear)
-                self.assertIn(self.world.block(x, y + 1, z)['Name'], self.clear)
-                self.assertGreaterEqual(y, 86)
+                self.assertEqual((contact['gravity_direction'], contact['normal']), expected[contact['face']])
+                normal = contact['normal']
+                axis = next(i for i, v in enumerate(normal) if v)
+                support = [math.floor(v - n * .01) for v, n in zip(point, normal)]
+                self.assertEqual(support, contact['support'])
+                self.assertIn(self.world.block(*support)['Name'], self.support)
+                state = self.world.block(*support)
+                if state['Name'].endswith('_leaves'):
+                    self.assertEqual(state['Properties']['persistent'], 'true')
+                    self.assertEqual(state['Properties']['waterlogged'], 'false')
+                # Enumerate every voxel intersecting the rotated 0.6 x 1.8
+                # player body, with feet anchored at the support plane.
+                bounds = []
+                for i, v in enumerate(point):
+                    lo, hi = sorted((v, v + 1.8 * normal[i])) if i == axis else (v - .3, v + .3)
+                    bounds.append(range(math.floor(lo + 1e-6), math.floor(hi - 1e-6) + 1))
+                for x in bounds[0]:
+                    for y in bounds[1]:
+                        for z in bounds[2]:
+                            self.assertIn(self.world.block(x, y, z)['Name'], self.clear)
                 self.assertTrue(in_region(self.predicate, point))
 
-    def test_spawns_share_the_connected_top_ground_with_routes_away(self):
-        nodes = set()
-        for x in range(49176, 49234):
-            for z in range(49164, 49250):
-                for y in range(86, 100):
-                    if (self.world.block(x, y - 1, z)['Name'] in self.support
-                            and self.world.block(x, y, z)['Name'] in self.clear
-                            and self.world.block(x, y + 1, z)['Name'] in self.clear):
-                        nodes.add((x, y, z))
+    def test_all_six_exterior_faces_have_spaced_spawns_and_routes_away(self):
+        self.assertEqual(Counter(r['face'] for r in self.contacts),
+                         {'top': 6, 'bottom': 6, 'west': 5, 'east': 5, 'north': 5, 'south': 5})
+        for face, axis, sign, scan, tangents, _ in FACES:
+            nodes = face_surface(self.world, axis, sign, scan, tangents)
+            connected = largest_surface(self.world, nodes, axis, sign)
+            self.assertGreater(len(connected), 150, face)
+            for contact in self.contacts:
+                if contact['face'] != face:
+                    continue
+                point = tuple(contact['support'])
+                self.assertIn(point, connected, face)
+                self.assertGreaterEqual(len(list(neighbours(self.world, point, connected, axis, sign))), 3)
+        for i, point in enumerate(self.spawns):
+            for other in self.spawns[i + 1:]:
+                self.assertGreaterEqual(math.dist(point, other), 5)
 
-        def adjacent(p):
-            x, y, z = p
-            for dx, dz in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                for dy in (-1, 0, 1):
-                    q = (x + dx, y + dy, z + dz)
-                    if q not in nodes:
-                        continue
-                    if dy > 0 and self.world.block(x, y + 2, z)['Name'] not in self.clear:
-                        continue
-                    if dy < 0 and self.world.block(q[0], y + 1, q[2])['Name'] not in self.clear:
-                        continue
-                    yield q
-
-        points = [tuple(map(int, p)) for p in self.spawns]
-        seen, pending = {points[0]}, deque([points[0]])
-        while pending:
-            for q in adjacent(pending.popleft()):
-                if q not in seen:
-                    seen.add(q)
-                    pending.append(q)
-        self.assertGreater(len(seen), 1200)
-        self.assertTrue(set(points) <= seen)
-        for point in points:
-            self.assertGreaterEqual(len(list(adjacent(point))), 3, point)
+    def test_player_and_scrap_use_the_selected_marker_gravity(self):
+        spawn = self.text('spawn')
+        self.assertIn('tag=!Occupied', spawn)
+        gravity = spawn.index('arena_spawn_gravity ')
+        teleport = spawn.index('tp @s ')
+        self.assertLess(gravity, teleport, 'Apply gravity before teleport to avoid destination displacement')
+        self.assertIn('tag=CubeBlockRuntime', spawn)
+        self.assertIn('add Occupied', spawn)
+        shared = self.functions['data/mcm/function/maps/tptospawn.mcfunction']
+        self.assertIn('if score $selectedMap CmdData matches 23 run return run function cube_block:spawn', shared)
+        scrap = self.functions['data/mcm/function/extensions/gravity/spawn_scrap.mcfunction']
+        self.assertIn('gravity bridge marker @s @e[type=item,tag=McmNewScrap]', scrap)
 
     def test_outer_edges_vertical_limits_and_neighbouring_arenas(self):
         # The margin covers the cube's four faces, underside and grappler arcs.
@@ -150,15 +171,15 @@ class CubeBlockIntegration(unittest.TestCase):
                             q = tuple(a + b for a, b in zip(p, delta))
                             if not inside(q):
                                 name = self.world.block(*q)['Name']
-                                self.assertIn(name, {'minecraft:barrier', 'minecraft:oak_planks',
+                                self.assertIn(name, {'minecraft:structure_void', 'minecraft:oak_planks',
                                                      'minecraft:spruce_planks'}, q)
-                                if name == 'minecraft:barrier':
+                                if name == 'minecraft:structure_void':
                                     seals.add(q)
         self.assertGreater(water, 2500, 'Keep the pool and interior water')
         self.assertEqual(len(seals), 857)
         self.assertEqual(self.world.block(49183, 86, 49235)['Name'], 'minecraft:water')
-        self.assertEqual(self.world.block(49183, 86, 49236)['Name'], 'minecraft:barrier')
-        self.assertEqual(self.world.block(49183, 85, 49236)['Name'], 'minecraft:barrier')
+        self.assertEqual(self.world.block(49183, 86, 49236)['Name'], 'minecraft:structure_void')
+        self.assertEqual(self.world.block(49183, 85, 49236)['Name'], 'minecraft:structure_void')
         self.assertEqual(self.world.block(49183, -64, 49236)['Name'], 'minecraft:air')
 
 

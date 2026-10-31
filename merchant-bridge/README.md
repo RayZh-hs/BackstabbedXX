@@ -35,6 +35,14 @@ hidden villager in the world, additional hitbox or ticking mob.
 
 The host needs this mod on NeoForge 21.4.158 / Minecraft 1.21.4. The standard
 client pack includes it, though the bridge has no client networking requirement.
+A host also needs the bundled Gravity Changer mod. The bridge provides
+`arena_spawn_gravity <marker>` for datapack functions executing as a player.
+It reads the marker's `data.gravity_direction` and `data.gravity_strength`,
+defaulting to `down` and `1.0`, validates both before changing the player, and
+applies the gravity transition immediately. Cube Block calls it before its
+spawn teleport so delayed rotation cannot displace the destination. Ordinary
+Gravity Changer effects keep their usual precedence. The command requires
+permission level 2; scrap continues to use Gravity Changer's non-player bridge.
 A Fabric arena editor can display copied NPCs and equipment with the resource
 pack; trading itself requires the NeoForge host. Arena NPCs are spawned by the
 game's activation functions, rather than saved into the map's entity regions.
@@ -95,6 +103,17 @@ unrelated automatic round/lobby ticks. It checks both native menus, purchases,
 refunds, inventory capacity, potion consumption, access restrictions, menu
 invalidation and reset, and sends real client interaction packets to each NPC.
 Results, logs and screenshots are saved under ignored `dev/merchants/`.
+
+The Cube Block spawn checks exercise the host command with all 32 real markers,
+all six player/scrap collision orientations, occupancy reuse, invalid marker
+rejection, and normal four-player round startup, grace period and lobby reset:
+
+```sh
+uv run --no-project --with portablemc==4.4.1 python merchant-bridge/tests/run_cube.py
+```
+
+Results and logs are saved under ignored `dev/cube-face-check/`. The fixture
+uses a disposable copy and the installed Minecraft 1.21.4 / NeoForge runtime.
 
 ## Recovery snapshot
 
