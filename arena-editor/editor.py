@@ -551,6 +551,17 @@ def exported_files(state, spec):
     function("tp", [f"execute in minecraft:overworld run tp @s {target['x']:g} {target['y']:g} {target['z']:g} {target['yaw']:g} {target['pitch']:g}"])
     function("kill", ["execute if score $gamestate CmdData matches 1 run return run function mcm:game/playerdeath",
                       f"function {base}tp"])
+    # These arenas use Yacht's preparation rescue / active-round elimination policy.
+    if arena in ("underwater_base", "klut27", "middle_ages"):
+        spawn = f"@e[type=marker,tag=PlayerSpawn,tag={spec['tag']}Runtime,predicate={base}arena,sort=nearest,limit=1]"
+        rescue = ["function klut27:mobility/release"] if arena == "klut27" else []
+        rescue += ["gravity bridge reset @s",
+                   f"execute in minecraft:overworld if entity {spawn} run return run tp @s {spawn}",
+                   f"execute in minecraft:overworld run tp @s {target['x']:g} {target['y']:g} {target['z']:g} {target['yaw']:g} {target['pitch']:g}"]
+        function("tp", rescue)
+        function("kill", ["execute unless score $gamestate CmdData matches 1 run return 0",
+                          f"execute if score $graceperiod CmdData matches 1.. run return run function {base}tp",
+                          "execute if score $graceperiod CmdData matches ..0 run function mcm:game/playerdeath"])
     areas = [o for o in state["objects"] if o["kind"] == "area" and o["enabled"]]
     keep_in = [location(o) for o in areas if o["mode"] == "keep_in"]
     allowed = {"condition": "minecraft:any_of", "terms": keep_in} if keep_in else {"condition": "minecraft:all_of", "terms": []}
