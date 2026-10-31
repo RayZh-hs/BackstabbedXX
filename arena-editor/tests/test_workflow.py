@@ -113,13 +113,14 @@ class WorkflowTests(unittest.TestCase):
             self.assertEqual(editor.wait_for_edit_close(self.source, process, editor.save_signature(self.source)), 0)
         prompt.assert_not_called()
 
-    def test_detached_launcher_requires_acknowledgement_and_waits_for_lock(self):
+    def test_detached_launcher_watches_world_without_terminal_acknowledgement(self):
         process = Mock()
         process.poll.return_value = 0
         with patch.object(editor, "world_is_open", side_effect=[False, True, True, False]), \
-                patch.object(editor.time, "sleep"), patch("builtins.input", return_value="") as prompt, redirect_stdout(StringIO()):
+                patch.object(editor.time, "sleep"), \
+                patch("builtins.input", side_effect=AssertionError("Detached launcher must keep monitoring, not block on input")), \
+                redirect_stdout(StringIO()):
             self.assertEqual(editor.wait_for_edit_close(self.source, process, editor.save_signature(self.source)), 0)
-        prompt.assert_called_once()
 
     def test_nested_world_lock_remains_held_after_inner_helper_finishes(self):
         code = 'import fcntl,sys; f=open(sys.argv[1],"r+b"); fcntl.lockf(f,fcntl.LOCK_EX|fcntl.LOCK_NB)'

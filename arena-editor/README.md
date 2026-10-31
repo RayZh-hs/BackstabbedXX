@@ -75,8 +75,10 @@ Both worlds must remain closed during the review/confirmation step.
 
 The game client can remain at its title screen: the command watches the world's
 lock, rather than requiring the whole client to exit. For a launcher that exits
-before Minecraft opens the save, the terminal asks you to press Enter after
-editing and still verifies the world is closed before exporting or confirming.
+before Minecraft opens the save (including Windows HMCL launched from WSL),
+the terminal keeps watching automatically. No extra Enter key is needed after
+editing; confirmation is requested only when the export is ready to write back.
+If you do not open the editor world, use Ctrl-C to cancel the waiting command.
 The chosen save is passed to your launch command through `{world_name}`,
 `{world_dir}` and the corresponding environment variables. Configure your
 launcher's quick-play support to open it automatically; otherwise choose the

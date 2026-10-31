@@ -393,6 +393,7 @@ def save_signature(world):
 def wait_for_edit_close(world, process, before):
     """Watch Java's lock, including launchers that detach from the game process."""
     opened = False
+    launcher_returned = False
     while True:
         busy = world_is_open(world)
         if busy and not opened:
@@ -407,19 +408,12 @@ def wait_for_edit_close(world, process, before):
                 return code
             if save_signature(world) != before:
                 return 0
-            # GUI launchers may exit before the game opens its save. A terminal
-            # acknowledgement prevents treating that early return as completion.
-            try:
-                input(f"Launcher returned. Open {world.name}, finish editing, Save and Quit, then press Enter here (Ctrl-C cancels): ")
-            except EOFError:
-                print("No terminal input; the editor session is kept without applying changes.")
-                return None
-            while world_is_open(world):
-                if not opened:
-                    print("The editor world is still open; waiting for it to close…", flush=True)
-                    opened = True
-                time.sleep(0.5)
-            return 0
+            # HMCL's bootstrap process can exit while its GUI/game keeps
+            # running. Keep polling: input() here hides the prompt under game
+            # logs and prevents all subsequent open/close detection.
+            if not launcher_returned:
+                print(f"Launcher returned; still watching {world.name}. Open the editor world, then Save and Quit; no Enter key is needed here (Ctrl-C cancels).", flush=True)
+                launcher_returned = True
         time.sleep(0.5)
 
 
@@ -576,7 +570,7 @@ def exported_files(state, spec):
     function("check_player", checks)
     if spec.get("map_id"):
         function("tick", [f"execute unless score $selectedMap CmdData matches {spec['map_id']} run return 0",
-                          "execute unless score $gamestate CmdData matches 0..1 run return 0",
+                          "execute unless score $gamestate CmdData matches 1 run return 0",
                           f"execute as @a[tag=queued,tag=!spectating,gamemode=!spectator] at @s unless score @s dead matches 1.. run function {base}check_player"])
     files["pack.mcmeta"] = (json.dumps({"pack": {"pack_format": 61, "description": f"Edited {arena} arena definitions"}}) + "\n").encode()
     return files
