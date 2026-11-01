@@ -1,0 +1,1 @@
+bossbar set gamedisplay name [{"text":"Red: ","color":"red"},{"score":{"name":"$red_alive","objective":"CmdData"}},{"text":" | "},{"score":{"name":"$gameminutes","objective":"CmdData"}},{"text":"m "},{"score":{"name":"$gameseconds","objective":"CmdData"}},{"text":"s | Blue: ","color":"aqua"},{"score":{"name":"$blue_alive","objective":"CmdData"}}]
