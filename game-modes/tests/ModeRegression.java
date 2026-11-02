@@ -97,6 +97,24 @@ public final class ModeRegression {
     private void call(MinecraftServer s, ServerPlayer p, String function) {
         cmd(s, "execute as " + p.getScoreboardName() + " at @s run function " + function);
     }
+    private void option(MinecraftServer s, ServerPlayer p, int choice) {
+        cmd(s,"function mcm:extensions/tick");
+        s.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(0).withSuppressedOutput(),
+                "trigger mcm_options set " + choice);
+        cmd(s,"function mcm:extensions/tick");
+    }
+    private void waitForRespawn(MinecraftServer s, ServerPlayer p, int ticks, String label) {
+        for(int i=0;i<ticks-1;i++) cmd(s,"function mcm:modes/tick");
+        check(p.getTags().contains("spectating") && score(s,p.getScoreboardName(),"bb_respawn")==1,
+                label + " waits until the final tick");
+        cmd(s,"function mcm:modes/tick");
+        check(!p.getTags().contains("spectating") && !p.isSpectator()
+                && !p.getTags().contains("gunner") && p.getTags().contains("innocent")
+                && p.getInventory().countItem(Items.WARPED_FUNGUS_ON_A_STICK)==0
+                && score(s,p.getScoreboardName(),"bb_respawn")==0
+                && score(s,p.getScoreboardName(),"dead")==0,
+                label + " returns as an ordinary player without a gun");
+    }
     private void hit(MinecraftServer s, ServerPlayer attacker, ServerPlayer victim) {
         victim.setLastHurtByMob(attacker);
         call(s,victim,"mcm:game/player_hit");
@@ -112,9 +130,33 @@ public final class ModeRegression {
         for (int i=1; i<=3; i++) bot(s,"ModeBot"+i);
         cmd(s,"summon marker 0 2 70 {Tags:[\"PlayerSpawn\"]}");
         cmd(s,"data remove storage mcm:options options.ext.mode");
+        cmd(s,"data remove storage mcm:options options.ext.gunner_respawn");
         cmd(s,"function mcm:extensions/options/init");
         check(score(s,"$mode","GameRules")==0,"missing saved option defaults to Classic");
+        check(score(s,"$gunner_respawn","GameRules")==10 && score(s,"$gunner_respawn_ticks","GameRules")==200,
+                "missing respawn setting defaults to ten seconds");
         cmd(s,"scoreboard players set $gamestate CmdData 0");
+        cmd(s,"data modify storage mcm:options options.locked set value 0");
+        int[] delays={3,5,10,20,30};
+        for(int i=0;i<delays.length;i++) {
+            option(s,human,18+i);
+            check(score(s,"$gunner_respawn","GameRules")==delays[i]
+                    && score(s,"$gunner_respawn_ticks","GameRules")==20*delays[i],
+                    "non-operator trigger selects " + delays[i] + "-second respawn");
+            cmd(s,"scoreboard players set $gunner_respawn GameRules 0");
+            cmd(s,"function mcm:extensions/options/init");
+            check(score(s,"$gunner_respawn","GameRules")==delays[i],
+                    delays[i] + "-second setting survives option reinitialization");
+        }
+        for(int invalid : new int[]{-3,0,4,15,31}) {
+            cmd(s,"data modify storage mcm:options options.ext.gunner_respawn set value " + invalid);
+            cmd(s,"function mcm:modes/sync");
+            check(score(s,"$gunner_respawn","GameRules")==10 && score(s,"$gunner_respawn_ticks","GameRules")==200,
+                    "invalid respawn delay " + invalid + " falls back to ten seconds");
+        }
+        cmd(s,"data modify storage mcm:options options.locked set value 1");
+        option(s,human,18);
+        check(score(s,"$gunner_respawn","GameRules")==10,"locked lobby rejects respawn delay changes");
         cmd(s,"data modify storage mcm:options options.locked set value 0");
         cmd(s,"scoreboard players set " + human.getScoreboardName()+" mcm_options 16");
         call(s,human,"mcm:extensions/options/change");
@@ -123,6 +165,9 @@ public final class ModeRegression {
         cmd(s,"scoreboard players set " + human.getScoreboardName()+" mcm_options 17");
         call(s,human,"mcm:extensions/options/change");
         check(score(s,"$mode","GameRules")==1,"active round rejects mode changes");
+        cmd(s,"scoreboard players set " + human.getScoreboardName()+" mcm_options 0");
+        option(s,human,18);
+        check(score(s,"$gunner_respawn","GameRules")==10,"active round rejects respawn delay changes");
         start(s,1);
         check(team(s,1).size()==2 && team(s,2).size()==2,"four players split into balanced teams");
         check(s.getPlayerList().getPlayers().stream().filter(p->p.getTags().contains("gunner")).count()==2,"exactly one initial gunner per team");
@@ -133,11 +178,8 @@ public final class ModeRegression {
         hit(s,red,mate);
         check(!mate.getTags().contains("spectating"),"teammate weapon hit is ignored");
         hit(s,blue,mate);
-        check(mate.getTags().contains("spectating") && score(s,mate.getScoreboardName(),"bb_respawn")==60,"enemy hit starts three-second respawn");
-        for(int i=0;i<59;i++) cmd(s,"function mcm:modes/tick");
-        check(mate.getTags().contains("spectating"),"respawn waits all sixty ticks");
-        cmd(s,"function mcm:modes/tick");
-        check(!mate.getTags().contains("spectating") && !mate.isSpectator() && score(s,mate.getScoreboardName(),"dead")==0,"runner returns to adventure and clears death state");
+        check(mate.getTags().contains("spectating") && score(s,mate.getScoreboardName(),"bb_respawn")==200,"enemy hit starts default ten-second respawn");
+        waitForRespawn(s,mate,200,"ordinary player respawn");
         hit(s,blue,mate);
         check(!mate.getTags().contains("spectating"),"respawn protection blocks immediate weapon kill");
         cmd(s,"give " + mate.getScoreboardName()+" netherite_scrap 9");
@@ -146,19 +188,57 @@ public final class ModeRegression {
         cmd(s,"give " + mate.getScoreboardName()+" netherite_scrap 3");
         call(s,mate,"mcm:game/items/scrap_function");
         check(mate.getTags().contains("gunner") && mate.getInventory().countItem(Items.NETHERITE_SCRAP)==2,"promotion costs exactly ten scraps and preserves surplus");
-        call(s,red,"mcm:game/playerdeath");
-        cmd(s,"function mcm:modes/tick");
+        hit(s,blue,red);
+        check(red.getTags().contains("spectating") && !red.getTags().contains("gunner")
+                && red.getInventory().countItem(Items.WARPED_FUNGUS_ON_A_STICK)==0
+                && score(s,red.getScoreboardName(),"bb_respawn")==200,
+                "initial gunner loses their gun and schedules a respawn while another gunner survives");
+        cmd(s,"function mcm:game/loops/ingame");
         check(score(s,"$gamestate","CmdData")==1,"promoted gunner keeps team alive after initial gunner dies");
-        check(score(s,red.getScoreboardName(),"bb_respawn")==0,"dead gunner never respawns");
+        check(!red.getTags().contains("gunner"),"full game loop cannot restore the dead gunner role");
+        call(s,red,"mcm:game/playerdeath");
+        check(score(s,red.getScoreboardName(),"bb_respawn")==199,"repeated death callback cannot restart the respawn timer");
+        waitForRespawn(s,red,199,"initial gunner respawn");
+        cmd(s,"give " + red.getScoreboardName()+" netherite_scrap 10");
+        call(s,red,"mcm:game/items/scrap_function");
+        check(red.getTags().contains("gunner") && red.getInventory().countItem(Items.WARPED_FUNGUS_ON_A_STICK)==1,
+                "former gunner can earn a gun again by collecting ten scrap");
+        call(s,red,"mcm:game/playerdeath");
         call(s,mate,"mcm:game/playerdeath");
         cmd(s,"function mcm:modes/tick");
-        check(score(s,"$red_out","CmdData")==1 && score(s,"$winner","CmdData")==2,"last gunner death eliminates team and awards opponent victory");
+        check(score(s,"$red_out","CmdData")==1 && score(s,"$winner","CmdData")==2
+                && score(s,red.getScoreboardName(),"bb_respawn")==0
+                && score(s,mate.getScoreboardName(),"bb_respawn")==0,
+                "last gunner death eliminates team, cancels former gunner respawns and awards opponent victory");
         start(s,1);
         red=gunner(s,1); mate=runner(s,1);
         call(s,mate,"mcm:game/playerdeath");
         call(s,red,"mcm:game/playerdeath");
         cmd(s,"function mcm:modes/tick");
         check(score(s,mate.getScoreboardName(),"bb_respawn")==0,"losing last gunner cancels pending respawns");
+        for(int i=0;i<delays.length;i++) {
+            cmd(s,"scoreboard players set $gamestate CmdData 0");
+            option(s,human,18+i);
+            start(s,1);
+            int side=i%2+1;
+            var promoted=runner(s,side);
+            cmd(s,"give " + promoted.getScoreboardName()+" netherite_scrap 10");
+            call(s,promoted,"mcm:game/items/scrap_function");
+            check(promoted.getTags().contains("gunner"),"respawn fixture promotes a second gunner on team " + side);
+            hit(s,gunner(s,side==1?2:1),promoted);
+            check(promoted.getTags().contains("spectating") && score(s,promoted.getScoreboardName(),"bb_respawn")==20*delays[i],
+                    "promoted gunner death uses the selected " + delays[i] + "-second delay");
+            waitForRespawn(s,promoted,20*delays[i],delays[i] + "-second promoted gunner respawn");
+        }
+        start(s,1);
+        call(s,gunner(s,1),"mcm:game/playerdeath");
+        call(s,gunner(s,2),"mcm:game/playerdeath");
+        cmd(s,"function mcm:modes/tick");
+        check(score(s,"$red_out","CmdData")==1 && score(s,"$blue_out","CmdData")==1
+                && score(s,"$winner","CmdData")==0 && entities(s,"@a[scores={bb_respawn=1..}]")==0,
+                "both last gunners dying together draws and leaves no pending respawns");
+        cmd(s,"scoreboard players set $gamestate CmdData 0");
+        option(s,human,20);
         start(s,2);
         check(s.getPlayerList().getPlayers().stream().allMatch(p->p.getTags().contains("murderer") && p.getInventory().countItem(Items.SNOWBALL)>0),"Killer gives everyone the killer role and knife");
         check(entities(s,"@a[tag=queued,team=ingame_players,scores={bb_team=0}]")==4,"Killer has no red/blue assignments and uses the combat team with friendly fire");

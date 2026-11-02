@@ -49,6 +49,9 @@ jobs:
         with:
           python-version: '3.13'
 
+      - name: Install test dependencies
+        run: python3 -m pip install -r requirements-test.txt
+
       - name: Test the build tools
         run: make test
 

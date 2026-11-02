@@ -27,6 +27,7 @@ def patched(members):
     append('extensions/options/sync', 'function mcm:modes/sync')
     append('extensions/options/menu', 'function mcm:modes/menu')
     edit('extensions/options/change', lambda s: s if 'modes/select' in s else s.replace('function mcm:extensions/options/sync', 'execute if score @s mcm_options matches 15..17 run function mcm:modes/select\nfunction mcm:extensions/options/sync'))
+    edit('extensions/options/change', lambda s: s if 'modes/respawn_select' in s else s.replace('function mcm:extensions/options/sync', 'execute if score @s mcm_options matches 18..22 run function mcm:modes/respawn_select\nfunction mcm:extensions/options/sync'))
     prepend('maps/start', 'function mcm:modes/reset\nscoreboard players operation $mode CmdData = $mode GameRules')
     prepend('game/pick_roles', 'execute if score $mode CmdData matches 1..2 run return run function mcm:modes/start')
     prepend('game/player_hit', 'execute if score $mode CmdData matches 1..2 run return run function mcm:modes/hit')

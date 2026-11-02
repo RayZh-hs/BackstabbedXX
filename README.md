@@ -57,6 +57,17 @@ Outputs:
 - `dist/Backstabbed++-map-v<VERSION>.zip`: the separate host map, produced by
   `make map` or `make release`.
 
+Before running `make test`, install the test dependency in your Python environment:
+
+```sh
+python3 -m pip install -r requirements-test.txt
+make test
+```
+
+The release workflow installs these dependencies automatically. Tests that inspect
+editor-generated arena data use `nbtlib`; building release archives itself still
+requires only Python's standard library.
+
 ### Update an existing HMCL instance
 
 Close Minecraft, update this checkout to the revision you want, then run:
@@ -165,6 +176,32 @@ and are removed when the game exits. Each local launch starts from the current
 source world, so playtest changes are discarded. The helper is compiled using
 PortableMC's Java 21 JDK and cached in `dev/local-playtest-helper/`. Normal
 launches and release builds use the usual mods and world.
+
+### Game modes and respawns
+
+In the lobby, run `/trigger mcm_options set 1` to open the clickable settings
+menu, then select **Classic**, **Gunner**, or **Killer**. Settings must be unlocked
+and can only be changed before a round starts.
+
+In **Gunner** mode, players join Red and Blue teams with one starting gunner on
+each team. Ordinary players can spend 10 scrap to become additional gunners.
+When a gunner dies while another gunner on their team is still alive, they
+respawn as an ordinary player without a gun and can collect scrap to become a
+gunner again. Losing the last living gunner eliminates the team and cancels its
+pending respawns.
+
+Choose **3s**, **5s**, **10s**, **20s**, or **30s** under **Gunner Respawn** in the
+same settings menu. The default is **10 seconds**. This delay applies to all
+respawns in Gunner mode, including ordinary players and former gunners, and is
+saved for later rounds. Direct selection commands are:
+
+| Respawn delay | Command |
+| --- | --- |
+| 3 seconds | `/trigger mcm_options set 18` |
+| 5 seconds | `/trigger mcm_options set 19` |
+| 10 seconds (default) | `/trigger mcm_options set 20` |
+| 20 seconds | `/trigger mcm_options set 21` |
+| 30 seconds | `/trigger mcm_options set 22` |
 
 ### Killer mode
 

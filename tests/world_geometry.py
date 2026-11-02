@@ -106,9 +106,14 @@ def in_region(predicate, point):
         return all(in_region(term, point) for term in predicate["terms"])
     if kind == "inverted":
         return not in_region(predicate["term"], point)
-    if kind != "location_check":
+    if kind == "entity_properties":
+        if predicate["entity"] != "this" or set(predicate["predicate"]) != {"location"}:
+            raise ValueError("Only this entity's location can be evaluated from a point")
+        location = predicate["predicate"]["location"]
+    elif kind == "location_check":
+        location = predicate["predicate"]
+    else:
         raise ValueError(f"Unsupported geometry predicate {kind}")
-    location = predicate["predicate"]
     if location.get("dimension", "minecraft:overworld") != "minecraft:overworld":
         return False
     return all(bounds.get("min", float("-inf")) <= value <= bounds.get("max", float("inf"))
