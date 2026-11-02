@@ -37,7 +37,9 @@ def patched(members):
     # Alternate modes award guns through roles/crafting only, never through dead drops.
     edit('extensions/gun/assign_pickup', lambda s: s.replace('execute if score $mode CmdData matches 1..2 if score $gamestate CmdData matches 1 run return run kill @s\n', ''))
     prepend('extensions/gun/assign_pickup', 'execute if score $mode CmdData matches 1..2 if score $gamestate CmdData matches 1 run return run function mcm:modes/dropped_gun')
-    append('game/loops/ingame', 'execute if score $mode CmdData matches 2 as @a[tag=queued,tag=!spectating,predicate=mcm:items/hold_tracker] at @s run function mcm:modes/tracker')
+    tracker_tick = 'execute if score $mode CmdData matches 2 as @a[tag=queued,tag=!spectating,gamemode=!spectator,predicate=mcm:game/not_eliminated,tag=murderer,predicate=mcm:items/hold_tracker] at @s run function mcm:modes/tracker'
+    edit('game/loops/ingame', lambda s: s.replace('execute if score $mode CmdData matches 2 as @a[tag=queued,tag=!spectating,predicate=mcm:items/hold_tracker] at @s run function mcm:modes/tracker', tracker_tick))
+    append('game/loops/ingame', tracker_tick)
     prepend('game/items/murderer/teleporter', 'execute if score $mode CmdData matches 2 run return run function mcm:modes/teleporter')
     edit('game/loops/ingame', patch_ingame)
     edit('game/loops/game_timer', lambda s: '\n'.join(
@@ -56,7 +58,11 @@ def patched(members):
     append('player_leave', 'scoreboard players reset @s bb_team\nscoreboard players reset @s bb_respawn\nscoreboard players reset @s bb_safe')
     for path in (ROOT / 'game-modes/datapack').rglob('*.mcfunction'):
         members[path.relative_to(ROOT / 'game-modes/datapack').as_posix()] = path.read_bytes()
-    return members
+    # Keep spectator guards and their shared predicate when rebuilding game modes.
+    safety_spec = importlib.util.spec_from_file_location('spectator_safety', ROOT / 'scripts/spectator_safety.py')
+    safety = importlib.util.module_from_spec(safety_spec)
+    safety_spec.loader.exec_module(safety)
+    return safety.patched(members)
 
 
 def patch_ingame(s):
