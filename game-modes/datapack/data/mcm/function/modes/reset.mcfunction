@@ -1,3 +1,5 @@
+tag @a remove bb_killer_winner
+scoreboard players set $killer_alive CmdData 0
 scoreboard players reset @a bb_team
 scoreboard players set @a bb_respawn 0
 scoreboard players set @a bb_safe 0

@@ -1,3 +1,5 @@
+function mcm:modes/reset
+scoreboard players operation $mode CmdData = $mode GameRules
 #> Set the start game grace period to 15 seconds
 scoreboard players set $graceperiod CmdData 300
 

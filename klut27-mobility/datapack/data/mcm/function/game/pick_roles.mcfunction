@@ -1,3 +1,4 @@
+execute if score $mode CmdData matches 1..2 run return run function mcm:modes/start
 function mcm:extensions/round_start
 
 #> Assign roles when grace period is over

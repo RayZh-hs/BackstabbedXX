@@ -1,4 +1,4 @@
-"""Install team modes and narrowly patch the existing Classic lifecycle."""
+"""Install Gunner and free-for-all Killer modes into the Classic lifecycle."""
 import importlib.util
 from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
@@ -33,7 +33,7 @@ def patched(members):
     prepend('game/innocentshot', 'execute if score $mode CmdData matches 1..2 run return run advancement revoke @s only mcm:hit_detection/innocent_killed')
     append('game/playerdeath', 'execute if score $mode CmdData matches 1..2 run function mcm:modes/death')
     prepend('game/items/scrap_function', 'execute if score $mode CmdData matches 1 run return run function mcm:modes/upgrade')
-    # Team modes award guns through roles/crafting only, never through dead drops.
+    # Alternate modes award guns through roles/crafting only, never through dead drops.
     edit('extensions/gun/assign_pickup', lambda s: s.replace('execute if score $mode CmdData matches 1..2 if score $gamestate CmdData matches 1 run return run kill @s\n', ''))
     prepend('extensions/gun/assign_pickup', 'execute if score $mode CmdData matches 1..2 if score $gamestate CmdData matches 1 run return run function mcm:modes/dropped_gun')
     append('game/loops/ingame', 'execute if score $mode CmdData matches 2 as @a[tag=queued,tag=!spectating,predicate=mcm:items/hold_tracker] at @s run function mcm:modes/tracker')
@@ -43,8 +43,12 @@ def patched(members):
         'execute unless score $mode CmdData matches 1..2 run ' + line
         if line.startswith('execute if score $gametimer CmdData matches 0 run') and 'unless score $mode' not in line
         else line for line in s.split('\n')))
+    # Keep the counter moving for arena animations, without Killer time warnings.
+    edit('game/loops/game_timer', lambda s: s if 'execute if score $mode CmdData matches 2 run return 0' in s else s.replace(
+        'scoreboard players remove $gametimer CmdData 1',
+        'scoreboard players remove $gametimer CmdData 1\nexecute if score $mode CmdData matches 2 run return 0'))
     append('game/loops/gameend', 'execute if score $gamestate CmdData matches -1 run function mcm:modes/reset')
-    # Run the team result after Classic clears the previous winner and titles.
+    # Run the mode result after Classic clears the previous winner and titles.
     edit('game/loops/gameend', lambda s: s if 'modes/result' in s else s.replace('execute if score $gameEndTimer CmdData matches 200 run title @a clear', 'execute if score $gameEndTimer CmdData matches 200 run title @a clear\nexecute if score $gameEndTimer CmdData matches 200 if score $mode CmdData matches 1..2 run function mcm:modes/result'))
     prepend('game/game_end_stats', 'execute if score $mode CmdData matches 1..2 run return 0')
     append('game/loops/updatebossbar', 'execute if score $mode CmdData matches 1..2 run function mcm:modes/bossbar')

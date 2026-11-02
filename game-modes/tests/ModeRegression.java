@@ -50,6 +50,7 @@ public final class ModeRegression {
     private ServerPlayer bot(MinecraftServer s, String name) {
         var profile = new GameProfile(UUID.randomUUID(), name);
         var p = new ServerPlayer(s, s.overworld(), profile, ClientInformation.createDefault());
+        p.setClientLoaded(true);
         var cookie = CommonListenerCookie.createInitial(profile, false);
         p.connection = new IdleListener(s, p, cookie);
         // The public player list is immutable; bypass login negotiation for these
@@ -67,6 +68,7 @@ public final class ModeRegression {
     private void start(MinecraftServer s, int mode) {
         cmd(s, "function mcm:modes/reset");
         cmd(s, "clear @a");
+        cmd(s, "kill @e[type=item]");
         cmd(s, "effect clear @a");
         for (String tag : List.of("murderer", "innocent", "gunner", "spectating", "force_murderer", "lostGun")) cmd(s,"tag @a remove " + tag);
         cmd(s, "tag @a add queued");
@@ -80,6 +82,7 @@ public final class ModeRegression {
         cmd(s, "scoreboard players set $murderWin CmdData 0");
         cmd(s, "scoreboard players set $innocentWin CmdData 0");
         cmd(s, "scoreboard players set $selectedMap CmdData 0");
+        cmd(s, "scoreboard players set $kill_reward GameRules 0");
         cmd(s, "function mcm:game/pick_roles");
     }
     private List<ServerPlayer> team(MinecraftServer s, int team) {
@@ -97,6 +100,13 @@ public final class ModeRegression {
     private void hit(MinecraftServer s, ServerPlayer attacker, ServerPlayer victim) {
         victim.setLastHurtByMob(attacker);
         call(s,victim,"mcm:game/player_hit");
+    }
+    private int entities(MinecraftServer s, String selector) {
+        cmd(s,"execute store result score $test_count temp if entity " + selector);
+        return score(s,"$test_count","temp");
+    }
+    private int adrenalineDrops(MinecraftServer s) {
+        return entities(s,"@e[type=item,tag=bb_kill_adrenaline]");
     }
     private void run(MinecraftServer s, ServerPlayer human) {
         for (int i=1; i<=3; i++) bot(s,"ModeBot"+i);
@@ -151,21 +161,103 @@ public final class ModeRegression {
         check(score(s,mate.getScoreboardName(),"bb_respawn")==0,"losing last gunner cancels pending respawns");
         start(s,2);
         check(s.getPlayerList().getPlayers().stream().allMatch(p->p.getTags().contains("murderer") && p.getInventory().countItem(Items.SNOWBALL)>0),"Killer gives everyone the killer role and knife");
+        check(entities(s,"@a[tag=queued,team=ingame_players,scores={bb_team=0}]")==4,"Killer has no red/blue assignments and uses the combat team with friendly fire");
         cmd(s,"function mcm:game/loops/ingame");
         check(score(s,"$gamestate","CmdData")==1,"full Killer loop bypasses Classic no-innocent victory");
-        var reds=team(s,1); var blues=team(s,2);
-        hit(s,reds.get(0),reds.get(1));
-        check(!reds.get(1).getTags().contains("spectating"),"Killer teammate hit is ignored");
-        hit(s,blues.get(0),reds.get(0));
+        var killers=List.copyOf(s.getPlayerList().getPlayers());
+        var killer=killers.get(0); var victim=killers.get(1);
+        hit(s,killer,killer);
+        check(!killer.getTags().contains("spectating") && adrenalineDrops(s)==0,"Killer self-hit gives no kill or reward");
+        killers.get(3).removeTag("queued");
+        hit(s,killers.get(3),victim);
+        check(!victim.getTags().contains("spectating") && adrenalineDrops(s)==0,"unqueued attacker cannot kill or earn adrenaline");
+        killers.get(3).addTag("queued");
+        cmd(s,"scoreboard players set $kill_reward GameRules 3");
+        int scrap=killer.getInventory().countItem(Items.NETHERITE_SCRAP);
+        killer.addTag("HoldKnife");
+        victim.invulnerableTime=0;
+        cmd(s,"damage " + victim.getScoreboardName() + " 1 minecraft:player_attack by " + killer.getScoreboardName());
+        killer.removeTag("HoldKnife");
+        check(victim.getTags().contains("spectating"),"real melee damage kills another Killer without team immunity");
+        check(killer.getInventory().countItem(Items.NETHERITE_SCRAP)==scrap+3,"Killer kill preserves the configured fixed scrap reward");
+        check(adrenalineDrops(s)==1,"one weapon kill drops exactly one extra adrenaline bottle");
+        call(s,victim,"mcm:game/player_hit");
+        check(adrenalineDrops(s)==1 && killer.getInventory().countItem(Items.NETHERITE_SCRAP)==scrap+3,"repeated hit on an eliminated player cannot duplicate either reward");
+        cmd(s,"scoreboard players set $valid_drop temp 0");
+        cmd(s,"execute as @e[type=item,tag=bb_kill_adrenaline] if items entity @s contents carrot_on_a_stick[item_model=\"minecraft:role_items/adrenaline\",custom_data~{adrenaline:1b,item:\"adrenaline\"}] run scoreboard players add $valid_drop temp 1");
+        check(score(s,"$valid_drop","temp")==1,"dropped adrenaline has the loadout bottle's model and usable item data");
+        cmd(s,"execute at " + victim.getScoreboardName() + " store result score $nearby_drop temp if entity @e[type=item,tag=bb_kill_adrenaline,distance=..1]");
+        check(score(s,"$nearby_drop","temp")==1,"bonus bottle drops at the victim's position");
         cmd(s,"function mcm:modes/tick");
-        check(reds.get(0).getTags().contains("spectating") && score(s,"$gamestate","CmdData")==1,"Killer enemy hit kills without ending a surviving team");
-        hit(s,blues.get(0),reds.get(1));
+        check(score(s,"$killer_alive","CmdData")==3 && score(s,"$gamestate","CmdData")==1,"Killer continues with three individual survivors");
+        check(score(s,victim.getScoreboardName(),"bb_respawn")==0,"eliminated Killer never schedules a respawn");
+        cmd(s,"bossbar add gamedisplay \"Test\"");
+        cmd(s,"function mcm:game/loops/updatebossbar");
+        var killerBar=s.getCustomBossEvents().get(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("minecraft","gamedisplay"));
+        check(killerBar.getName().getString().equals("Players left: 3") && killerBar.getValue()==3 && killerBar.getMax()==4,"Killer bossbar shows individual survivors without a countdown");
+        cmd(s,"scoreboard players set $kill_reward GameRules 0");
+        hit(s,killer,killers.get(2));
+        check(adrenalineDrops(s)==2 && killer.getInventory().countItem(Items.NETHERITE_SCRAP)==scrap+3,"zero scrap per kill still drops one adrenaline bottle");
+        hit(s,victim,killers.get(3));
+        check(!killers.get(3).getTags().contains("spectating") && adrenalineDrops(s)==2,"spectating attacker cannot kill or drop adrenaline");
         cmd(s,"function mcm:modes/tick");
-        check(score(s,"$winner","CmdData")==2,"Killer ends when all opposing team members die");
+        check(score(s,"$gamestate","CmdData")==1 && score(s,"$killer_alive","CmdData")==2,"two surviving Killers remain opponents");
+        cmd(s,"scoreboard players set $kill_reward GameRules -1");
+        cmd(s,"give " + killers.get(3).getScoreboardName() + " netherite_scrap 7");
+        hit(s,killer,killers.get(3));
+        check(adrenalineDrops(s)==3 && killer.getInventory().countItem(Items.NETHERITE_SCRAP)==scrap+10,"take-victim-scrap option transfers all seven scraps alongside adrenaline");
+        cmd(s,"function mcm:modes/tick");
+        check(score(s,"$gamestate","CmdData")==2 && killer.getTags().contains("bb_killer_winner"),"last individual Killer wins");
+        cmd(s,"scoreboard players set $gameEndTimer CmdData 200");
+        cmd(s,"function mcm:game/loops/gameend");
+        check(entities(s,"@a[tag=WonLast]")==1 && killer.getTags().contains("WonLast"),"Killer result awards victory only to the last survivor");
+        start(s,2);
+        check(entities(s,"@a[tag=bb_killer_winner]")==0,"next round clears the previous individual winner");
+        victim=killers.get(1);
+        victim.setLastHurtByMob(killer);
+        call(s,victim,"mcm:game/playerdeath");
+        check(adrenalineDrops(s)==0 && killer.getInventory().countItem(Items.NETHERITE_SCRAP)==0,"hazard death with a stale attacker awards neither adrenaline nor scrap");
+        start(s,2);
+        victim.setClientLoaded(true);
+        victim.invulnerableTime=0;
+        cmd(s,"summon arrow 0 2 70 {Tags:[\"knife\",\"bb_test_knife\"]}");
+        cmd(s,"damage " + victim.getScoreboardName() + " 1 minecraft:arrow by @e[type=arrow,tag=bb_test_knife,limit=1] from " + killer.getScoreboardName());
+        cmd(s,"kill @e[tag=bb_test_knife]");
+        check(victim.getTags().contains("spectating") && adrenalineDrops(s)==1,"real thrown-knife damage kills another Killer and drops one bottle");
+        var bottle=s.overworld().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,victim.getBoundingBox().inflate(1)).stream().filter(e->e.getTags().contains("bb_kill_adrenaline")).findFirst().orElseThrow();
+        int sticks=killer.getInventory().countItem(Items.CARROT_ON_A_STICK);
+        bottle.setNoPickUpDelay();
+        bottle.playerTouch(killer);
+        check(bottle.isRemoved() && killer.getInventory().countItem(Items.CARROT_ON_A_STICK)==sticks+1,"kill-drop adrenaline can be picked up as an additional bottle");
         start(s,2);
         cmd(s,"execute as @a run function mcm:game/playerdeath");
         cmd(s,"function mcm:modes/tick");
-        check(score(s,"$red_out","CmdData")==1 && score(s,"$blue_out","CmdData")==1 && score(s,"$winner","CmdData")==0,"simultaneous team elimination draws");
+        check(score(s,"$gamestate","CmdData")==2 && score(s,"$killer_alive","CmdData")==0 && score(s,"$winner","CmdData")==0,"simultaneous elimination of every Killer draws");
+        start(s,2);
+        cmd(s,"scoreboard players set $gametimer CmdData 1");
+        cmd(s,"function mcm:game/loops/game_timer");
+        cmd(s,"function mcm:modes/tick");
+        check(score(s,"$gamestate","CmdData")==1 && score(s,"$winner","CmdData")==0 && score(s,"$innocentWin","CmdData")==0,"Killer keeps playing when the configured timer reaches zero");
+        for(int i=0;i<3;i++) cmd(s,"function mcm:game/loops/ingame");
+        check(score(s,"$gamestate","CmdData")==1 && score(s,"$killer_alive","CmdData")==4 && score(s,"$gametimer","CmdData")==-3,"full Killer loop continues beyond the time limit with all survivors");
+        for(int i=1;i<4;i++) hit(s,killer,killers.get(i));
+        cmd(s,"function mcm:modes/tick");
+        check(score(s,"$gamestate","CmdData")==2 && killer.getTags().contains("bb_killer_winner"),"last standing Killer wins after the configured time limit has passed");
+        start(s,2);
+        cmd(s,"tp " + killer.getScoreboardName() + " 100 10 100");
+        cmd(s,"tp " + killers.get(1).getScoreboardName() + " 110 10 100");
+        cmd(s,"tp " + killers.get(2).getScoreboardName() + " 140 10 100");
+        cmd(s,"tp " + killers.get(3).getScoreboardName() + " 160 10 100");
+        call(s,killer,"mcm:modes/tracker");
+        check(score(s,"$out","temp")==10,"Killer tracker finds the nearest opponent and excludes its user");
+        call(s,killers.get(1),"mcm:game/playerdeath");
+        call(s,killer,"mcm:modes/tracker");
+        check(score(s,"$out","temp")==40,"Killer tracker excludes eliminated players");
+        cmd(s,"tag @e[type=marker,tag=PlayerSpawn] remove PlayerSpawn");
+        for(int i=0;i<4;i++) cmd(s,"summon marker " + (i*10) + " 2 70 {Tags:[\"PlayerSpawn\"]}");
+        check(entities(s,"@e[type=marker,tag=PlayerSpawn]")==4,"teleporter fixture has four loaded player spawns");
+        call(s,killer,"mcm:game/items/murderer/teleporter");
+        check(killer.getX()==100.5 && killers.get(1).getX()==110.5 && killers.get(2).getX()>=.5 && killers.get(2).getX()<=30.5 && killers.get(3).getX()>=.5 && killers.get(3).getX()<=30.5,"Killer teleporter moves every live opponent and leaves user and spectators in place");
         start(s,1);
         cmd(s,"scoreboard players set $gametimer CmdData 1");
         cmd(s,"function mcm:game/loops/game_timer");

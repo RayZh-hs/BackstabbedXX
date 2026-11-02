@@ -1,3 +1,4 @@
+execute if score $mode CmdData matches 2 run return run function mcm:modes/killer_result
 execute if score $winner CmdData matches 0 run title @a[tag=queued] title {"text":"Draw","color":"gold"}
 execute if score $winner CmdData matches 0 run tellraw @a {"text":"Round ended in a draw.","color":"gold"}
 execute if score $winner CmdData matches 1 run title @a[tag=queued] title {"text":"Red Team Wins!","color":"red"}

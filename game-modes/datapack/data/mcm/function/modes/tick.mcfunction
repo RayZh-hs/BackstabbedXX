@@ -1,13 +1,12 @@
 execute unless score $pickedroles CmdData matches 1 run return 0
 execute if score $graceperiod CmdData matches 1.. run return 0
 execute unless score $mode CmdData matches 1..2 run return run function mcm:modes/classic
+execute if score $mode CmdData matches 2 run return run function mcm:modes/killer_tick
 # Snapshot both teams before eliminating survivors, so simultaneous losses draw.
 scoreboard players set $red_alive CmdData 0
 scoreboard players set $blue_alive CmdData 0
 execute if score $mode CmdData matches 1 store result score $red_alive CmdData if entity @a[tag=queued,tag=!spectating,tag=gunner,scores={bb_team=1}]
 execute if score $mode CmdData matches 1 store result score $blue_alive CmdData if entity @a[tag=queued,tag=!spectating,tag=gunner,scores={bb_team=2}]
-execute if score $mode CmdData matches 2 store result score $red_alive CmdData if entity @a[tag=queued,tag=!spectating,scores={bb_team=1}]
-execute if score $mode CmdData matches 2 store result score $blue_alive CmdData if entity @a[tag=queued,tag=!spectating,scores={bb_team=2}]
 execute if score $red_alive CmdData matches 0 if score $red_out CmdData matches 0 run function mcm:modes/eliminate {team:1,key:"red",name:"Red",color:"red"}
 execute if score $blue_alive CmdData matches 0 if score $blue_out CmdData matches 0 run function mcm:modes/eliminate {team:2,key:"blue",name:"Blue",color:"aqua"}
 # Rejoining cannot resurrect a team that was already eliminated.

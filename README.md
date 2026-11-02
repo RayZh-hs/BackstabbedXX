@@ -166,6 +166,15 @@ source world, so playtest changes are discarded. The helper is compiled using
 PortableMC's Java 21 JDK and cached in `dev/local-playtest-helper/`. Normal
 launches and release builds use the usual mods and world.
 
+### Killer mode
+
+Select **Killer** in the lobby's game-mode options for free-for-all combat.
+Everyone receives the killer role and a knife, and the last player standing wins.
+Each weapon kill drops one extra adrenaline bottle at the victim's position.
+The **scrap per kill** setting still controls the killer's scrap reward, including
+zero scrap and the option to take the victim's scrap. There is no time limit:
+the round continues until the last player standing wins.
+
 ### Pick an arena
 
 Open **Singleplayer** and load **Backstabbed ++! by NorbMinecraft and Bagel
