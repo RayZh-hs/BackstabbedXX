@@ -28,7 +28,7 @@ def patched(members):
                  'function/game/items/knife/unstick_owned.mcfunction',
                  'function/game/items/player_tracker/track.mcfunction', 'function/modes/tracker.mcfunction'):
         key = 'data/mcm/' + name
-        result[key] = (SOURCE / key).read_bytes()
+        result[key] = (SOURCE / key).read_bytes().replace(b'\r\n', b'\n')
     return result
 
 

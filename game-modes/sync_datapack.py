@@ -57,12 +57,19 @@ def patched(members):
     append('game/loops/updatebossbar', 'execute if score $mode CmdData matches 1..2 run function mcm:modes/bossbar')
     append('player_leave', 'scoreboard players reset @s bb_team\nscoreboard players reset @s bb_respawn\nscoreboard players reset @s bb_safe')
     for path in (ROOT / 'game-modes/datapack').rglob('*.mcfunction'):
-        members[path.relative_to(ROOT / 'game-modes/datapack').as_posix()] = path.read_bytes()
+        # Normalise line endings so a Windows checkout does not rewrite the whole
+        # overlay into the datapack on every sync.
+        members[path.relative_to(ROOT / 'game-modes/datapack').as_posix()] = path.read_bytes().replace(b'\r\n', b'\n')
     # Keep spectator guards and their shared predicate when rebuilding game modes.
     safety_spec = importlib.util.spec_from_file_location('spectator_safety', ROOT / 'scripts/spectator_safety.py')
     safety = importlib.util.module_from_spec(safety_spec)
     safety_spec.loader.exec_module(safety)
-    return safety.patched(members)
+    # Single-knife and unpickable-bullet guarantees run last so they survive every
+    # other overlay, including the spectator guards above.
+    items_spec = importlib.util.spec_from_file_location('round_item_safety', ROOT / 'scripts/round_item_safety.py')
+    round_items = importlib.util.module_from_spec(items_spec)
+    items_spec.loader.exec_module(round_items)
+    return round_items.patched(safety.patched(members))
 
 
 def patch_ingame(s):
