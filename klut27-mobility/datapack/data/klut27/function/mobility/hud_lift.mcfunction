@@ -1,11 +1,11 @@
-scoreboard players operation @s kb_sec = @s e.cooldown
-scoreboard players add @s kb_sec 1
-scoreboard players operation @s kb_sec /= $two kb_math
-scoreboard players operation @s kb_dec = @s kb_sec
-scoreboard players operation @s kb_dec %= $ten kb_math
-scoreboard players operation @s kb_sec /= $ten kb_math
-execute store result storage klut27:hud line.sec int 1 run scoreboard players get @s kb_sec
-execute store result storage klut27:hud line.dec int 1 run scoreboard players get @s kb_dec
+scoreboard players operation @s kc_sec = @s e.cooldown
+scoreboard players add @s kc_sec 1
+scoreboard players operation @s kc_sec /= $two kc_math
+scoreboard players operation @s kc_dec = @s kc_sec
+scoreboard players operation @s kc_dec %= $ten kc_math
+scoreboard players operation @s kc_sec /= $ten kc_math
+execute store result storage klut27:hud line.sec int 1 run scoreboard players get @s kc_sec
+execute store result storage klut27:hud line.dec int 1 run scoreboard players get @s kc_dec
 execute if score @s e.cooldown matches 1..3 run data modify storage klut27:hud line.bar set value "■—————————"
 execute if score @s e.cooldown matches 4..6 run data modify storage klut27:hud line.bar set value "■■————————"
 execute if score @s e.cooldown matches 7..9 run data modify storage klut27:hud line.bar set value "■■■———————"

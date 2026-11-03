@@ -1,87 +1,83 @@
-# KLUT-27 gravity boots and elevator HUD
+# KLUT-27 gravity controller and elevator HUD
 
-Installed on 2026-10-31 into the project world, Prism's integrated world and
-`KLUT-27 - 1.21.4 Fixed`. Minecraft 1.21.4 / NeoForge 21.4.158 / Gravity Changer
-`1.4.1-neoforge.3+mc1.21.4`; no runtime mod JAR changed.
+Updated on 2026-11-03. Installed into the project world, Prism's integrated world
+and `KLUT-27 - 1.21.4 Fixed`. Minecraft 1.21.4 / NeoForge 21.4.158 / Gravity
+Changer `1.4.1-neoforge.3+mc1.21.4`; no runtime mod JAR changed.
 
 ## Behavior
 
-- Map-issued hooks and their owned hook entities are retired. Guns and unrelated
-  mod items are preserved. The obsolete hook upgrade trade is replaced.
-- Engineer sells the existing toy gun for 4 scraps, and blue vanilla leather
-  gravity boots for 4 scraps. NPC and fire restoration snapshots use these offers.
-- Only equipped boots activate: Y <= -6 selects UP, slow falling I and jump
-  boost III; Y >= 10 selects DOWN and removes those effects.
-- Either automatic transition starts 300 ticks of cooldown. Unequipping restores
-  DOWN and clears the effects while retaining the remaining cooldown. Death,
-  spectating, leaving the arena's match or resetting the match clears mobility
-  state. Standalone uses actual player health instead of Backstabbed scores.
-- Player transitions use the mod's native `gravity set_base_direction` command.
-  The next entity tick rotates around the body center, preserving a clear body
-  volume under ceilings. The non-player `gravity bridge marker` command must not
-  be used on players; `bridge reset` preserves feet position and is unsuitable
-  for an in-place ceiling flip.
-- Elevators retain their 30-tick cooldown. JUMP increases world Y and SNEAK
-  decreases world Y under both DOWN and UP gravity. UP destinations require two
-  clear blocks below the locked shulker platform; destroyed platforms are skipped.
-- One actionbar combines available direction hints and the elevator cooldown in
-  aqua, plus a bold yellow boots cooldown. Bars have ten remaining-time segments
-  and tenths of a second. Unavailable directions do not appear.
+- **Engineer sells the gravity controller for 4 scraps.** It is a
+  `carrot_on_a_stick` carrying `item_model: minecraft:repeating_command_block`,
+  so it renders with the repeating command block texture and stacks to one.
+  The 4-scrap toy gun offer is unchanged.
+- **Right click inverts your own gravity.** The function runs
+  `gravity set_relative_base_direction up @s`, which resolves "local up" against
+  the player's current gravity, so it flips to the exact opposite of any of the
+  six directions. Using the mod's native player path keeps a clear body volume
+  when flipping under a ceiling.
+- **15 second cooldown.** A flip sets `kc_cd` to 300 ticks; a right click while
+  it is positive is ignored. Carrying the controller without using it does
+  nothing.
+- **Cooldown HUD.** The shared actionbar shows the controller cooldown in bold
+  yellow as `  重力控制器 | ■■■■■————— | 7.5s`, alongside the aqua elevator hints
+  and lift cooldown. Ten remaining-time segments, tenths of a second.
+- **Lifecycle.** Death, spectating, leaving the arena or resetting the match
+  restores DOWN, clears the cooldown and empties the HUD line. The preparation
+  rescue (`bbe_arena:klut27/tp`) already resets gravity.
+- Map-issued hooks and their owned entities stay retired; guns and unrelated mod
+  items are preserved. Elevators are unchanged: 30-tick cooldown, JUMP raises
+  world Y and SNEAK lowers it under both DOWN and UP gravity.
+
+## What was removed
+
+The gravity boots are gone, not just un-traded: `mobility/up`, `mobility/down`,
+`mobility/hud_boots`, `mobility/hud_boots_text`, `predicate/boots_low` and
+`predicate/boots_high` are deleted from the datapack. The boots' automatic
+height triggers (Y <= -6 / Y >= 10), slow-falling and jump-boost effects and the
+`armor.feet` requirement no longer exist.
+
+Two names are kept on purpose: the villager tag `Klut27BootsVendor` (renaming it
+would need a full entity-data migration for no benefit) and the cleanup of
+legacy `KlutBootsGravity` markers / `KlutBootsEquipped` tags so an old world
+upgrades cleanly.
 
 ## Maintained files and reproduction
 
-`scripts/klut27_mobility.py` stages the integrated ZIP and the reviewable changed
-members under `datapack/`. Its explicit `--install` mode locks all three saves,
-verifies full backups, patches only authorized content, and verifies writes.
-It is configured for the current local project/Prism paths. It does not copy
-terrain from one save over another.
+`scripts/klut27_mobility.py` regenerates every member and stages the integrated
+ZIP plus the reviewable copies under `datapack/`; `--install` verifies full
+backups, patches only authorized content and re-verifies writes. `--only` limits
+an install to world indexes `0` (project), `1` (Prism integrated) and `2`
+(standalone). `npc_reset` and the fire-revival snapshot carry the new offers.
 
-`tests/test_klut27_mobility.py` verifies the installed contracts. Run with UTF-8
-mode on Windows:
+## Verification
 
-```text
-python -X utf8 -m unittest discover -s tests -p test_klut27_mobility.py -v
-```
+- Integrated NeoForge GameTest: **49/49 passed**, including the controller suite:
+  trade item and model, four-scrap payment, inversion, 300-tick cooldown,
+  cooldown blocking, HUD text/bar/colors from the real actionbar packet,
+  collision-free ceiling flip, inert carrying, death cleanup.
+- The same controller and elevator suites pass against the standalone pack
+  (`-PbackstabbedBootsStandalone=true`, output `standalone=true`). That run
+  reports 7 failures from suites that need the integrated `mcm:` datapack
+  (spectator safety and round-item tests are not gated); the KLUT suites pass and
+  no function fails to load. This is a pre-existing limitation of the standalone
+  GameTest mode, not a defect of the standalone pack.
+- Repository tests: 59 run, all pass except the two known CRLF source-hash
+  mismatches in `test_merchants`.
+- No client visual inspection was performed.
 
-`tests/KlutMobilityTests.java` records the actual NeoForge GameTest used for this
-change. In the sibling Gravity Changer development workspace it is registered
-in `GravityGameTests`, with `backstabbed.boots` and `backstabbed.bootsStandalone`
-system properties exposed by the Gradle GameTest run. Stage the disposable
-`run-klut` datapack with `scripts/stage_klut_mobility_test.py`; its `--standalone`
-option removes match infrastructure and installs only the standalone logic plus
-a merchant test fixture. It disables automatic load/tick tags because the test
-drives ticks explicitly and advances the real gravity component after commands.
+## Installed artifacts
 
-```text
-gradlew.bat runGameTestServer -PbackstabbedBoots=true -PintegrationRunDir=run-klut
-gradlew.bat runGameTestServer -PbackstabbedBoots=true -PbackstabbedBootsStandalone=true -PintegrationRunDir=run-klut
-```
+| Target | Before | After |
+| --- | --- | --- |
+| project / Prism integrated `mcm.zip` | `9122E7BC…` | `392BD309F6F56CC7CB2BC3C5D7F3CD319875AA1834D67851B08C2D0CD5717040` |
+| standalone `klut27-mobility.zip` | `20ECC910…` | `30133079A54DA3B50FA3B15D6E5437169A7D0BAF1B7980161238B57BD3FD2C35` |
 
-## Verification and recovery
+Both integrated worlds are byte-identical. The project world's full backup and
+`installation.json` are in `.minecraft/backups/klut27-mobility/20261103T062925Z/`;
+the Prism and standalone prior files are in
+`…/instances/Backstabbed++/.minecraft/backups/klut27-mobility-20261103T142938Z/`.
+Detailed GameTest logs are in the Git-ignored `dev/` directory.
 
-- Integrated GameTest run: 41/41 passed. Standalone run: 41/41 passed, with the
-  Backstabbed `dead` objective explicitly absent.
-- Covered actual trade payment, tagged equipment, exact height thresholds,
-  300-tick timing, re-equip bypass prevention, independent players, death cleanup,
-  actionbar packet content/colors, both elevator orientations, blocked/destroyed
-  destinations, and ceiling collisions on expiry/unequip.
-- Installed contract tests: 6/6 passed. No client visual inspection was performed.
-- Repository regression run: 31 tests, with the same 3 failures and 3 errors
-  observed before installation. Existing checks assume the old Middle Ages
-  predicate/spawn format; merchant checks also report CRLF/source-hash mismatches.
-  This change does not modify those unrelated maps or validation baselines.
-- Verified 2,057 pre-existing files. Eight existing files changed and one
-  standalone pack was added. Terrain, POI, mod JARs and existing editor changes
-  are byte-identical. Entity-region comparison permits only Engineer's name,
-  visible-name flag, offers and vendor tag; all positions and other NPCs match.
-
-Full verified backups and SHA-256 records are in the Git-ignored directory
-`.minecraft/backups/klut27-mobility/20261031T032620Z/`. Archives `0-world.zip`,
-`1-world.zip`, `2-world.zip` correspond to project, Prism integrated and standalone
-respectively. Stop Minecraft, verify `sha256.json`, move the affected save aside,
-then extract that archive under its original saves parent to restore. Keep the
-backup and moved save until the restored world has been checked.
-
-Detailed before/after regression logs, GameTest logs and preservation manifests
-are in the Git-ignored `dev/klut27-mobility/` directory. No Git commit or push was
-performed.
+Note: `zipbytes` stamps each ZIP member with the current local time, so two
+builds of identical content differ in archive hash. Compare member contents, not
+archive hashes, when checking reproducibility.

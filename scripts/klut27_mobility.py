@@ -1,4 +1,4 @@
-"""Generate/stage KLUT boots, elevator and shared HUD changes; install only after tests.
+"""Generate/stage KLUT gravity-controller, elevator and shared HUD changes; install only after tests.
 
 Needs nbtlib (same runtime as arena-editor). Never regenerate geometry or NPC positions.
 """
@@ -14,8 +14,17 @@ LIVE=SAVES/'Backstabbed ++! v1.1.1 Latest 2026-10-28 77e59f6'
 STANDALONE=SAVES/'KLUT-27 - 1.21.4 Fixed'
 STAGE=ROOT/'dev/klut27-mobility'
 BOX='minecraft:white_shulker_box{lock:{components:{"minecraft:custom_name":"\\\"5567353566-5331\\\""}}}'
-BOOTS='minecraft:leather_boots[custom_data~{klut27_boots:1b}]'
+CONTROLLER='carrot_on_a_stick[custom_data~{klut27_gravity_controller:1b}]'
 LIVE_PLAYER='@a[tag=queued,tag=!spectating,gamemode=!spectator]'
+# The controller replaced the gravity boots; these members must not survive an update.
+OBSOLETE=(
+ 'data/klut27/function/mobility/up.mcfunction',
+ 'data/klut27/function/mobility/down.mcfunction',
+ 'data/klut27/function/mobility/hud_boots.mcfunction',
+ 'data/klut27/function/mobility/hud_boots_text.mcfunction',
+ 'data/klut27/predicate/boots_low.json',
+ 'data/klut27/predicate/boots_high.json',
+)
 
 def readzip(p):
     with zipfile.ZipFile(p)as z:return {n:z.read(n)for n in z.namelist()}
@@ -28,7 +37,7 @@ def zipbytes(files):
 def offers():
     return nbt.parse_nbt('''{Recipes:[
 {buy:{id:"minecraft:netherite_scrap",count:4},sell:{id:"minecraft:stick",count:1,components:{"minecraft:item_model":"minecraft:role_items/gun","minecraft:max_stack_size":1,"minecraft:custom_data":{klut27_toy_gun:1b},"minecraft:custom_name":'{"text":"玩具枪","italic":false}'}},maxUses:2147483647,uses:0,rewardExp:0b,xp:0,demand:0,specialPrice:0,priceMultiplier:0.0f},
-{buy:{id:"minecraft:netherite_scrap",count:4},sell:{id:"minecraft:leather_boots",count:1,components:{"minecraft:item_model":"minecraft:leather_boots","minecraft:dyed_color":{rgb:3949738,show_in_tooltip:0b},"minecraft:custom_data":{klut27_boots:1b},"minecraft:custom_name":'{"text":"重力靴","color":"aqua","italic":false}'}},maxUses:2147483647,uses:0,rewardExp:0b,xp:0,demand:0,specialPrice:0,priceMultiplier:0.0f}]}''')
+{buy:{id:"minecraft:netherite_scrap",count:4},sell:{id:"minecraft:carrot_on_a_stick",count:1,components:{"minecraft:item_model":"minecraft:repeating_command_block","minecraft:max_stack_size":1,"minecraft:custom_data":{klut27_gravity_controller:1b},"minecraft:custom_name":'{"text":"重力控制器","color":"aqua","italic":false}'}},maxUses:2147483647,uses:0,rewardExp:0b,xp:0,demand:0,specialPrice:0,priceMultiplier:0.0f}]}''')
 
 def update_engineer(e):
     e['CustomName']=nbt.String('{"text":"Engineer","italic":false}')
@@ -42,13 +51,14 @@ def generate(standalone=False):
     def fn(name,body,ns='klut27'):
         files[f'data/{ns}/function/{name}.mcfunction']=(body.strip()+'\n').encode('utf-8')
     def el(name,body):fn(name,body,'klut27_elevators')
-    objectives=['kb_cd','kb_sec','kb_dec','kb_bar','kb_math','ke_dir','ke_up','ke_down','ke_scan','ke_here','ke_input','ke_move']
+    objectives=['kc_cd','kc_sec','kc_dec','kc_math','ke_dir','ke_up','ke_down','ke_scan','ke_here','ke_input','ke_move']
     if standalone:objectives+=['kh_owner','kh_cd','kh_seen','kh_was','klut_air']
     fn('mobility/load','\n'.join('scoreboard objectives add '+s+' dummy'for s in objectives)+'''
-scoreboard players set $two kb_math 2
-scoreboard players set $ten kb_math 10
-scoreboard players set $three kb_math 3
-scoreboard players set $thirty kb_math 30
+scoreboard objectives add kc_use minecraft.used:minecraft.carrot_on_a_stick
+scoreboard players set $two kc_math 2
+scoreboard players set $ten kc_math 10
+scoreboard players set $three kc_math 3
+scoreboard players set $thirty kc_math 30
 kill @e[type=marker,tag=KlutBootsGravity]
 execute as @a[tag=Klut27Hook] run function klut27:mobility/remove_hook
 execute as @e[type=villager,tag=Klut27Engineer] run function klut27:mobility/merchant
@@ -65,14 +75,16 @@ tag @s remove Klut27Hook
 ''')
     fn('give_hook','function klut27:mobility/remove_hook')
     fn('hook_roles','execute as @a[tag=Klut27Hook] run function klut27:mobility/remove_hook')
-    fn('mobility/release','''execute if entity @s[tag=KlutBootsEquipped] run gravity set_base_direction down @s
-execute if entity @s[tag=KlutBootsEquipped] run effect clear @s minecraft:slow_falling
-execute if entity @s[tag=KlutBootsEquipped] run effect clear @s minecraft:jump_boost
+    fn('mobility/release','''execute if entity @s[tag=KlutMobility] run gravity set_base_direction down @s
+execute if entity @s[tag=KlutMobility] run effect clear @s minecraft:slow_falling
+execute if entity @s[tag=KlutMobility] run effect clear @s minecraft:jump_boost
+tag @s remove KlutMobility
 tag @s remove KlutBootsEquipped
 tag @s remove KlutBootsUp
 ''')
     fn('mobility/cleanup','''function klut27:mobility/release
-scoreboard players set @s kb_cd 0
+scoreboard players set @s kc_cd 0
+scoreboard players set @s kc_use 0
 scoreboard players set @s e.cooldown 0
 scoreboard players set @s ke_scan 0
 scoreboard players set @s ke_here 0
@@ -84,30 +96,20 @@ tag @s remove KlutMobility
 function klut27:mobility/cleanup
 scoreboard players set @s klut_air 0
 ''')
-    for name,bound in [('low',{'max':-6}),('high',{'min':10})]:
-        files[f'data/klut27/predicate/boots_{name}.json']=json.dumps({'condition':'minecraft:location_check','predicate':{'position':{'y':bound}}}).encode()
-    fn('mobility/up','''gravity set_base_direction up @s
-tag @s add KlutBootsUp
-effect give @s minecraft:slow_falling infinite 0 true
-effect give @s minecraft:jump_boost infinite 2 true
-scoreboard players set @s kb_cd 300
-''')
-    fn('mobility/down','''gravity set_base_direction down @s
-tag @s remove KlutBootsUp
-effect clear @s minecraft:slow_falling
-effect clear @s minecraft:jump_boost
-scoreboard players set @s kb_cd 300
+    # Right click inverts the owner's gravity. `set_relative_base_direction up`
+    # flips to the opposite of the current direction in the player frame, so it
+    # works for all six directions without reading server-side state first.
+    fn('mobility/controller','''gravity set_relative_base_direction up @s
+scoreboard players set @s kc_cd 300
+playsound minecraft:ui.button.click master @s ~ ~ ~ 1 1.4
 ''')
     fn('mobility/player',f'''execute unless dimension minecraft:overworld run return 0
 function klut27:mobility/remove_hook
-scoreboard players add @s kb_cd 0
-execute if score @s kb_cd matches 1.. run scoreboard players remove @s kb_cd 1
-execute unless items entity @s armor.feet {BOOTS} run function klut27:mobility/release
-execute unless items entity @s armor.feet {BOOTS} run return 0
+scoreboard players add @s kc_cd 0
+execute if score @s kc_cd matches 1.. run scoreboard players remove @s kc_cd 1
 tag @s add KlutMobility
-tag @s add KlutBootsEquipped
-execute if score @s kb_cd matches 0 unless entity @s[tag=KlutBootsUp] if predicate klut27:boots_low run function klut27:mobility/up
-execute if score @s kb_cd matches 0 if entity @s[tag=KlutBootsUp] if predicate klut27:boots_high run function klut27:mobility/down
+execute if score @s kc_use matches 1.. if score @s kc_cd matches 0 if items entity @s weapon.* {CONTROLLER} run function klut27:mobility/controller
+scoreboard players set @s kc_use 0
 ''')
     scope='@a[gamemode=!spectator]'if standalone else LIVE_PLAYER
     gate=''if standalone else '''execute unless score $selectedMap CmdData matches 20 run return 0
@@ -190,29 +192,29 @@ scoreboard players set @s e.cooldown 30
 scoreboard players set @s ke_move 1
 scoreboard players set @s ke_scan 0
 ''')
-    fn('mobility/hud','''data modify storage klut27:hud line set value {hint:"",lift:"",boots:""}
+    fn('mobility/hud','''data modify storage klut27:hud line set value {hint:"",lift:"",ctrl:""}
 execute if score @s ke_here matches 1 if score @s e.cooldown matches 0 if score @s ke_up matches 1 run data modify storage klut27:hud line.hint set value "JUMP to go UP"
 execute if score @s ke_here matches 1 if score @s e.cooldown matches 0 if score @s ke_down matches 1 run data modify storage klut27:hud line.hint set value "SNEAK to go DOWN"
 execute if score @s ke_here matches 1 if score @s e.cooldown matches 0 if score @s ke_up matches 1 if score @s ke_down matches 1 run data modify storage klut27:hud line.hint set value "JUMP to go UP | SNEAK to go DOWN"
 execute if score @s e.cooldown matches 1.. run function klut27:mobility/hud_lift
-execute if score @s kb_cd matches 1.. run function klut27:mobility/hud_boots
-execute if data storage klut27:hud line{hint:"",lift:"",boots:""} run return run function klut27:mobility/hud_clear
+execute if score @s kc_cd matches 1.. run function klut27:mobility/hud_ctrl
+execute if data storage klut27:hud line{hint:"",lift:"",ctrl:""} run return run function klut27:mobility/hud_clear
 tag @s add KlutMobilityHud
 function klut27:mobility/hud_render with storage klut27:hud line
 ''')
     fn('mobility/hud_clear','''execute if entity @s[tag=KlutMobilityHud] run title @s actionbar ""
 tag @s remove KlutMobilityHud
 ''')
-    fn('mobility/hud_render','$title @s actionbar [{"text":"$(hint)","color":"aqua"},{"text":"$(lift)","color":"aqua","bold":true},{"text":"$(boots)","color":"yellow","bold":true}]')
-    for kind,obj,unit,label in [('boots','kb_cd',30,'重力靴'),('lift','e.cooldown',3,'电梯')]:
-        body=f'''scoreboard players operation @s kb_sec = @s {obj}
-scoreboard players add @s kb_sec 1
-scoreboard players operation @s kb_sec /= $two kb_math
-scoreboard players operation @s kb_dec = @s kb_sec
-scoreboard players operation @s kb_dec %= $ten kb_math
-scoreboard players operation @s kb_sec /= $ten kb_math
-execute store result storage klut27:hud line.sec int 1 run scoreboard players get @s kb_sec
-execute store result storage klut27:hud line.dec int 1 run scoreboard players get @s kb_dec
+    fn('mobility/hud_render','$title @s actionbar [{"text":"$(hint)","color":"aqua"},{"text":"$(lift)","color":"aqua","bold":true},{"text":"$(ctrl)","color":"yellow","bold":true}]')
+    for kind,obj,unit,label in [('ctrl','kc_cd',30,'重力控制器'),('lift','e.cooldown',3,'电梯')]:
+        body=f'''scoreboard players operation @s kc_sec = @s {obj}
+scoreboard players add @s kc_sec 1
+scoreboard players operation @s kc_sec /= $two kc_math
+scoreboard players operation @s kc_dec = @s kc_sec
+scoreboard players operation @s kc_dec %= $ten kc_math
+scoreboard players operation @s kc_sec /= $ten kc_math
+execute store result storage klut27:hud line.sec int 1 run scoreboard players get @s kc_sec
+execute store result storage klut27:hud line.dec int 1 run scoreboard players get @s kc_dec
 '''
         for i in range(1,11):body+=f'execute if score @s {obj} matches {(i-1)*unit+1}..{i*unit} run data modify storage klut27:hud line.bar set value "'+('■'*i+'—'*(10-i))+'"\n'
         body+=f'function klut27:mobility/hud_{kind}_text with storage klut27:hud line'
@@ -227,7 +229,7 @@ execute store result storage klut27:hud line.dec int 1 run scoreboard players ge
                 files[path]=text.encode()
     return files
 
-def patch_snapshots(files):
+def patch_snapshots(files,touched=None):
     for name,raw in list(files.items()):
         if not name.endswith('.mcfunction')or not name.startswith('data/klut27/'):continue
         body=raw.decode('utf-8');lines=[];changed=False
@@ -236,12 +238,18 @@ def patch_snapshots(files):
                 i=line.index('{');data=nbt.parse_nbt(line[i:]);update_engineer(data)
                 line=line[:i]+data.snbt();changed=True
             lines.append(line)
-        if changed:files[name]=('\n'.join(lines)+'\n').encode('utf-8')
+        if changed:
+            files[name]=('\n'.join(lines)+'\n').encode('utf-8')
+            if touched is not None:touched.add(name)
 
-def patch_pack(original):
-    files=dict(original);files.update(generate())
+def patch_pack(original,touched=None):
+    """Return the updated members. `touched` receives every member this module owns."""
+    touched=set()if touched is None else touched
+    generated=generate()
+    files=dict(original);files.update(generated);touched.update(generated)
+    for name in OBSOLETE:files.pop(name,None);touched.discard(name)
     def edit(name,func):
-        key='data/'+name;files[key]=func(files[key].decode('utf-8')).encode('utf-8')
+        key='data/'+name;files[key]=func(files[key].decode('utf-8')).encode('utf-8');touched.add(key)
     for name in ('functionality','waiting_tick'):
         edit(f'klut27/function/{name}.mcfunction',lambda s:s.replace('function klut27_elevators:tick','function klut27:mobility/tick').replace('function klut27:hook_tick\n',''))
     edit('mcm/function/maps/start.mcfunction',lambda s:'\n'.join(l for l in s.splitlines()if 'klut27:give_hook'not in l)+'\n')
@@ -250,32 +258,37 @@ def patch_pack(original):
     for name,line in [('mcm/function/load.mcfunction','function klut27:mobility/load'),('mcm/function/everytick.mcfunction','function klut27:mobility/global_tick')]:
         edit(name,lambda s,line=line:s if line in s else s.rstrip()+'\n'+line+'\n')
     edit('klut27/function/npc_tick.mcfunction',lambda s:s if 'mobility/merchant'in s else s.rstrip()+'\nexecute as @e[type=villager,tag=Klut27Engineer,tag=!Klut27BootsVendor,tag=!Klut27Blasted] run function klut27:mobility/merchant\n')
-    patch_snapshots(files)
+    patch_snapshots(files,touched)
     return files
 
 def stage():
     STAGE.mkdir(parents=True,exist_ok=True)
-    before=readzip(PROJECT/'datapacks/mcm.zip');after=patch_pack(before)
+    before=readzip(PROJECT/'datapacks/mcm.zip');touched=set();after=patch_pack(before,touched)
     (STAGE/'mcm.zip').write_bytes(zipbytes(after))
     overlay=ROOT/'klut27-mobility/datapack'
-    for n,b in after.items():
-        if before.get(n)!=b:
-            p=overlay/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b)
-    report={'base_sha256':hashlib.sha256((PROJECT/'datapacks/mcm.zip').read_bytes()).hexdigest(),'changed_members':[n for n in after if before.get(n)!=after[n]]}
+    changed={n for n in after if before.get(n)!=after[n]}
+    touched={n for n in touched if n in after}
+    for n in sorted(touched):
+        p=overlay/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(after[n])
+    for p in sorted(overlay.rglob('*'),reverse=True):
+        if p.is_file() and p.relative_to(overlay).as_posix() not in touched:p.unlink()
+    for p in sorted(overlay.rglob('*'),reverse=True):
+        if p.is_dir() and not any(p.iterdir()):p.rmdir()
+    report={'base_sha256':hashlib.sha256((PROJECT/'datapacks/mcm.zip').read_bytes()).hexdigest(),'changed_members':sorted(changed),'owned_members':sorted(touched),'removed_members':[n for n in OBSOLETE if n in before]}
     (STAGE/'stage.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
-    print('Staged',len(report['changed_members']),'datapack members:',STAGE/'mcm.zip')
+    print('Staged',len(report['changed_members']),'changed and',len(touched),'owned datapack members:',STAGE/'mcm.zip')
 
 def standalone_pack(project_files):
     files=generate(True)
     for n in ['data/klut27_elevators/function/load.mcfunction','data/klut27_elevators/tags/block/clear.json','data/klut27/function/hook_cancel.mcfunction']:
         files[n]=project_files[n]
     files['data/elevators/function/tick.mcfunction']=b'# Replaced by direction-aware klut27:mobility/tick.\n'
-    files['pack.mcmeta']=json.dumps({'pack':{'pack_format':61,'description':'KLUT-27 boots and direction-aware elevator HUD'}}).encode()
+    files['pack.mcmeta']=json.dumps({'pack':{'pack_format':61,'description':'KLUT-27 gravity controller and direction-aware elevator HUD'}}).encode()
     files['data/minecraft/tags/function/load.json']=b'{"values":["klut27_elevators:load","klut27:mobility/load"]}'
     files['data/minecraft/tags/function/tick.json']=b'{"values":["klut27:mobility/global_tick","klut27:mobility/tick"]}'
     return files
 
-def install():
+def install(only=None):
     from contextlib import ExitStack,contextmanager
     import msvcrt,importlib.util
     spec=importlib.util.spec_from_file_location('klut_world_io',ROOT/'arena-editor/world.py')
@@ -294,6 +307,7 @@ def install():
     stamp=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     backup=ROOT/'.minecraft/backups/klut27-mobility'/stamp;backup.mkdir(parents=True)
     jobs=[];worlds=[PROJECT,LIVE,STANDALONE]
+    if only is not None:worlds=[w for i,w in enumerate(worlds)if i in only]
     with ExitStack()as stack:
         for w in worlds:stack.enter_context(locked(w))
         for index,w in enumerate(worlds):
@@ -340,6 +354,8 @@ def install():
     print('Installed and verified',len(jobs),'files; report',backup/'installation.json')
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--install',action='store_true');args=parser.parse_args()
-    if args.install:install()
+    parser=argparse.ArgumentParser();parser.add_argument('--install',action='store_true')
+    parser.add_argument('--only',help='comma-separated world indexes: 0 project, 1 Prism live, 2 standalone')
+    args=parser.parse_args()
+    if args.install:install(None if not args.only else [int(i)for i in args.only.split(',')])
     else:stage()

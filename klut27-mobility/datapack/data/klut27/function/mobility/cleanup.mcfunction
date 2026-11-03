@@ -1,5 +1,6 @@
 function klut27:mobility/release
-scoreboard players set @s kb_cd 0
+scoreboard players set @s kc_cd 0
+scoreboard players set @s kc_use 0
 scoreboard players set @s e.cooldown 0
 scoreboard players set @s ke_scan 0
 scoreboard players set @s ke_here 0
