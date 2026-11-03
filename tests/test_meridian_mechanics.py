@@ -83,7 +83,12 @@ class MeridianMechanics(unittest.TestCase):
         code = self.text('function/check_player.mcfunction')
         self.assertNotIn('#meridian_base:fluids', code)
         self.assertIn('unless predicate meridian_base:scene run return run function meridian_base:return_player', code)
-        self.assertIn('matches 1 if predicate meridian_base:ocean_height', code)
+        # The ocean check is height-gated and only runs inside an active round;
+        # its reaction is phase dependent (see meridian_boundary_policy).
+        self.assertIn('execute unless score $gamestate CmdData matches 1 run return 0', code)
+        self.assertIn('if predicate meridian_base:ocean_height run function meridian_base:check_ocean', code)
+        self.assertIn('if block ~ ~ ~ #meridian_base:ocean run return run function meridian_base:ocean_contact',
+                      self.text('function/check_ocean.mcfunction'))
 
     def test_potato_consumption_and_per_entry_reward_contract(self):
         line = self.text('function/plantation/spawn.mcfunction').strip()
