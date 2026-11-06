@@ -41,6 +41,7 @@ def release_notes(tag, repo):
         "", f"**Full changelog:** [all changes]({comparison})", "",
         "## Downloads", "",
         "- **Players:** import `Backstabbed++.zip` into Prism Launcher.",
+        "- **HMCL players:** import `Backstabbed++.mrpack` using Install Modpack. This avoids the MultiMC LWJGL metadata lookup.",
         f"- **Hosts:** also extract `Backstabbed++-map-v{version}.zip` into the saves directory, or use its world on a dedicated server.",
         "- `backstabbed-resource.zip` is the standalone resource pack; `SHA256SUMS` verifies the downloads.", "",
     ])

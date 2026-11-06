@@ -66,7 +66,41 @@ def build_resourcepack():
     return output
 
 
-def build_pack(resourcepack):
+def build_modrinth_pack(files, version):
+    """Package game files without MultiMC's external component metadata lookup."""
+    component_source = files["mmc-pack.json"]
+    components = json.loads(
+        component_source if isinstance(component_source, bytes) else component_source.read_bytes()
+    )["components"]
+    versions = {item["uid"]: item["version"] for item in components}
+    dependencies = {
+        "minecraft": versions["net.minecraft"],
+        "neoforge": versions["net.neoforged"],
+    }
+    manifest = {
+        "formatVersion": 1,
+        "game": "minecraft",
+        "versionId": version,
+        "name": "Backstabbed++",
+        "summary": f"Minecraft {dependencies['minecraft']}, NeoForge {dependencies['neoforge']}",
+        "files": [],
+        "dependencies": dependencies,
+    }
+    output = {"modrinth.index.json": json.dumps(manifest, indent=2).encode("utf-8")}
+    for name, source in files.items():
+        if not name.startswith(".minecraft/"):
+            continue
+        relative = name[len(".minecraft/"):]
+        # Do not import stale manifests or settings from the pack author's launcher.
+        if relative in ("modrinth.index.json", "hmclversion.cfg") or relative.startswith(
+            ("PCL/", ".hmcl/", "saves/")
+        ):
+            continue
+        output[f"overrides/{relative}"] = source
+    write_zip(DIST / "Backstabbed++.mrpack", output)
+
+
+def build_pack(resourcepack, version=None):
     # Include tracked files and new, non-ignored files, even before the first commit.
     result = subprocess.run(
         ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
@@ -101,6 +135,7 @@ def build_pack(resourcepack):
     files["instance.cfg"] = ROOT / "instance.cfg.example"
     files[f".minecraft/resourcepacks/{RESOURCEPACK_NAME}"] = resourcepack
     write_zip(DIST / "Backstabbed++.zip", files)
+    build_modrinth_pack(files, release_version(version))
 
 
 def release_version(value=None):
@@ -146,13 +181,13 @@ def build_map(version):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("target", choices=("pack", "resourcepack", "map", "release"))
-    parser.add_argument("--version", help="Map version; defaults to VERSION or the latest Git version tag")
+    parser.add_argument("--version", help="Release version; defaults to VERSION or the latest Git version tag")
     args = parser.parse_args()
-    version = release_version(args.version) if args.target in ("map", "release") else None
+    version = release_version(args.version) if args.target in ("pack", "map", "release") else None
     if args.target in ("pack", "resourcepack", "release"):
         resourcepack = build_resourcepack()
         if args.target in ("pack", "release"):
-            build_pack(resourcepack)
+            build_pack(resourcepack, version)
     if args.target in ("map", "release"):
         build_map(version)
 
