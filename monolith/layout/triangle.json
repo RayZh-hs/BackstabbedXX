@@ -1,0 +1,178 @@
+{
+  "islands": [
+    {
+      "id": 0,
+      "name": "Canopy",
+      "quarter_turns_clockwise": 3,
+      "old_altar": [
+        53226.5,
+        148,
+        53280.5
+      ],
+      "altar": [
+        53230.5,
+        148,
+        53265.5
+      ],
+      "rune_center": [
+        53228.5,
+        158,
+        53265.5
+      ],
+      "bounds": [
+        [
+          53201,
+          87,
+          53213
+        ],
+        [
+          53260,
+          169,
+          53280
+        ]
+      ],
+      "block_count": 62687,
+      "inward_normal": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Conifer",
+      "quarter_turns_clockwise": 0,
+      "old_altar": [
+        53226.5,
+        154,
+        53349.5
+      ],
+      "altar": [
+        53342.5,
+        154,
+        53330.5
+      ],
+      "rune_center": [
+        53342.5,
+        163,
+        53329.5
+      ],
+      "bounds": [
+        [
+          53328,
+          87,
+          53303
+        ],
+        [
+          53394,
+          175,
+          53356
+        ]
+      ],
+      "block_count": 61705,
+      "inward_normal": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Cherry",
+      "quarter_turns_clockwise": 3,
+      "old_altar": [
+        53231.5,
+        149,
+        53415.5
+      ],
+      "altar": [
+        53229.5,
+        149,
+        53394.5
+      ],
+      "rune_center": [
+        53230.5,
+        159,
+        53395.5
+      ],
+      "bounds": [
+        [
+          53208,
+          87,
+          53346
+        ],
+        [
+          53256,
+          189,
+          53415
+        ]
+      ],
+      "block_count": 64976,
+      "inward_normal": [
+        0,
+        0,
+        -1
+      ],
+      "placement_pivot": [
+        53230.5,
+        149,
+        53395.5
+      ],
+      "landing_shift": [
+        -1,
+        0,
+        -1
+      ]
+    }
+  ],
+  "altars": [
+    [
+      53230.5,
+      148,
+      53265.5
+    ],
+    [
+      53342.5,
+      154,
+      53330.5
+    ],
+    [
+      53229.5,
+      149,
+      53394.5
+    ]
+  ],
+  "targets": [
+    [
+      53228.5,
+      161,
+      53265.5
+    ],
+    [
+      53342.5,
+      166,
+      53329.5
+    ],
+    [
+      53230.5,
+      159,
+      53395.5
+    ]
+  ],
+  "destination_bounds": [
+    [
+      53201,
+      87,
+      53213
+    ],
+    [
+      53394,
+      189,
+      53415
+    ]
+  ],
+  "source": "https://www.minecraftmaps.com/52979-monoliths-remnants-vol-2",
+  "author": "KAIZEN87",
+  "blocks_preserved": 189368,
+  "block_entities_preserved": 33
+}

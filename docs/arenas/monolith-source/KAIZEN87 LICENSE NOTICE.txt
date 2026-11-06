@@ -1,0 +1,68 @@
+## KAIZEN87 LICENSE NOTICE
+
+**Rights Holder:** KAIZEN87 (the "Rights Holder")
+
+**Official Source:** [https://www.patreon.com/kaizen87](https://www.patreon.com/kaizen87) (or the current official source of the Rights Holder)
+
+**Rights Profile:** K87-RIGHTS-1
+
+### 1. Rights and Material
+
+This Minecraft world and all original material distributed by the Rights Holder (the "Material") is protected content under its control: builds, design, layouts, environments, renders, screenshots and other images of the works (by whomever produced), the world save, the release package and accompanying materials.
+
+The Material is **licensed, not sold**. Purchase, subscription, payment or receipt of the files - including through platforms that use words such as "buy" or "purchase" - transfers no ownership and no rights other than those expressly granted. All rights are reserved by the Rights Holder.
+
+### 2. What Is Permitted
+
+The Material may be used **for private, personal, non-commercial purposes only**. This is the full scope of permission. Any use beyond it requires authorization from the Rights Holder that is expressly given and capable of verification.
+
+### 3. What Is Prohibited
+
+Everything not permitted under §2 is prohibited. In particular, without limitation:
+
+- public or commercial use, monetization, donations, advertising, promotion;
+- re-uploading, copying, transfer, sale or hosting of the files anywhere;
+- use as server infrastructure or on public servers;
+- publishing video or images that reproduce the Material or the Rights Holder's works;
+- extraction or reuse of assets, structures or recognizable parts of the works;
+- **use of the Material to train, develop or improve artificial-intelligence systems in any form.**
+
+The absence of an activity from this list does not make it permitted.
+
+### 4. Infringement and Response
+
+Any use outside §2 is an infringement **from the moment it occurs**, regardless of whether any notice was sent to, delivered to or read by the infringer. The right of use under §2 **terminates automatically and without notice** upon infringement.
+
+The Rights Holder is **not obligated** to contact the infringer before acting, and is not obligated to use any contact form, registration or channel provided by the infringer or its platform. Prior contact is a right, not a condition of enforcement.
+
+The Rights Holder may, at its choice, proceed directly to the platform, hosting provider, marketplace, server operator, payment service, legal representatives, courts, or law-enforcement and other competent authorities. The infringer's failure to respond, or difficulty in reaching the infringer, does not remove, delay or weaken the Rights Holder's rights.
+
+### 5. Enforcement
+
+Upon infringement, the Rights Holder may require - directly or through intermediaries - immediate cessation of use, removal of files, copies, links, mirrors and downloads, disabling of access, and removal of monetization. If the infringement is not cured, the matter may be referred for enforcement through judicial or other lawful means. Platforms and intermediaries may be notified of the infringement.
+
+### 6. Liability
+
+The Rights Holder reserves all remedies available under applicable law: compensation for losses, lost profits, revenue attributable to the infringement, licensing fees, enforcement costs and injunctive relief. The Material is paid content with independent commercial value; the scale of infringement (number of copies, downloads, users, transactions) may be documented as evidence of the amount of damage.
+
+### 7. Protection Measures and Willful Infringement
+
+The Material may contain identifiers, hashes, fingerprints and metadata; the Rights Holder also retains independent protection records outside the package. Their removal, alteration or circumvention grants no rights, removes no restrictions, and continues to apply within any modified or repackaged copy.
+
+Willful removal or circumvention of protection measures is treated as an **aggravating circumstance** and an indicator of intentional infringement. Such acts may give rise to **civil and criminal liability** under applicable law, including provisions on the protection of technological protection measures.
+
+### 8. Minecraft
+
+**NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.** Rights in Minecraft, Mojang and Microsoft belong to their respective owners. This notice covers only the Rights Holder's own original Material.
+
+### 9. Current Terms and Priority
+
+The current version of the Rights Holder's terms, license, rights-holder identity and contact methods is maintained at the official source of the Rights Holder (as of this release, [https://www.patreon.com/kaizen87](https://www.patreon.com/kaizen87)), including any successor or additional official source that replaces or supplements it. The current source prevails over any address printed in an earlier release. Where this notice and the current license address the same matter, the current license prevails.
+
+**The burden of ascertaining the terms rests with the user.** If the terms, the license or the scope of permission are not found, are unclear or are in doubt, the user must contact the Rights Holder and obtain confirmation before any use. Inability to find the terms, to reach the Rights Holder or to obtain a response does **not** grant permission. Absent confirmed authorization, use is not permitted.
+
+If any provision is held invalid, the remaining provisions remain in full force.
+
+Rights not expressly granted are reserved by the Rights Holder. No delay or failure to enforce is a waiver of rights.
+
+**© KAIZEN87. All rights reserved.**

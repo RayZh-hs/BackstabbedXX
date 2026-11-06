@@ -129,3 +129,12 @@ To restore, close Minecraft, verify the archive using the map integration skill'
 world folder under `.minecraft/saves/`. Keep the backup. The integration changes
 datapack and resource-pack content and adds the host mod; it does not modify map
 blocks or saved entity/POI regions.
+
+## Monolith mobility
+
+The same server-side bridge implements [Monolith](../monolith/README.md) altar
+targeting, private vanilla rune display packets and the reusable floating potion.
+`monolith tick` is called by the installed datapack; `monolith cleanup` removes
+its temporary state and equipment. Both commands require permission level 2.
+The behavior is limited to eligible arena-24 participants. Build and source
+verification use the existing commands above.

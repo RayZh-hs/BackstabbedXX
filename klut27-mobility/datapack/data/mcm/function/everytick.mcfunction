@@ -118,3 +118,6 @@ execute if score $gamestate CmdData matches 0 if score $selectedMap CmdData matc
 
 execute if score $gamestate CmdData matches 0 if score $selectedMap CmdData matches 23 run function cube_block:waiting_tick
 function klut27:mobility/global_tick
+
+execute if score $gamestate CmdData matches 0 if score $selectedMap CmdData matches 24 run function monolith:waiting_tick
+monolith tick

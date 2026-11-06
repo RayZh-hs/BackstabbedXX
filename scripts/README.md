@@ -5,7 +5,8 @@ This directory contains reusable development and release tools:
 - `build.py`: build the client modpack, resource pack, and versioned map archives.
 - `launch.py`: launch the working copy, optionally with a disposable local playtest.
 - `local_playtest.py` and `local_playtest/LocalPlaytest.java`: stage the playtest
-  world and build its helper mod.
+  world, build its helper mod, and retain logs/crash reports under
+  `dev/local-playtest-runs/` before removing the temporary game directory.
 - `nbt.py`: read and update world names for map packaging.
 - `release_notes.py`: generate release notes from Git history.
 

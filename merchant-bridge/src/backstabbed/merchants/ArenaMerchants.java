@@ -29,6 +29,10 @@ public final class ArenaMerchants {
     public ArenaMerchants() {
         NeoForge.EVENT_BUS.addListener(this::interact);
         NeoForge.EVENT_BUS.addListener(ArenaSpawnGravity::register);
+        NeoForge.EVENT_BUS.addListener(Monolith::register);
+        NeoForge.EVENT_BUS.addListener(Monolith::rightClick);
+        NeoForge.EVENT_BUS.addListener(Monolith::consumed);
+        NeoForge.EVENT_BUS.addListener(Monolith::stopped);
     }
 
     private static int score(Player player, ScoreHolder holder, String name, int fallback) {

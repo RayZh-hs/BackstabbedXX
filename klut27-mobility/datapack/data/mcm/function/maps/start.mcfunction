@@ -55,3 +55,5 @@ execute if score $selectedMap CmdData matches 21 run time set 6000
 execute if score $selectedMap CmdData matches 22 run time set 6000
 
 execute if score $selectedMap CmdData matches 23 run function cube_block:start
+
+execute if score $selectedMap CmdData matches 24 run time set 6000

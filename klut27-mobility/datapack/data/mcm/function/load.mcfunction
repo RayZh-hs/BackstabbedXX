@@ -164,6 +164,7 @@ execute if score $selectedMap CmdData matches 16 if score $gamestate CmdData mat
 schedule function meridian_base:register 1s
 schedule function bagger_288:register 1s
 schedule function underwater_base:register 1s
+schedule function monolith:register 1s
 execute unless score $gamestate CmdData matches ..0 run return 1
 
 
@@ -209,6 +210,7 @@ execute if score $selectedMap CmdData matches 22 run function middle_ages:reset
 execute if score $selectedMap CmdData matches 22 run forceload remove 45025 45025 45089 45088
 execute if score $selectedMap CmdData matches 23 run function cube_block:reset
 execute if score $selectedMap CmdData matches 23 run forceload remove 49152 49152 49263 49263
+execute if score $selectedMap CmdData matches 24 run function monolith:reset
 schedule function mcm:respawn_entities 1s
 
 #> Generate a game ID to force anyone who logs in to be reset to a default state

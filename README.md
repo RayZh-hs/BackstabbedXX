@@ -168,12 +168,15 @@ players, automatically queue each round, receive roles and spawn in the arena,
 so you can meet the normal four-player minimum by joining the queue yourself.
 Commands are enabled: select an arena with the commands below, then queue and
 play normally. The dummies stand still; they do not fight or vote. Their packet
-listeners discard outgoing packets before NeoForge's channel checks, so mods such
-as MCM Highlight can send updates without requiring a dummy client handshake.
+listeners discard outgoing packets before NeoForge's channel checks. The helper
+installs them at the beginning of the login event, before Gravity Changer and
+other mods synchronize player state, so dummy clients need no mod handshake.
 
 The world, settings and helper mod live in a temporary directory under `dev/`
 and are removed when the game exits. Each local launch starts from the current
-source world, so playtest changes are discarded. The helper is compiled using
+source world, so playtest changes are discarded. Logs and crash reports are
+retained separately under `dev/local-playtest-runs/<run-directory>/`; the launcher
+prints that path on exit. The helper is compiled using
 PortableMC's Java 21 JDK and cached in `dev/local-playtest-helper/`. Normal
 launches and release builds use the usual mods and world.
 
@@ -321,6 +324,12 @@ into each supporting face, and live players receive the gravity grappler. The th
 maps include new generated posters with varied layouts and restrained colors.
 Their source downloads, credits and reuse notices are preserved in the arena
 records; these local ports do not establish permission for public redistribution.
+
+[Monolith](monolith/README.md), by KAIZEN87, is arena 24. Its three floating,
+overgrown stone monuments form a triangle with 36 validated spawns. Sneak on a summit circle,
+aim at another glowing rune and release to travel along a bright trail. Each
+player receives a reusable 5-second floating potion; airborne sneak cancels it,
+and its 30-second cooldown starts when floating begins.
 
 Underwater Base has a copper diving-suit zombie trader beside the hydroponics
 counter: 4 scraps buy a drinkable 20-second invisibility potion. Panda Village's

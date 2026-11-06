@@ -1,0 +1,2 @@
+give @s potion[minecraft:custom_data={monolith_float:1b},minecraft:custom_name='{"text":"Potion of Floating","color":"aqua","italic":false}',minecraft:lore=['{"text":"Float for 5s · sneak midair to cancel","color":"gray","italic":false}','{"text":"Reusable · 30s cooldown from activation","color":"gray","italic":false}'],minecraft:potion_contents={custom_color:8978397,custom_effects:[{id:"minecraft:levitation",amplifier:0,duration:100,show_particles:true}]},minecraft:use_cooldown={seconds:30f,cooldown_group:"monolith:float"}] 1
+tag @s add MonolithEquipped

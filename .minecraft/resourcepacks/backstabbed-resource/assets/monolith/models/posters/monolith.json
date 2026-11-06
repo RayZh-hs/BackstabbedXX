@@ -1,0 +1,52 @@
+{
+  "credit": "KAIZEN87; https://www.minecraftmaps.com/52979-monoliths-remnants-vol-2; voting art generated using OpenAI built-in imagegen, 6 November 2026.",
+  "gui_light": "front",
+  "textures": {
+    "poster": "monolith:posters/monolith",
+    "particle": "monolith:posters/monolith"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        24,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#poster"
+        }
+      }
+    }
+  ],
+  "display": {
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}

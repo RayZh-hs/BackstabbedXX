@@ -63,6 +63,11 @@
       "type": "minecraft:single",
       "resource": "cube_block:posters/cube_block",
       "sprite": "cube_block:posters/cube_block"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "monolith:posters/monolith",
+      "sprite": "monolith:posters/monolith"
     }
   ]
 }

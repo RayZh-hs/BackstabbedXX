@@ -25,7 +25,9 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.LevelResource;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 /** Loaded only in the launcher's disposable game directory. */
@@ -36,6 +38,22 @@ public final class LocalPlaytest {
 
     public LocalPlaytest() {
         NeoForge.EVENT_BUS.addListener(this::tick);
+        NeoForge.EVENT_BUS.addListener(EventPriority.HIGHEST, this::joining);
+    }
+
+    private void joining(PlayerEvent.PlayerLoggedInEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)
+                || !player.getTags().contains(BOT_TAG)
+                || !Files.exists(player.getServer().getWorldPath(LevelResource.ROOT)
+                    .resolve(".backstabbed-local"))) {
+            return;
+        }
+        // placeNewPlayer installs a normal listener before firing this event.
+        // Replace it before other login handlers (including Gravity Changer)
+        // send payloads to this network-free player. Doing this after
+        // placeNewPlayer returns is too late for login synchronization.
+        player.connection = new IdleListener(player.getServer(), player.connection.getConnection(),
+            player, CommonListenerCookie.createInitial(player.getGameProfile(), false));
     }
 
     private void tick(ServerTickEvent.Post event) {
@@ -58,7 +76,6 @@ public final class LocalPlaytest {
                 dummy.addTag(BOT_TAG);
                 var cookie = CommonListenerCookie.createInitial(profile, false);
                 players.placeNewPlayer(new IdleConnection(), dummy, cookie);
-                dummy.connection = new IdleListener(server, dummy, cookie);
                 for (ServerPlayer human : humans) {
                     players.op(human.getGameProfile());
                     human.sendSystemMessage(Component.literal("Local playtest: " + name + " joined. Select an arena and queue normally."));
@@ -104,8 +121,8 @@ public final class LocalPlaytest {
     }
 
     private static final class IdleListener extends ServerGamePacketListenerImpl {
-        IdleListener(MinecraftServer server, ServerPlayer player, CommonListenerCookie cookie) {
-            super(server, new IdleConnection(), player, cookie);
+        IdleListener(MinecraftServer server, Connection connection, ServerPlayer player, CommonListenerCookie cookie) {
+            super(server, connection, player, cookie);
         }
 
         // There is no client to send keepalives, movement or teleport acknowledgements.

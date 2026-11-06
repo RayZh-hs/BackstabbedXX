@@ -124,3 +124,13 @@ The author requires permission before reuse and credit with the original link;
 permission for publication has not been established.
 
 Use case: stylized-concept. Create one finished Minecraft Backstabbed++ map voting poster, vertical 2:3, edge-to-edge detailed pixel-art travel-poster illustration. Subject: KLUT-27, a compact tall asymmetrical voxel spaceship/space station built as a stacked cyberpunk settlement, a chunky mustard-yellow rectangular upper hull with pale lavender/white geometric trim and a huge circular lavender side window, crowded exposed terraces with tiny market streets, cyan lights and copper-brown machinery, tapering dark burgundy underside and a long narrow central hanging keel/antenna. It floats alone in deep navy space; no planets or unrelated ships. Three-quarter view, distinctive tall vertical silhouette, cinematic golden and teal lighting. Bold legible block-pixel title at top exactly "KLUT-27". Small footer exactly "BACKSTABBED++". Thin decorative border consistent with Minecraft travel posters. No people, no watermark, no extra slogans, no checkerboard, no mockup or perspective distortion of the poster surface. This is thematic voting artwork for Bekulainen’s KLUT-27 spaceship, not a screenshot.
+
+## Monolith
+
+Generated with OpenAI built-in imagegen on 6 November 2026. The 1024 × 1536
+texture uses a restrained slate, moss and dusty-pink palette, three summit-ring
+monoliths, and a large lower MONOLITH title. Final prompt, generation method,
+asset path and SHA-256 are in [the arena manifest](arenas/monolith.json).
+The item/model/texture/atlas chain uses `monolith:posters/monolith`.
+Original map: KAIZEN87, Monoliths: Remnants // Vol. 2; the in-game title
+Monolith follows the user’s instruction.

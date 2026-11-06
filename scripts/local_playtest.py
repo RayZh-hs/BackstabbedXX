@@ -1,7 +1,9 @@
 """Stage a disposable singleplayer world and build its local-only NeoForge helper."""
 
 from contextlib import contextmanager
+from datetime import datetime, timezone
 import hashlib
+import json
 import os
 from pathlib import Path
 import shutil
@@ -12,6 +14,26 @@ import zipfile
 
 WORLD_NAME = "Backstabbed ++! by NorbMinecraft and Bagel Buddies"
 HELPER_NAME = "backstabbed-local.jar"
+
+
+def preserve_diagnostics(root, game):
+    """Keep reports outside the disposable directory before TemporaryDirectory removes it."""
+    folders = [name for name in ("logs", "crash-reports") if (game / name).is_dir()]
+    if not folders:
+        return
+    destination = root / "dev/local-playtest-runs" / game.name
+    destination.mkdir(parents=True, exist_ok=True)
+    for name in folders:
+        shutil.copytree(game / name, destination / name, dirs_exist_ok=True)
+    reports = sorted(p.name for p in (destination / "crash-reports").glob("*.txt"))
+    record = {
+        "finished_at": datetime.now(timezone.utc).isoformat(),
+        "temporary_game_directory": str(game),
+        "diagnostics_directory": str(destination),
+        "crash_reports": reports,
+    }
+    (destination / "run.json").write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
+    print(f"Local playtest diagnostics retained: {destination}", flush=True)
 
 
 @contextmanager
@@ -34,7 +56,10 @@ def local_game_directory(root):
         destination = game / "saves" / WORLD_NAME
         shutil.copytree(world, destination, ignore=shutil.ignore_patterns("session.lock"))
         (destination / ".backstabbed-local").touch()
-        yield game
+        try:
+            yield game
+        finally:
+            preserve_diagnostics(root, game)
 
 
 def build_helper(root, runtime, java, game, minecraft, neoforge):

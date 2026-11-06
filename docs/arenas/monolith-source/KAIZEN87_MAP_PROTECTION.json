@@ -1,0 +1,298 @@
+{
+  "format": "KAIZEN87 Map Protection Manifest",
+  "version": 1,
+  "app": "K87 WORK 3.0",
+  "rightsProfile": "K87-RIGHTS-1",
+  "assetId": "K87-MAP-20261028-7A86CECA8C",
+  "map": "Monoliths Remnants Vol 1",
+  "rightsHolder": "KAIZEN87",
+  "officialSource": "https://www.patreon.com/kaizen87",
+  "packagedAt": "2026-10-28T14:31:00.390Z",
+  "mode": "package",
+  "packageFingerprint": "7382e66f74fe97d50f46ef08c84ceaa4855ce1954a2a69ecbef4fae888d897b4",
+  "iconProtection": "KAIZEN87 PNG metadata",
+  "files": [
+    {
+      "path": "Monoliths Remnants Vol 1/data/chunks.dat",
+      "size": 49,
+      "sha256": "6e5c3e2bf2c4e6eb5f289ee2ced84fa155df6f208ed320cc117f84f1b51dee1e"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/data/raids.dat",
+      "size": 74,
+      "sha256": "aba2245bcc8a3afb37d6b71d9458d7707202d7af6705db22d4f9a54eb8e02f82"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/data/random_sequences.dat",
+      "size": 70,
+      "sha256": "99e4319b01896a8d098901e48ab91e804d5aec779f3343506cc7b00511fc5ab9"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/data/scoreboard.dat",
+      "size": 49,
+      "sha256": "6e5c3e2bf2c4e6eb5f289ee2ced84fa155df6f208ed320cc117f84f1b51dee1e"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.-1.-1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.-1.-2.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.-1.0.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.-1.1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.-2.-1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.-2.-2.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.-2.0.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.-2.1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.0.-1.mca",
+      "size": 12288,
+      "sha256": "063634e4458e68b5c16e90a7f678e17955066799d2445faf827c354530456bda"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.0.-2.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.0.0.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.0.1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.1.-1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.1.-2.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.1.0.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/entities/r.1.1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/level.dat",
+      "size": 1766,
+      "sha256": "4f879b28272a333874931c60c37c5aaa6d7b7c5ac1e09517ec08ffc4b27cf5ee"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.-1.-1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.-1.-2.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.-1.0.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.-1.1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.-2.-1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.-2.-2.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.-2.0.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.-2.1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.0.-1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.0.-2.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.0.0.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.0.1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.1.-1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.1.-2.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.1.0.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/poi/r.1.1.mca",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.-1.-1.mca",
+      "size": 4272128,
+      "sha256": "aff69a56a4ea0375ea034f4b469451b32502bef5db9c36fb5aa7802fea767f06"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.-1.-2.mca",
+      "size": 2764800,
+      "sha256": "0881e471870dd47a7a1fca096a631843c40e27595690fe37dbd29a48c1f057a2"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.-1.0.mca",
+      "size": 4296704,
+      "sha256": "0718f83ea1afc78e4cb4f31eb4d3bf97aba3b93631566b113be72798e1d83a3a"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.-1.1.mca",
+      "size": 2633728,
+      "sha256": "39010fa1e3b577b93cd97b95c9ef87e2044573110a5bfad828eef760a8cc55be"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.-2.-1.mca",
+      "size": 2633728,
+      "sha256": "8f516093db5899290951a120360c6abbb6c9929d1e010c0d73091edc5646b3c0"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.-2.-2.mca",
+      "size": 1544192,
+      "sha256": "7087525654a869d47602c895c9f0fb3f7b501329859970bff4053445b9bd1c27"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.-2.0.mca",
+      "size": 2633728,
+      "sha256": "064a3818b52d67a5dd4b9eaf55a762a1a44efeff104384cbc908350709ad7b42"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.-2.1.mca",
+      "size": 1597440,
+      "sha256": "8e17fb2ba231e2189a17b1754dc17d0177f4836a554a2e6031b75519d4e7059f"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.0.-1.mca",
+      "size": 4247552,
+      "sha256": "f02bb31421be7c22e5926011081422e1e96ddd545f920d6bfe566043bd65d79c"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.0.-2.mca",
+      "size": 2764800,
+      "sha256": "5bacc2087a62f1e56e522f852a9bff751ca7b4ecb9fac48986b60d221d83919c"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.0.0.mca",
+      "size": 4280320,
+      "sha256": "c04069efe4e3be42004094e372b551214da5e1d9d99b239419c0938de90d751d"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.0.1.mca",
+      "size": 2633728,
+      "sha256": "1cd38411c09ce62dc79012b9554e96bcbc678757fc3995cb4d956e7855c5f78a"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.1.-1.mca",
+      "size": 3420160,
+      "sha256": "5c12e632bb12a8fa0191e9cb142900bdc7edc93512d89e4e971f07a37b6191ca"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.1.-2.mca",
+      "size": 2121728,
+      "sha256": "6cdf0180f7cb30a8acf90acef2aad9dbea339a53e48872ca5b48961b119e618f"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.1.0.mca",
+      "size": 3420160,
+      "sha256": "7f5c3b7a28b1368bd53bad73a376c642dfd1ee8b795e3d25b8002128928ea695"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/region/r.1.1.mca",
+      "size": 1937408,
+      "sha256": "7c871eedeb9d8541a6c8f2a99d6340f84d02d455ef934f14e124bdfa9e44774c"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/icon.png",
+      "size": 12462,
+      "sha256": "cbb797901d4a436281e759b0fef451530985fb381a0a7be4bc159a7268db9333",
+      "protection": "KAIZEN87 PNG metadata",
+      "visualFingerprint": "43861CA7A7A10A9E"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/Part of the KAIZEN87 Collection.txt",
+      "size": 88,
+      "sha256": "9e413bc16f0731fbea6f4a3638b78017794443039b3ca7e488ccf41b4ae05adc"
+    },
+    {
+      "path": "Monoliths Remnants Vol 1/KAIZEN87 LICENSE NOTICE.txt",
+      "size": 5674,
+      "sha256": "9bb4c67875817ebc6670c0ef848efaff82bb9789b3bf2b4884bce3ac4ee436ce"
+    }
+  ]
+}
