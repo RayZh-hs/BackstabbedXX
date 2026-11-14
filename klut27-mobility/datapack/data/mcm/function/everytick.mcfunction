@@ -121,3 +121,5 @@ function klut27:mobility/global_tick
 
 execute if score $gamestate CmdData matches 0 if score $selectedMap CmdData matches 24 run function monolith:waiting_tick
 monolith tick
+
+execute if score $gamestate CmdData matches 0 if score $selectedMap CmdData matches 25 run function axolotl_treehouse:waiting_tick

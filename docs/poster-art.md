@@ -1,5 +1,14 @@
 # Map poster artwork
 
+Axolotl Treehouse was generated with OpenAI built-in imagegen on 10 November
+2026. The 1024 × 1536 artwork shows the original treehouse's stepped planted
+roofs, water curtain, crooked branches and island ponds in a mountain lake.
+Its large title sits over lake water at the bottom. The exact final prompt is
+in [axolotl-treehouse/poster-prompt.txt](../axolotl-treehouse/poster-prompt.txt);
+asset hash and source attribution are recorded in
+[arenas/axolotl_treehouse.json](arenas/axolotl_treehouse.json). Its full item/model/
+texture/atlas/display chain uses the Z8 / X−0.01 convention for map 25.
+
 Sworld Island, Middle Ages Small Lobby and Cube Block were generated with the
 built-in OpenAI imagegen tool on 29 October 2026. The final art follows the
 requested restrained palette and varied title placement: Sworld's title sits

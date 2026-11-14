@@ -165,6 +165,7 @@ schedule function meridian_base:register 1s
 schedule function bagger_288:register 1s
 schedule function underwater_base:register 1s
 schedule function monolith:register 1s
+schedule function axolotl_treehouse:register 1s
 execute unless score $gamestate CmdData matches ..0 run return 1
 
 

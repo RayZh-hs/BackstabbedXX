@@ -1,0 +1,112 @@
+{
+  "verified_at": "2026-11-09T17:06:23.925687+00:00",
+  "arena_id": 25,
+  "minecraft": "1.21.4",
+  "neoforge": "21.4.158",
+  "original_blocks_preserved": 7745,
+  "block_entities_preserved": 73,
+  "empty_shelf_tiles_omitted": 98,
+  "source_entities_preserved": 11,
+  "validated_player_scrap_spawns": 32,
+  "spectator_spawns": 1,
+  "static_checks": {
+    "passed": 8,
+    "log": "dev/axolotl-treehouse/focused-native-final.log"
+  },
+  "native_gameplay": {
+    "result": "PASS",
+    "assertions": 133,
+    "log": "dev/axolotl-treehouse/playtest-native-final/results.txt",
+    "coverage": [
+      "Native support, player collision and two routes at every spawn",
+      "Normal selection, four-player round, role assignment and grace",
+      "Harmless island pond and air above lake",
+      "Lake fall during waiting, grace and active play",
+      "Mountain escape and grace return",
+      "Spectator, nonparticipant and other-map exclusions",
+      "Activation, reload, reset, original entity preservation"
+    ],
+    "note": "This full gameplay run preceded the scenery-only correction that restores distant native trees as whole objects; island geometry, original build, spawns and gameplay functions are identical."
+  },
+  "native_final_scenery": {
+    "result": "PASS; screenshots inspected",
+    "log": "dev/axolotl-treehouse/visual-native-final/results.txt",
+    "screenshots": {
+      "treehouse-island.png": {
+        "path": "dev/axolotl-treehouse/visual-native-final/screenshots/treehouse-island.png",
+        "sha256": "393dacefd1487a1cb5fed16f0352b6cd0c9734d47a39a85228ffe5d4f5752851"
+      },
+      "treehouse-original.png": {
+        "path": "dev/axolotl-treehouse/visual-native-final/screenshots/treehouse-original.png",
+        "sha256": "9c20c3395cae071611135658b453741c38951b1636df46cee3a226a2287263f9"
+      },
+      "treehouse-interior.png": {
+        "path": "dev/axolotl-treehouse/visual-native-final/screenshots/treehouse-interior.png",
+        "sha256": "17ff47457f8541072af770f875be3ba3c9080380a6adf8d4319dea9c20ac38f8"
+      },
+      "treehouse-voting.png": {
+        "path": "dev/axolotl-treehouse/visual-native-final/screenshots/treehouse-voting.png",
+        "sha256": "3f2ac687f039c8cb6891b4bb134334d7ab831edbefce500ce66ec19688c22dd8"
+      }
+    }
+  },
+  "full_suite": {
+    "command": "uv run --no-project --with nbtlib make test",
+    "total": 72,
+    "failures": 2,
+    "errors": 1,
+    "existing_issues": [
+      "Monolith waiting_tick lacks the return policy expected by its test",
+      "Monolith maintained source differs from the initial user-saved installed namespace",
+      "Meridian boundary-policy code imports Windows-only msvcrt on Linux"
+    ],
+    "log": "dev/axolotl-treehouse/tests-native-final.log"
+  },
+  "preservation": {
+    "unchanged_prior_world_files": 971,
+    "changed_prior_world_files": [
+      "datapacks/mcm.zip"
+    ],
+    "new_world_files": [
+      "entities/r.112.112.mca",
+      "region/r.112.112.mca"
+    ]
+  },
+  "backups": [
+    {
+      "path": ".minecraft/backups/map-integration/20261109T150803338789Z-axolotl-treehouse-before-import-71435139.zip",
+      "sha256": "672245cbfd57c5977c2834e2c3a557c61c66d5b8e2f6af42fb17e03f36a3c82c"
+    },
+    {
+      "path": ".minecraft/backups/map-integration/20261109T160006889268Z-treehouse-before-island-redesign-034646ff.zip",
+      "sha256": "747b57db40c89644780a5b82b45f18963022c9d6852be20230da53832b041f58"
+    },
+    {
+      "path": ".minecraft/backups/map-integration/20261109T161916700927Z-treehouse-before-vanilla-terrain-rebuild-6cbc708a.zip",
+      "sha256": "f89345069a75232308cdc095fe3a7927eda0f8c91b9267a44cfdda4fb0562376"
+    }
+  ],
+  "packages": {
+    "Backstabbed++.zip": {
+      "path": "dist/Backstabbed++.zip",
+      "sha256": "313eed1d3cff7da50783d85a6b011ece3ca785737dbdba51a58511f29aa3a2c4"
+    },
+    "backstabbed-resource.zip": {
+      "path": "dist/backstabbed-resource.zip",
+      "sha256": "e4ffd1a8f0723c1a7a25c9a64403e4ce1dac7d84dfd90aa4d5eaccc584796e70"
+    },
+    "Backstabbed++-map-v1.2.1-alpha-treehouse-local.zip": {
+      "path": "dist/Backstabbed++-map-v1.2.1-alpha-treehouse-local.zip",
+      "sha256": "64e2bb982734760acd989a6b30ab4b28483bc7a23b652b25db9ea941c59e35e8"
+    }
+  },
+  "package_checks": [
+    "Client includes matching visual mod JAR",
+    "Nested client resource pack includes matching voting poster",
+    "Host archive region, entity region and datapack exactly match the source save"
+  ],
+  "interactive_previews": [
+    "map-previewer/maps/axolotl-treehouse/reference-tree-preview.png",
+    "map-previewer/maps/axolotl-treehouse/native-trees-final-preview.png"
+  ]
+}

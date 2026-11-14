@@ -1,0 +1,52 @@
+{
+  "credit": "siyuan_日记; https://www.bilibili.com/video/BV1fDNJ6qEpx; voting artwork generated with OpenAI built-in imagegen.",
+  "gui_light": "front",
+  "textures": {
+    "poster": "axolotl_treehouse:posters/axolotl_treehouse",
+    "particle": "axolotl_treehouse:posters/axolotl_treehouse"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        24,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#poster"
+        }
+      }
+    }
+  ],
+  "display": {
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}

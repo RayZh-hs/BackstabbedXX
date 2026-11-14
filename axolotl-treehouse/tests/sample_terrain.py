@@ -1,0 +1,74 @@
+from contextlib import contextmanager
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+import zipfile
+import nbtlib as n
+
+root = Path.cwd()
+sys.path.insert(0, str(root / 'scripts'))
+import launch
+import local_playtest
+
+work = root / 'dev/axolotl-treehouse/terrain-sample'
+(work / 'results.txt').unlink(missing_ok=True)
+runtime = root / 'dev/launcher'
+compiler = runtime / 'jvm/java-runtime-delta/bin/javac'
+library = runtime / 'libraries/net/neoforged/neoforge/21.4.158'
+priority = [library / 'neoforge-21.4.158-client.jar', library / 'neoforge-21.4.158-universal.jar']
+jars = [root / '.minecraft/mods/backstabbed-merchants-1.0.0.jar'] + priority + sorted(p for p in (runtime / 'libraries').rglob('*.jar') if p not in priority)
+jars += list((root / '.minecraft/mods').glob('*.jar'))
+classes = work / 'classes'
+classes.mkdir(parents=True, exist_ok=True)
+subprocess.run([str(compiler), '--release', '21', '-proc:none', '-classpath', os.pathsep.join(map(str, jars)),
+                '-d', str(classes), str(root / 'axolotl-treehouse/tests/VanillaTerrainSample.java')], check=True)
+jar = work / 'port-checks.jar'
+with zipfile.ZipFile(jar, 'w', compression=zipfile.ZIP_DEFLATED) as z:
+    z.writestr('META-INF/neoforge.mods.toml', '''modLoader="javafml"
+loaderVersion="[4,)"
+license="All Rights Reserved"
+[[mods]]
+modId="backstabbed_regression"
+version="1.0.0"
+displayName="Disposable Arena Port Checks"
+''')
+    for p in classes.rglob('*.class'):
+        z.write(p, p.relative_to(classes).as_posix())
+with zipfile.ZipFile(root / '.minecraft/saves' / local_playtest.WORLD_NAME / 'datapacks/mcm.zip') as z:
+    (work / 'functions.txt').write_text('\n'.join(n.split('/')[1] + ':' + n.split('/function/')[1].removesuffix('.mcfunction')
+        for n in z.namelist() if n.endswith('.mcfunction') and n.split('/')[1] in
+        {'axolotl_treehouse'}) + '\n')
+original = local_playtest.local_game_directory
+@contextmanager
+def checked_directory(root):
+    with original(root) as game:
+        shutil.copyfile(jar, game / 'mods/backstabbed-port-checks.jar')
+        world=game/'saves'/local_playtest.WORLD_NAME
+        for name in ['region','entities','poi','data','DIM-1','DIM1']:
+            if (world/name).exists():shutil.rmtree(world/name)
+        sample=root/'map-previewer/maps/axolotl-treehouse/vanilla-sample/raw-world'
+        if (sample/'region').exists():shutil.copytree(sample/'region',world/'region')
+        level=n.load(world/'level.dat');data=level['Data'];g=data['WorldGenSettings'];g['seed']=n.Long(69420018030897796);g['generate_features']=n.Byte(1)
+        g['dimensions']['minecraft:overworld']['generator']=n.parse_nbt('{type:"minecraft:noise",settings:"minecraft:overworld",biome_source:{type:"minecraft:multi_noise",preset:"minecraft:overworld"}}')
+        data['GameType']=n.Int(3);data['SpawnX']=n.Int(0);data['SpawnY']=n.Int(200);data['SpawnZ']=n.Int(0)
+        level.save(world/'level.dat')
+
+        options = game / 'options.txt'
+        values = options.read_text().splitlines() if options.exists() else []
+        overrides = {'pauseOnLostFocus': 'false', 'maxFps': '60', 'renderDistance': '4', 'simulationDistance': '8', 'fov': '0.0'}
+        values = [line for line in values if line.partition(':')[0] not in overrides]
+        options.write_text('\n'.join(values + [key + ':' + value for key, value in overrides.items()]) + '\n')
+        try:
+            yield game
+        finally:
+            world=game/'saves'/local_playtest.WORLD_NAME
+            sample=root/'map-previewer/maps/axolotl-treehouse/vanilla-sample/raw-world'
+            shutil.copytree(world,sample,dirs_exist_ok=True)
+            for name in ('logs', 'crash-reports'):
+                if (game / name).exists(): shutil.copytree(game / name, work / name, dirs_exist_ok=True)
+local_playtest.local_game_directory = checked_directory
+os.environ['ARENA_CHECK_DIR'] = str(work)
+sys.argv = ['launch.py', '--local', '--resolution', '1100x760']
+launch.main()

@@ -68,6 +68,10 @@
       "type": "minecraft:single",
       "resource": "monolith:posters/monolith",
       "sprite": "monolith:posters/monolith"
+    },
+    {
+      "type": "single",
+      "resource": "axolotl_treehouse:posters/axolotl_treehouse"
     }
   ]
 }

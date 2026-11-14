@@ -240,6 +240,7 @@ and run one of these in chat while no round is active:
 | Yacht | `/function yacht:select` |
 | River Bank | `/function river_bank:select` |
 | Panda Village | `/function panda_village:select` |
+| Axolotl Treehouse / 水帘树洞 | `/function axolotl_treehouse:select` |
 
 These commands select and load the arena through the normal game setup. Then
 join the lobby queue and start the round normally; the normal start requires
@@ -330,6 +331,14 @@ overgrown stone monuments form a triangle with 36 validated spawns. Sneak on a s
 aim at another glowing rune and release to travel along a bright trail. Each
 player receives a reusable 5-second floating potion; airborne sneak cancels it,
 and its 30-second cooldown starts when floating begins.
+
+[Axolotl Treehouse / 水帘树洞](axolotl-treehouse/README.md), by siyuan_日记
+(schematic credit `bi_bi_233`), is arena 25. The original treehouse sits on a
+reference-guided island in a wide lake surrounded by sampled vanilla mountains.
+All 32 player/scrap spawns are on the island. Falling into the surrounding lake
+eliminates players from round start, including grace; island ponds and ordinary
+water contact are harmless. Its three visual block backports require the
+included `backstabbed-treehouse-1.0.0.jar` on both clients and the NeoForge host.
 
 Underwater Base has a copper diving-suit zombie trader beside the hydroponics
 counter: 4 scraps buy a drinkable 20-second invisibility potion. Panda Village's

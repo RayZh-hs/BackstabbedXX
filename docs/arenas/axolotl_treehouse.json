@@ -1,0 +1,836 @@
+{
+  "name": "Original Water Curtain Treehouse",
+  "creator": "siyuan_日记",
+  "source_url": "https://www.bilibili.com/video/BV1fDNJ6qEpx",
+  "download_url": "https://pan.baidu.com/s/19aUMmSI5S1PpEcLJgvz_Nw?pwd=v8ch",
+  "litematic_sha256": "e0d18bb0a90f88b5c7d02c259cdee767214c8728112a48af2588451bea037c35",
+  "litematic_name": "Unnamed",
+  "litematic_author": "bi_bi_233",
+  "litematic_description": "",
+  "data_version": 4671,
+  "origin": [
+    0,
+    0,
+    0
+  ],
+  "size": [
+    34,
+    36,
+    37
+  ],
+  "regions": [
+    {
+      "name": "Unnamed",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "size": [
+        34,
+        36,
+        37
+      ],
+      "blocks": 7745,
+      "block_entities": 171,
+      "entities": 11
+    }
+  ],
+  "palette_count": 259,
+  "blocks": 7745,
+  "entities": 11,
+  "terrain_sample": {
+    "seed": 69420018030897796,
+    "center": [
+      128,
+      0
+    ],
+    "size": 512,
+    "score": 255.4,
+    "source": "Minecraft Java 1.21.4 normal overworld, generated natively by VanillaTerrainSample.java",
+    "source_origin": [
+      -128,
+      48,
+      -256
+    ],
+    "scene_size": [
+      512,
+      272,
+      512
+    ],
+    "shoreline": "native connected valley below Y78, widened 36 blocks and united with a 128-block central lake",
+    "native_columns_preserved_outside_shore_grading": true,
+    "minimum_lake_radius": 128,
+    "shore_grading_width": 34,
+    "chunk_count": 1024,
+    "seed_locator": "https://www.reddit.com/r/minecraftseeds/comments/1u47la5/im_looking_for_a_seed_similar_to_this_one_its_a/",
+    "height_range": [
+      48,
+      144
+    ],
+    "native_ridge_patch": {
+      "source_xz": [
+        272,
+        48
+      ],
+      "destination_xz": [
+        160,
+        384
+      ],
+      "size_xz": [
+        160,
+        128
+      ],
+      "edge_transition": 20
+    },
+    "native_trees": {
+      "placement": "Each complete native log/leaf group is translated rigidly onto the finished terrain; flooded trees are omitted.",
+      "placed_tree_groups": 1515,
+      "rigid_translation_validation_samples": 6
+    }
+  },
+  "namespace": "axolotl_treehouse",
+  "title": "Axolotl Treehouse",
+  "map_id": 25,
+  "tag": "AxolotlTreehouse",
+  "source_origin": [
+    57583,
+    73,
+    57582
+  ],
+  "destination_build_bounds": [
+    [
+      57583,
+      73,
+      57582
+    ],
+    [
+      57616,
+      108,
+      57618
+    ]
+  ],
+  "scene_bounds": [
+    [
+      57344,
+      48,
+      57344
+    ],
+    [
+      57855,
+      319,
+      57855
+    ]
+  ],
+  "center": [
+    57600,
+    57600
+  ],
+  "spawns": [
+    [
+      57578.5,
+      74,
+      57599.5
+    ],
+    [
+      57639.5,
+      74,
+      57608.5
+    ],
+    [
+      57615.5,
+      74,
+      57563.5
+    ],
+    [
+      57607.5,
+      74,
+      57636.5
+    ],
+    [
+      57572.5,
+      74,
+      57628.5
+    ],
+    [
+      57588.5,
+      74,
+      57572.5
+    ],
+    [
+      57622.5,
+      74,
+      57595.5
+    ],
+    [
+      57592.5,
+      74,
+      57623.5
+    ],
+    [
+      57561.5,
+      74,
+      57607.5
+    ],
+    [
+      57622.5,
+      74,
+      57614.5
+    ],
+    [
+      57623.5,
+      74,
+      57632.5
+    ],
+    [
+      57607.5,
+      74,
+      57577.5
+    ],
+    [
+      57578.5,
+      74,
+      57614.5
+    ],
+    [
+      57561.5,
+      74,
+      57592.5
+    ],
+    [
+      57636.5,
+      74,
+      57594.5
+    ],
+    [
+      57611.5,
+      74,
+      57623.5
+    ],
+    [
+      57600.5,
+      88,
+      57600.5
+    ],
+    [
+      57583.5,
+      76,
+      57618.5
+    ],
+    [
+      57616.5,
+      76,
+      57618.5
+    ],
+    [
+      57616.5,
+      76,
+      57582.5
+    ],
+    [
+      57584.5,
+      76,
+      57582.5
+    ],
+    [
+      57600.5,
+      75,
+      57607.5
+    ],
+    [
+      57616.5,
+      76,
+      57600.5
+    ],
+    [
+      57596.5,
+      83,
+      57586.5
+    ],
+    [
+      57593.5,
+      86,
+      57612.5
+    ],
+    [
+      57599.5,
+      75,
+      57593.5
+    ],
+    [
+      57604.5,
+      76,
+      57582.5
+    ],
+    [
+      57604.5,
+      76,
+      57618.5
+    ],
+    [
+      57611.5,
+      76,
+      57609.5
+    ],
+    [
+      57583.5,
+      76,
+      57592.5
+    ],
+    [
+      57593.5,
+      76,
+      57618.5
+    ],
+    [
+      57612.5,
+      76,
+      57591.5
+    ]
+  ],
+  "spawn_count": 32,
+  "safe_return": [
+    57578.5,
+    74,
+    57599.5
+  ],
+  "spectator": [
+    57600.5,
+    115,
+    57600.5
+  ],
+  "forceload": [
+    57536,
+    57536,
+    57663,
+    57663
+  ],
+  "source_preserved_blocks": 7745,
+  "block_entities_preserved": 73,
+  "empty_shelf_block_entities_omitted": 98,
+  "entities_preserved": 11,
+  "region_files": [
+    "region/r.112.112.mca",
+    "entities/r.112.112.mca"
+  ],
+  "compatibility": "Three visual-only blocks registered with their original minecraft: IDs by backstabbed-treehouse-1.0.0.jar; all source block states and coordinates preserved. Empty shelf inventories are omitted; all other block entities retained.",
+  "lake_surface_y": 63,
+  "lake_death_y": 64.0,
+  "backup": {
+    "path": ".minecraft/backups/map-integration/20261109T150803338789Z-axolotl-treehouse-before-import-71435139.zip",
+    "sha256": "672245cbfd57c5977c2834e2c3a557c61c66d5b8e2f6af42fb17e03f36a3c82c"
+  },
+  "reuse_terms": "Author supplied the schematic publicly in the pinned tutorial comment. No explicit license was supplied; preserve attribution without asserting a broader reuse grant.",
+  "landscape_reference": {
+    "screenshot": "map-previewer/maps/axolotl-treehouse/reference-video.png",
+    "screenshot_sha256": "d4caa4d802c5bfc47aeb64e6e291e7ce229b23accbeb57b509cea14e76ed73da",
+    "island_recipe": "axolotl-treehouse/build/island.mjs",
+    "tree_template": "axolotl-treehouse/build/central-tree-reference.json",
+    "tree_template_blocks": 501,
+    "sampled_island_trees": 6
+  },
+  "repair_backups": [
+    {
+      "path": ".minecraft/backups/map-integration/20261109T160006889268Z-treehouse-before-island-redesign-034646ff.zip",
+      "sha256": "747b57db40c89644780a5b82b45f18963022c9d6852be20230da53832b041f58"
+    },
+    {
+      "path": ".minecraft/backups/map-integration/20261109T161916700927Z-treehouse-before-vanilla-terrain-rebuild-6cbc708a.zip",
+      "sha256": "f89345069a75232308cdc095fe3a7927eda0f8c91b9267a44cfdda4fb0562376"
+    }
+  ],
+  "island_rows": [
+    [
+      57603,
+      57554,
+      57615
+    ],
+    [
+      57588,
+      57555,
+      57617
+    ],
+    [
+      57584,
+      57556,
+      57619
+    ],
+    [
+      57582,
+      57557,
+      57620
+    ],
+    [
+      57580,
+      57558,
+      57621
+    ],
+    [
+      57579,
+      57559,
+      57622
+    ],
+    [
+      57577,
+      57560,
+      57622
+    ],
+    [
+      57576,
+      57561,
+      57623
+    ],
+    [
+      57575,
+      57562,
+      57623
+    ],
+    [
+      57574,
+      57563,
+      57624
+    ],
+    [
+      57573,
+      57564,
+      57624
+    ],
+    [
+      57572,
+      57565,
+      57625
+    ],
+    [
+      57571,
+      57566,
+      57625
+    ],
+    [
+      57570,
+      57567,
+      57626
+    ],
+    [
+      57568,
+      57568,
+      57626
+    ],
+    [
+      57567,
+      57569,
+      57627
+    ],
+    [
+      57565,
+      57570,
+      57628
+    ],
+    [
+      57564,
+      57571,
+      57629
+    ],
+    [
+      57562,
+      57572,
+      57630
+    ],
+    [
+      57561,
+      57573,
+      57631
+    ],
+    [
+      57560,
+      57574,
+      57632
+    ],
+    [
+      57560,
+      57575,
+      57634
+    ],
+    [
+      57559,
+      57576,
+      57635
+    ],
+    [
+      57558,
+      57577,
+      57636
+    ],
+    [
+      57558,
+      57578,
+      57638
+    ],
+    [
+      57558,
+      57579,
+      57639
+    ],
+    [
+      57558,
+      57580,
+      57640
+    ],
+    [
+      57558,
+      57581,
+      57640
+    ],
+    [
+      57558,
+      57582,
+      57641
+    ],
+    [
+      57558,
+      57583,
+      57642
+    ],
+    [
+      57558,
+      57584,
+      57642
+    ],
+    [
+      57558,
+      57585,
+      57643
+    ],
+    [
+      57558,
+      57586,
+      57643
+    ],
+    [
+      57558,
+      57587,
+      57644
+    ],
+    [
+      57558,
+      57588,
+      57644
+    ],
+    [
+      57558,
+      57589,
+      57645
+    ],
+    [
+      57559,
+      57590,
+      57645
+    ],
+    [
+      57559,
+      57591,
+      57646
+    ],
+    [
+      57559,
+      57592,
+      57646
+    ],
+    [
+      57559,
+      57593,
+      57647
+    ],
+    [
+      57557,
+      57594,
+      57647
+    ],
+    [
+      57556,
+      57595,
+      57648
+    ],
+    [
+      57556,
+      57596,
+      57649
+    ],
+    [
+      57556,
+      57597,
+      57649
+    ],
+    [
+      57557,
+      57598,
+      57650
+    ],
+    [
+      57556,
+      57599,
+      57650
+    ],
+    [
+      57556,
+      57600,
+      57651
+    ],
+    [
+      57555,
+      57601,
+      57651
+    ],
+    [
+      57555,
+      57602,
+      57652
+    ],
+    [
+      57554,
+      57603,
+      57652
+    ],
+    [
+      57554,
+      57604,
+      57652
+    ],
+    [
+      57554,
+      57605,
+      57652
+    ],
+    [
+      57553,
+      57606,
+      57652
+    ],
+    [
+      57553,
+      57607,
+      57652
+    ],
+    [
+      57553,
+      57608,
+      57652
+    ],
+    [
+      57553,
+      57609,
+      57652
+    ],
+    [
+      57553,
+      57610,
+      57652
+    ],
+    [
+      57553,
+      57611,
+      57651
+    ],
+    [
+      57553,
+      57612,
+      57651
+    ],
+    [
+      57553,
+      57613,
+      57650
+    ],
+    [
+      57553,
+      57614,
+      57649
+    ],
+    [
+      57550,
+      57615,
+      57648
+    ],
+    [
+      57549,
+      57616,
+      57647
+    ],
+    [
+      57549,
+      57617,
+      57646
+    ],
+    [
+      57549,
+      57618,
+      57645
+    ],
+    [
+      57549,
+      57619,
+      57644
+    ],
+    [
+      57549,
+      57620,
+      57643
+    ],
+    [
+      57549,
+      57621,
+      57641
+    ],
+    [
+      57549,
+      57622,
+      57640
+    ],
+    [
+      57549,
+      57623,
+      57640
+    ],
+    [
+      57545,
+      57624,
+      57555
+    ],
+    [
+      57557,
+      57624,
+      57639
+    ],
+    [
+      57545,
+      57625,
+      57555
+    ],
+    [
+      57557,
+      57625,
+      57638
+    ],
+    [
+      57545,
+      57626,
+      57555
+    ],
+    [
+      57557,
+      57626,
+      57637
+    ],
+    [
+      57545,
+      57627,
+      57555
+    ],
+    [
+      57558,
+      57627,
+      57637
+    ],
+    [
+      57546,
+      57628,
+      57548
+    ],
+    [
+      57550,
+      57628,
+      57554
+    ],
+    [
+      57558,
+      57628,
+      57636
+    ],
+    [
+      57559,
+      57629,
+      57636
+    ],
+    [
+      57559,
+      57630,
+      57635
+    ],
+    [
+      57560,
+      57631,
+      57635
+    ],
+    [
+      57560,
+      57632,
+      57634
+    ],
+    [
+      57561,
+      57633,
+      57633
+    ],
+    [
+      57562,
+      57634,
+      57632
+    ],
+    [
+      57563,
+      57635,
+      57631
+    ],
+    [
+      57564,
+      57636,
+      57629
+    ],
+    [
+      57565,
+      57637,
+      57627
+    ],
+    [
+      57567,
+      57638,
+      57625
+    ],
+    [
+      57573,
+      57639,
+      57576
+    ],
+    [
+      57587,
+      57639,
+      57620
+    ],
+    [
+      57590,
+      57640,
+      57615
+    ],
+    [
+      57592,
+      57641,
+      57612
+    ],
+    [
+      57595,
+      57642,
+      57609
+    ],
+    [
+      57597,
+      57643,
+      57606
+    ]
+  ],
+  "poster": {
+    "method": "OpenAI built-in imagegen",
+    "texture": ".minecraft/resourcepacks/backstabbed-resource/assets/axolotl_treehouse/textures/posters/axolotl_treehouse.png",
+    "prompt_file": "axolotl-treehouse/poster-prompt.txt",
+    "sha256": "7b8865ab27cd4fb783f48d85e0273c9606c0434e3daf9bee798e233541a4631c"
+  },
+  "containment": "Lake-level fall outside the exact island footprint eliminates live queued players from round start, including grace. No fluid-contact rule. Waiting violations return safely; upper/horizontal escapes return during grace and eliminate afterward. Spectators/dead/unselected players are excluded."
+}

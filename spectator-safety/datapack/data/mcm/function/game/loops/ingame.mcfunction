@@ -236,3 +236,5 @@ execute if score $selectedMap CmdData matches 22 run function middle_ages:functi
 
 execute if score $selectedMap CmdData matches 23 run function cube_block:functionality
 execute if score $mode CmdData matches 2 as @a[tag=queued,tag=!spectating,gamemode=!spectator,predicate=mcm:game/not_eliminated,tag=murderer,predicate=mcm:items/hold_tracker] at @s run function mcm:modes/tracker
+
+execute if score $selectedMap CmdData matches 25 run function axolotl_treehouse:functionality
