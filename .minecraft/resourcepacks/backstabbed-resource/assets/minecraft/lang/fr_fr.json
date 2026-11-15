@@ -144,7 +144,7 @@
   "mcm.lobby.voteformap.time": "[%s]",
   "mcm.lobby.autoqueued": "You will now automatically join every game",
   "mcm.lobby.deautoqueue": "You will no longer automatically join every game",
-  "mcm.lobby.vote": "Votes: ",
+    "mcm.lobby.vote": "Votes: %s",
   "mcm.lobby.usher": "Usher",
   "mcm.lobby.voted.for": "You voted for: %s",
   "mcm.lobby.usher.say": "Usher: %s",

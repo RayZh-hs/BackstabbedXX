@@ -1,0 +1,27 @@
+scoreboard players set $wall_dependency temp 0
+execute if score $knife_seconds GameRules matches 5 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"5 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 6 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"6 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 7 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"7 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 8 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"8 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 9 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"9 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 10 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"10 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 11 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"11 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 12 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"12 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 13 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"13 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 14 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"14 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 15 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"15 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 16 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"16 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 17 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"17 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 18 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"18 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 19 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"19 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 20 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"20 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 21 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"21 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 22 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"22 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 23 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"23 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 24 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"24 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 25 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"25 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 26 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"26 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 27 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"27 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 28 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"28 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 29 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"29 秒","color":"yellow","note":"范围5至30秒"}
+execute if score $knife_seconds GameRules matches 30 run function mcm:lobby/options/ext_wall/render {"title":"丢刀保底时间","value":"30 秒","color":"yellow","note":"范围5至30秒"}

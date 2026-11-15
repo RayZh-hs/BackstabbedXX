@@ -1,0 +1,16 @@
+{
+  "criteria": {
+    "click": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:interaction",
+          "nbt": "{Tags:[\"map2\"],response:true}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "mcm:lobby/voting/vote_slots/map2"
+  }
+}

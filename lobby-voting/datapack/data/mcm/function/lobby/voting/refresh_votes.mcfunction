@@ -1,0 +1,9 @@
+execute as @e[type=text_display,tag=VoteDisplay,tag=map_random,tag=!disabled] run data merge entity @s {text:'{"translate":"mcm.lobby.vote","with":[{"score":{"objective":"vote_count","name":"random"},"color":"#FFE700"}]}'}
+execute as @e[type=text_display,tag=VoteDisplay,tag=map1,tag=!disabled] run data merge entity @s {text:'{"translate":"mcm.lobby.vote","with":[{"score":{"objective":"vote_count","name":"map1"},"color":"#FFE700"}]}'}
+execute as @e[type=text_display,tag=VoteDisplay,tag=map2,tag=!disabled] run data merge entity @s {text:'{"translate":"mcm.lobby.vote","with":[{"score":{"objective":"vote_count","name":"map2"},"color":"#FFE700"}]}'}
+execute as @e[type=text_display,tag=VoteDisplay,tag=map3,tag=!disabled] run data merge entity @s {text:'{"translate":"mcm.lobby.vote","with":[{"score":{"objective":"vote_count","name":"map3"},"color":"#FFE700"}]}'}
+execute as @e[type=text_display,tag=VoteDisplay,tag=map4,tag=!disabled] run data merge entity @s {text:'{"translate":"mcm.lobby.vote","with":[{"score":{"objective":"vote_count","name":"map4"},"color":"#FFE700"}]}'}
+execute as @e[type=text_display,tag=VoteDisplay,tag=map5,tag=!disabled] run data merge entity @s {text:'{"translate":"mcm.lobby.vote","with":[{"score":{"objective":"vote_count","name":"map5"},"color":"#FFE700"}]}'}
+execute as @e[type=text_display,tag=VoteDisplay,tag=map6,tag=!disabled] run data merge entity @s {text:'{"translate":"mcm.lobby.vote","with":[{"score":{"objective":"vote_count","name":"map6"},"color":"#FFE700"}]}'}
+execute as @e[type=text_display,tag=VoteDisplay,tag=map7,tag=!disabled] run data merge entity @s {text:'{"translate":"mcm.lobby.vote","with":[{"score":{"objective":"vote_count","name":"map7"},"color":"#FFE700"}]}'}
+execute as @e[type=text_display,tag=VoteDisplay,tag=map8,tag=!disabled] run data merge entity @s {text:'{"translate":"mcm.lobby.vote","with":[{"score":{"objective":"vote_count","name":"map8"},"color":"#FFE700"}]}'}
