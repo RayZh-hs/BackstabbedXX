@@ -4,7 +4,7 @@ Requires Gravity Changer `1.4.1-neoforge.3+mc1.21.4` on host and clients. The ga
 
 ## Gameplay behavior
 
-- Guns remain no-gravity arrows: speed 7, existing eight-tick lifetime, ammo, cooldown, recoil, ownership and damage-event rules. The muzzle is local height 1.5 and aim follows the player's actual gravity frame. Bullet visuals retain their original size and orientation, with a centered model and world-space passenger-seat compensation so the visible center follows the arrow.
+- Guns remain no-gravity arrows: speed 7, existing eight-tick lifetime, ammo, cooldown, recoil, ownership and damage-event rules. The muzzle is local height 1.5 and aim follows the player's actual gravity frame. An empty temporary passenger receives the bridge's orientation, then a new independent visible bullet spawns at the actual muzzle and follows UUID-linked server positions. The visible entity never rides the arrow, avoiding both the vanilla velocity packet's per-axis 3.9 cap and same-tick dismount desynchronization. See `bullet-visual-fix.md`.
 - Thrown knives snapshot the player's applied gravity direction and strength before replacing the snowball with an arrow. Both arrow and cosmetic item retain owner UUID and generation tracking. Later player gravity changes do not steer an existing knife.
 - Manual player drops snapshot applied gravity, retaining their world-space launch velocity. Scripted death inventory drops use the same snapshot and rotated local height 0.5.
 - Scrap reads its selected marker's `data.gravity_direction` and `data.gravity_strength`. Missing fields mean `down` and `1.0`; strength is a local multiplier and still combines with dimension/global gravity. Spawn probability, timing and item count are unchanged.
